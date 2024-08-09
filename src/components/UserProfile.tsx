@@ -3,7 +3,7 @@ import { useContext, useState } from 'react'
 //import { UserContext } from '../context/UserContext';
 //import Temple from './../assets/temple.svg'
 //import Avatar from './../assets/avatar.png'
-import { getAuth, updateEmail, updatePassword, updateProfile } from 'firebase/auth';
+import { getAuth, updatePassword, updateProfile } from 'firebase/auth';
 //import { getStorage } from "firebase/storage";
 //import { v4 as uuidv4 } from 'uuid';
 import { auth} from '../App';
@@ -11,7 +11,7 @@ import SetAvatar from './newuserform/SetAvatar';
 import ChoosingAvatar from './ChoosingAvatar';
 import { UserContext } from '../utils/auth/UserContext';
 import { useNavigate } from 'react-router-dom';
-
+//import { sendEmailVerification } from "firebase/auth";
 
 export interface IUserProfile {};   
 
@@ -22,7 +22,7 @@ export const UserProfile : React.FunctionComponent<IUserProfile > =() => {
   const [thumbnailError, setThumbnailError] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
     const [isEdited, setIsEdited] = useState<boolean>(false);
-    const [email, setEmail] = useState("");
+    //const [email, setEmail] = useState("");
     const [showEmail, setShowEmail] = useState<boolean>(false);
    
     const { currentUser} = useContext(UserContext);
@@ -49,19 +49,38 @@ const handleName = () =>{
   }
 
 
-    const updatingEmail = async ()=>{
-      const auth = getAuth();
-      const user = auth.currentUser;
+    // const updatingEmail = async ()=>{
+    //   const auth = getAuth();
+    //   const user = auth.currentUser;
 
-      if(user){
-        await updateEmail(user, email).then(() => {
-        alert("Email updated!")
-        }).catch((error) => {
-        alert("musisz się wylogowac i zalogowac ponownie")
-        console.error(error)
-        });
-       }
-      }
+
+    //   if(user){
+
+    //     await updateEmail(user, email).then(() => {
+    //     alert("Email updated!")
+    //     })
+    //     .catch((error) => {
+    //     alert("przed zminą hasła zweryfikuj email. Link został właśnie wysłany na twoją skrzynkę")
+    //     console.error(error)
+    //     veryfyingUser();
+    //     });
+    //    }
+    //   }
+
+      // const veryfyingUser = async() =>{
+      //   const auth = getAuth();
+      // const user = auth.currentUser;
+
+      // if(user){
+      //   sendEmailVerification(user).then(() => {
+      //     console.log("Verification email sent.");
+      //   }).catch((error) => {
+      //     console.error("Error sending verification email:", error);
+      //   });
+      // }
+       
+      // }
+  
    
 
     
@@ -167,11 +186,7 @@ const showingEmail =()=>{
   </li>
 
 
-
-
-
        <li>
-          
           <p>Zmień imię</p>
             <input
             type="text"
@@ -179,29 +194,12 @@ const showingEmail =()=>{
       setName(e.target.value)  
          }
         }  
-   />
+        />
+        <button onClick ={handleName}>Uaktualnij</button>
     </li>
-<button onClick ={handleName}>Uaktualnij</button>
-<br></br>
-   
-
-     {/* nowy */}
-     <br></br>
+  
 
 
-
-   <li>
-   <p>Zmień email</p>
-   <input 
-      type="email"  
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value)
-      }} 
-       />
-<button onClick={updatingEmail}>Uaktualnij</button>
-<button className='btnmikro' onClick={showingEmail}>Pokaz aktualny</button>
-{showEmail && currentUser && <p>{(currentUser.email)?.toString()}</p>}
-   </li>
    <li>
    <br></br>
    <p>Zmień hasło</p>
@@ -215,6 +213,12 @@ const showingEmail =()=>{
 <button onClick={updatingPassword}>Uaktualnij</button>
 
 {/* <button onClick={handleSendPass}>wyslij nowe hasło</button> */}
+   </li>
+
+   <li>
+    <br/>
+   <button onClick={showingEmail}>Pokaz twój aktualny email</button>
+   {showEmail && currentUser && <p>{(currentUser.email)?.toString()}</p>}
    </li>
    </ul>
   
