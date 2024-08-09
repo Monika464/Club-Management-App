@@ -1,6 +1,6 @@
 import {  SetStateAction, useState } from "react"
 import { resetPassForEmail } from "../../App";
-import '../utils/auth/Login.css';
+import './Login.css';
 import { Link} from "react-router-dom";
 
 export interface IForgotPassProps {

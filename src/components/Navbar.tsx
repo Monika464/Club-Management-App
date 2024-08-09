@@ -29,7 +29,7 @@ const Navbar: React.FunctionComponent<INavbarProps> =() => {
       const timer = setTimeout(() => {
         setRendered(true);
         console.log("rendering",rendered)
-      }, 1000); // 1000 milisekund = 1 sekunda
+      }, 1000); 
     
       return () => {
         clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia

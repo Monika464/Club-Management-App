@@ -47,11 +47,6 @@ export interface IApplicationProps { }
 
 
 
-// const actionCodeSettings = {
-//   //url: 'https://example.com/reset-password',
-//   url: 'https://club-ts-407c6.web.app',
-//   handleCodeInApp: true,
-// };
 
 const sendCustomPasswordResetEmail = (email: string) => {
   // Tutaj możesz umieścić własną logikę wysyłania e-maila resetującego, np. za pomocą usługi SMTP

@@ -14,6 +14,8 @@ export interface IApplicationProps { };
 
 
 const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
+
+  const [error, setError] = useState("")
   const { currentUser } = useContext(UserContext);
 
   //console.log('currentUser',currentUser)
@@ -31,21 +33,22 @@ const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
-
+  
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
-    setFormFields({ ...formFields, [name]: value })
+    setFormFields({ ...formFields, [name]: value})
     //console.log("formFields",formFields);
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-
+ 
     // Send the email and password to firebase
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
+
       .then((res) => {
         console.log("res user uid", res.user.uid)
         useIsAdmin(res.user.uid) ? navigate('/adminpanel') : navigate('/userpanel')
@@ -53,17 +56,14 @@ const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
       })
       .catch(error => {
         console.log(error);
+        setError(error.toString())
         setAuthing(false);
 
       })
 
 
   };
-  // const resetFormFields = () => {
-  //   return (
-  //     setFormFields(defaultFormFields)
-  //   );
-  // }
+
 
 
 
@@ -103,6 +103,8 @@ const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
         <br />
         <button className="btn" disabled={authing} >Zaloguj </button>
       </form>
+      <br/>
+      {error && <p>{error.toString().split('Firebase: ')[1]}</p>}
 
       {/* <ForgotPass/> */}
       <Link to={'/forgotpass'} style={{ fontSize: 'small' }}>Nie pamiętam hasła</Link>
