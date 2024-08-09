@@ -1,7 +1,7 @@
 import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../App";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import mail from '../../assets/mail.png'
 import mailblurred from '../../assets/mailblurred.png'
 //import { useNavigate } from "react-router-dom";

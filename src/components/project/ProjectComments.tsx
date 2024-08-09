@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../utils/auth/UserContext';
 import { Timestamp, doc,  updateDoc} from "firebase/firestore";
 import { db } from "../../App";
 import Avatar from "../Avatar";

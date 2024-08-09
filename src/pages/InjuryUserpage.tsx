@@ -3,7 +3,7 @@
 import BackAfterInjuryUser2 from "../components/stop/BackAfterInjuryUser2"
 import { ReportInjuryUser2 } from "../components/stop/ReportInjuryUser2"
 import { useContext, useEffect, useState } from "react"
-import { UserContext } from "../context/UserContext"
+import { UserContext } from "../utils/auth/UserContext"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../App"
 

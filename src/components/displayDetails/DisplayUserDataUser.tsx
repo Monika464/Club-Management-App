@@ -2,7 +2,7 @@
 //import { useFetchUsers } from "../../hooks/useFetchUsers";
 import { useSearchIndexCloseToday } from "../../hooks/useSearchIndexCloseToday";
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../utils/auth/UserContext';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../App";
 import { useSearchDatesPlusN } from "../../hooks/useSearchDatesPlusN";

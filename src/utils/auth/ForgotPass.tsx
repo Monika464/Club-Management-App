@@ -1,6 +1,6 @@
 import {  SetStateAction, useState } from "react"
-import { resetPassForEmail } from "../App";
-import './Login.css';
+import { resetPassForEmail } from "../../App";
+import '../utils/auth/Login.css';
 import { Link} from "react-router-dom";
 
 export interface IForgotPassProps {
@@ -33,13 +33,9 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> =() => {
 
     const handleChange =(  event: { target: { value: SetStateAction<string>; }; })=>{
         setIsSend(false);
-        console.log("email do przypomienia hasla change",email)
-      setEmail(event.target.value)
-
-     
-      
+      setEmail(event.target.value)   
     }
-    console.log("email",email)
+
     return(<div>
 
 <div id="main" className="login-form"> 

@@ -9,7 +9,7 @@ import { getAuth, updateEmail, updatePassword, updateProfile } from 'firebase/au
 import { auth} from '../App';
 import SetAvatar from './newuserform/SetAvatar';
 import ChoosingAvatar from './ChoosingAvatar';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../utils/auth/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 

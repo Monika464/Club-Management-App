@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react"
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import { collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../App";
 import notread from '../../assets/notread.png'

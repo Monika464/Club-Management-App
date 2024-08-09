@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import { db } from "../../App";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import DateFnsFormat from "../DateFnsFormat";

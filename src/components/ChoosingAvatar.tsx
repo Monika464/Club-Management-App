@@ -4,7 +4,7 @@ export interface IChoosingAvatar {}
  
 import { db, storage } from '../App.tsx';
 import {  useCallback, useContext, useEffect, useState } from 'react'
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../utils/auth/UserContext.tsx';
 import { updateProfile } from "firebase/auth";
 import { ref as storageRef, getDownloadURL } from 'firebase/storage'
 

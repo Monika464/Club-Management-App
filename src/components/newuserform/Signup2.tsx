@@ -7,7 +7,7 @@ import { UserForm } from './UserForm';
 //import { useSingnInToBase } from '../hooks/useSigninToBase';
 import {SigninSendingTest}  from './SigninSendingTest';
 import SetAvatar from './SetAvatar';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../utils/auth/UserContext';
 import { updateProfile } from 'firebase/auth';
 
 export interface IdateObj{

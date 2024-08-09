@@ -18,7 +18,7 @@ export interface IDateObj{
 
 import { collection, deleteDoc, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../App";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import notread from '../../assets/notread.png'

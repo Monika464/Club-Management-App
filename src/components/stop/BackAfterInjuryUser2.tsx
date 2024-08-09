@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import { addDoc, collection, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../App";
 import { useSearchIndexCloseToday } from "../../hooks/useSearchIndexCloseToday";

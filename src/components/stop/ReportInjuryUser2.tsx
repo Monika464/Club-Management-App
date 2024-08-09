@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../utils/auth/UserContext';
 import { useSearchDatesByIndex } from "../../hooks/useSearchDatesByIndex";
 import { useSearchDatesPlusN } from "../../hooks/useSearchDatesPlusN";
 import { useSearchIndexCloseToday } from "../../hooks/useSearchIndexCloseToday";

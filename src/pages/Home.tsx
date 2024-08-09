@@ -1,11 +1,8 @@
-import { useEffect } from 'react';
+
 import useFetchCollectionData from '../hooks/useFetchCollections.tsx';
 import ProjectList from '../components/project/ProjectsList.tsx';
-//import useFetchRealTimeCall from '../hooks/useFetchRealTimeColl.tsx';
-//import Project from './Project.tsx';
 import ProjectSingle from '../components/project/ProjectSingle.tsx';
-//import { Link, NavLink } from 'react-router-dom';
-//import AddIcon from '../assets/add_icon.svg';
+
 
 export interface IDocument {
 
@@ -58,10 +55,10 @@ export interface IDocument {
         const {dataFromCollection, error} = useFetchCollectionData("projects")
         //const {dataFromCollection: userData, error: userError} = useFetchCollectionData("usersData")
        
-        useEffect(()=>{
+  //       useEffect(()=>{
     
-   //console.log("dataFromCollection",dataFromCollection)
-    },[dataFromCollection])
+  //  //console.log("dataFromCollection",dataFromCollection)
+  //   },[dataFromCollection])
     
   
 

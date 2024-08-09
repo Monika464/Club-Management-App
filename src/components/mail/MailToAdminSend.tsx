@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../utils/auth/UserContext";
 import { db } from "../../App";
 
 export interface IMailToAdminSend{}

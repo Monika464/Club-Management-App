@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { NextOrObserver, User, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../App";
+import { auth } from "../../App";
 
 interface Props {
   children?: ReactNode

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from 'react'
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../utils/auth/UserContext';
 import { UserProfile } from "../components/UserProfile";
 import { DisplayUserDataUser} from "../components/displayDetails/DisplayUserDataUser";
 import { useNavigate } from "react-router-dom";

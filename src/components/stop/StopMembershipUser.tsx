@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../App";
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../utils/auth/UserContext';
 import { useSearchIndexCloseToday } from "../../hooks/useSearchIndexCloseToday";
 import { useSearchDatesPlusN } from "../../hooks/useSearchDatesPlusN";
 import { useSearchDatesByIndex } from "../../hooks/useSearchDatesByIndex";

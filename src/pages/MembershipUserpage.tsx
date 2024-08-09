@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../App";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../utils/auth/UserContext";
 // import { BackAfterInjuryUser } from "../components/BackAfterInjuryUser";
 import { RestoreMembershipUser } from "../components/stop/RestoreMembershipUser";
 import StopMembershipUser from "../components/stop/StopMembershipUser";

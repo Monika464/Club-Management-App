@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate,NavLink} from 'react-router-dom';
 import ColovLogo from './../assets/kolovlogo.png'
 import { useContext } from 'react'
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../utils/auth/UserContext.tsx';
   import './navbar.css';  
 import { useRegisteringUsers } from '../hooks/useIsUserRegistered.tsx';
-import { useIsAdmin } from '../hooks/useIsAdmin.tsx';
+import { useIsAdmin } from '../utils/auth/useIsAdmin.tsx'
 
 
 export interface INavbarProps {};
