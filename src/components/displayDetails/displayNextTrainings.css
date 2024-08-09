@@ -1,0 +1,25 @@
+.itemsAB{
+
+    display: flex;
+    padding: 4px;
+
+}
+
+.item {
+    border: 2px solid #b8b6b6; /* Ramka szara */
+    margin: 4px; /* Odstęp między ramkami */
+    padding: 8px; /* Wypełnienie wewnątrz ramki */
+    background-color: rgb(255, 255, 255); /* Jasny szary kolor wypełnienia */
+  }
+
+  .trenings{
+    display: flex;
+    padding: 4px;
+  }
+
+  .trening {
+    border: 2px solid #b8b6b6; /* Ramka szara */
+    margin: 4px; /* Odstęp między ramkami */
+    padding: 8px; /* Wypełnienie wewnątrz ramki */
+    background-color: rgb(255, 255, 255); /* Jasny szary kolor wypełnienia */
+  }

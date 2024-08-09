@@ -1,0 +1,29 @@
+.signupForm{
+
+    max-width: 360px;
+    margin: 60px auto;
+    padding: 20px;
+    border: 3px;
+    border-radius: 3px;
+    border-color: darkgray;
+    background-color: azure;
+
+}
+
+.pageNum{
+ 
+    display: block;
+    margin-bottom: 6px;
+    margin-left: 300px;
+    }
+
+.pageContent {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.decript{
+    font-size: 70%;
+}

@@ -1,0 +1,45 @@
+.App {
+  display: flex; 
+  padding: 0 60px;
+}
+.App .container{
+ 
+  flex: 1 1 0; 
+   padding: 0 60px; 
+  /* flex-wrap: wrap; */
+ 
+} 
+
+/*
+
+nav{
+ display: flex;
+  background-color: #fff;
+justify-content: end;
+flex-wrap: wrap;
+   
+}
+
+.navlink{
+ display: flex;
+  margin: 10px;
+  flex-wrap: wrap;
+}
+
+.navlink:nth-of-type(1){
+   justify-content: start; 
+}
+
+.navlink:nth-of-type(2){
+    justify-content: end; 
+}
+
+.navlink:nth-of-type(3){
+  justify-content: end; 
+}
+
+.navlink:nth-of-type(4){
+  justify-content: end; 
+}
+
+*/

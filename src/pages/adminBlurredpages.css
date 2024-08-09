@@ -1,0 +1,16 @@
+.injury-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .component-container,
+  .title {
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  
+  .component-container.blurred,
+  .title.blurred {
+    filter: blur(5px);
+  }

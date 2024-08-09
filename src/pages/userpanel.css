@@ -1,0 +1,88 @@
+.main {
+    display: flex;
+    /* background-color: aliceblue; */
+    background-color: var(--prof-color);
+    max-width: 960px;
+  }
+  
+  .box {
+    display: flex;
+    flex-direction: column; /* Zmiana kierunku flexbox na kolumnę */
+    flex-grow: 1;
+  }
+  
+  .zero {
+    display: flex;
+    /* background-color: rgb(255, 255, 255);  */
+    flex-grow: 1;
+    align-items: center; /* Wyśrodkowanie tekstu w pionie */
+    justify-content: center; /* Wyśrodkowanie tekstu w poziomie */
+    /* max-height: 120px */
+}
+
+
+
+  .profile,
+  .mail {
+    flex-grow: 1;
+    text-align: left;
+    padding-left: 10px; /* Dostosuj padding według potrzeb */
+    margin-top: 10px;
+}
+  
+  .mail {
+    text-align: right;
+    padding-right: 60px; /* Dostosuj padding według potrzeb */
+  }
+  
+  
+  .content {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+
+  
+  .glowna {
+      display: flex;  
+      justify-content: space-around;
+  flex-direction: column;
+    flex-basis: 2; 
+    flex-grow: 1;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+  .linkowisko{
+    /* background-color: lightgrey; */
+    background-color:#bcd6d3;
+    display: flex;
+    flex-basis: calc(30% / 2 - 5px); /* Przykładowa wartość, możesz dostosować według potrzeb */
+    /* flex-grow: 1; */
+    flex-wrap: wrap;
+     /* max-width: 50%;  */
+    margin-right: 20px;
+    outline: 1px solid gold;
+  }
+  .linkshape a {
+    font-size: 18px; /* Dostosuj rozmiar czcionki według potrzeb */
+    text-decoration: none; /* Usunięcie podkreślenia */
+    color: black; /* Dostosuj kolor tekstu według potrzeb */
+  }
+  
+  .linkshape a:hover {
+    color: whitesmoke
+    ; /* Dostosuj kolor tekstu przy najechaniu myszką według potrzeb */
+  } 
+
+
+/* Media queries dla responsywności */
+@media only screen and (max-width: 768px) {
+  .content {
+    /* display: flex;
+    flex-grow: 1; */
+   flex-direction: column; 
+  }
+}
+
+

@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* variables */
+:root {
+  --heading-color: #444;
+  --text-color: #999;
+  /* --primary-color: #8d69f1; */
+  /* --primary-color: #8a3eacfc; */
+  --highlight-color: #d13267;
+  --bg-color: #201e21; 
+  --primary-color: #193e1d;
+  /* --prof-color: #eee4b4; */
+  /* --prof-color:#f7f1da; */
+  --prof-color:#F3F2DC;
+
+  --bg-color:#eac66e;
+  /* --bg-color: #f4f4f4; */
+    /* background-image: url(" https://firebasestorage.googleapis.com/v0/b/club-ts-407c6.appspot.com/o/pages-photos%2Ftemple2.png?alt=media&token=4802134b-412d-4c70-81bd-a009b371c08b"); */
+}
+
+/* base styles */
+body {
+  font-family: Poppins, sans-serif;
+  margin: 0 auto;
+  font-size: 1.1em;
+  /* background: var(--bg-color); */
+  background: var(--bg-background-image);
+  max-width: 1200px;
+}
+ul, li, p, h1, h2, h3, h4 {
+  margin: 4px;
+  padding: 1px; 
+}
+ul {
+  list-style-type: none;
+  
+}
+
+.archive {
+  display: flex; /* or display: flex; */
+  margin-right: 10px; /* Adjust margin as needed */
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+
+/* layout */
+.page-title {
+  font-size: 1em;
+  color: var(--heading-color);
+  display: inline-block;
+}
+.btn {
+  background: #fff; 
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1em;
+  border: 1px solid var(--primary-color);
+  margin-bottom: 10px;
+}
+.btn:hover {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+
+
+.btnsmall{
+  background: #fff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: var(--primary-color);
+  cursor: pointer;
+  /* font-size: 1em; */
+  border: 1px solid var(--primary-color);
+  margin-bottom: 10px;
+  max-width: 200px;
+  margin-top: 15px;
+}
+
+  .btnsmall:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+  }
+  .btnmikro{
+    background: #fff;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: var(--primary-color);
+    cursor: pointer;
+    /* font-size: 1em; */
+    border: 1px solid var(--primary-color);
+    max-width: 200px;
+    transform: scale(0.65)
+  }
+  .btnmikro:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+  }
+
+/* forms */
+label {
+  /* display: block;
+  margin: 24px auto; */
+  
+}
+label span {
+  display: block;
+  margin-bottom: 6px;
+
+}
+input, textarea {
+  display: flex;
+  padding: 8px 6px;
+  /* font-size: 1em; */
+  font-size: 0,6em;
+  color: #777;
+  /* width: 100%; */
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+}
+
+.messageContainer {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  background-color: white;
+  border: 3px solid #dbd9d9;
+  border-radius: 8px;
+  padding: 10px;
+  display: inline-block; 
+    max-width: 50%;
+    flex-wrap: wrap;
+}
+.maildate {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  margin: 0;
+  font-size: 12px;
+  color: #5f5858;
+}
+.message{
+  font-size: 90%;
+}
+
+.od{
+  font-size: 12px;
+  color:#5f5858;
+}
+
+.readnotread{
+  width: 11px;
+  height: 11px;
+}
+
+.checkbox {
+  margin-right: 10px; /* Adjust the margin as needed */ 
+
+}
+.checkbox input[type="checkbox"] {
+  width: 10px; /* Dostosuj szerokość ikony checkboxa */
+  height: 10px; /* Dostosuj wysokość ikony checkboxa */
+  
+}
+
+
+
+.checkboxFlex {
+  display: flex;
+  flex-direction: column; /* Adjust the flex direction if needed */
+}
+
+textarea {
+  min-height: 160px;
+}
+.error {
+  color: red;
+  background: pink;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.errorBase {
+  color: red;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px 0;
+}
+.datelist{
+  display: flex;
+
+}
+.datelist p{
+  display: flex;
+  background: #fff;
+  padding: 2px 2px;
+  font-size: 1em;
+  color: #777;
+  width: 70%;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  flex-wrap: wrap;
+  flex: 1 1 100px;
+}
+
+.siteLink{
+  padding: 120px 12px;
+}
+
+.select{
+  padding: 20px 12px;
+}
+
+.form{
+  padding: 20px 12px;
+}
+
+.title{
+  font-weight: bold;
+  color: #555252;
+  margin-bottom: 20px;
+}
+
+.titleAlert{
+  font-weight: bold;
+  color: var(--highlight-color);
+}
+
+
+
+
+
+@media screen and (max-width: 600px) {
+  /* Dodatkowe style dla ekranów o szerokości <= 600px (dla małych urządzeń) */
+  .btnsmall {
+    font-size: 0.6em; /* Dostosuj rozmiar czcionki dla małych ekranów */
+  }
+  .btn {
+    font-size: 0.9em; /* Dostosuj rozmiar czcionki dla małych ekranów */
+  }
+}

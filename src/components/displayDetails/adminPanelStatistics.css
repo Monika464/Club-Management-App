@@ -1,0 +1,32 @@
+.active-members {
+    display: flex;
+    flex-wrap: wrap; /* Włącz przewijanie w razie potrzeby */
+    justify-content: flex-start; /* Umieść elementy od lewej do prawej */
+  
+}
+  
+  /* Styl dla każdego elementu "Aktywni memberzy" */
+  .active-member {
+    display: flex;
+    /* margin-right: 10px; 
+    margin-bottom: 10px;  */
+    border: 1px solid gold; 
+    background-color: aliceblue;
+
+  }
+  
+  /* Styl dla sekcji "Kontuzjowani" i "Zrezygnowali" (można użyć tego samego stylu dla obu sekcji) */
+  .inactive-members {
+    display: flex;
+    flex-wrap: wrap; /* Włącz przewijanie w razie potrzeby */
+    justify-content: flex-start; /* Umieść elementy od lewej do prawej */
+   
+  }
+  
+  /* Styl dla każdego elementu "Kontuzjowani" i "Zrezygnowali" */
+  .inactive-member {
+    margin-right: 10px; /* Dodaj margines między awatarami */
+    margin-bottom: 10px; /* Dodaj margines na dole */
+    border: 1px solid gold; 
+    background-color: aliceblue;
+  }

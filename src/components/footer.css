@@ -1,0 +1,26 @@
+footer {
+    width: 100%;
+    padding: 30px 0;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+  }
+  .footer ul {
+    display: flex;
+    margin: 30px auto;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .footer li {
+    margin-right: 15px; /* Dodanie marginesu między linkami */
+  }
+  
+  /* Opcjonalnie: Dodanie koloru i dekoracji dla linków */
+  .footer a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
