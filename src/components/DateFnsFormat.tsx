@@ -1,22 +1,19 @@
-import { format,} from "date-fns";
+import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 
-export interface IDateFnsFormatProps{
-element: Date | any;
+export interface IDateFnsFormatProps {
+  element: Date | any;
 }
 
+const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = (props) => {
+  const date =
+    props.element instanceof Date
+      ? props.element
+      : props.element?.toDate
+      ? props.element.toDate()
+      : null;
 
+  return <>{date && format(date, "PPP", { locale: pl })}</>;
+};
 
-
-const DateFnsFormat : React.FunctionComponent<IDateFnsFormatProps> =(props) => {
-
-    //console.log("elem z propsow",format(props.element.toDate(), 'PPP', {locale: pl}))
-    //console.log("elem z propsow",typeof(props.element))
-   
-    return(<>
-    {props.element && <>{format(props.element?.toDate(), 'PPP', {locale: pl})}</>}
-    </>)
-
-}
-
-export default DateFnsFormat;  
+export default DateFnsFormat;
