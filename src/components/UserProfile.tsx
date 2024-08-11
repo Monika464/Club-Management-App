@@ -1,17 +1,14 @@
 
 import { useContext, useState } from 'react'
-//import { UserContext } from '../context/UserContext';
-//import Temple from './../assets/temple.svg'
-//import Avatar from './../assets/avatar.png'
+
 import { getAuth, updatePassword, updateProfile } from 'firebase/auth';
-//import { getStorage } from "firebase/storage";
-//import { v4 as uuidv4 } from 'uuid';
+
 import { auth} from '../App';
 import SetAvatar from './newuserform/SetAvatar';
 import ChoosingAvatar from './ChoosingAvatar';
 import { UserContext } from '../utils/auth/UserContext';
 import { useNavigate } from 'react-router-dom';
-//import { sendEmailVerification } from "firebase/auth";
+
 
 export interface IUserProfile {};   
 
@@ -22,7 +19,6 @@ export const UserProfile : React.FunctionComponent<IUserProfile > =() => {
   const [thumbnailError, setThumbnailError] = useState<string>('');
   const [pictureURL, setPictureURL] = useState<string>('');
     const [isEdited, setIsEdited] = useState<boolean>(false);
-    //const [email, setEmail] = useState("");
     const [showEmail, setShowEmail] = useState<boolean>(false);
    
     const { currentUser} = useContext(UserContext);
@@ -104,11 +100,10 @@ const handleName = () =>{
     
     }
 
-   //console.log('isEdited',isEdited)
+  
     const handleEdit =()=>{
       setIsEdited(!isEdited)
       setShowEmail(false)
-      //navigate('/userpanel')
     }
 
     const updatingProfile  = async()=>{
@@ -133,16 +128,7 @@ const handleName = () =>{
 const showingEmail =()=>{
   setShowEmail(true)
 }
-        //to musisz dac zrobic mowy formularz
-        //nowa trone dla zapomnianego hasla
-
-        //console.log("current user", currentUser?.email )
-      // const handleSendPass =() =>{
-      //   if(currentUser){
-      //   resetPassForEmail(currentUser.email)
-      // }
-      // }
-      
+       
 
 
     return(<>
