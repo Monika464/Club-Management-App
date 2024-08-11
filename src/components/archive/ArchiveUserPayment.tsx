@@ -5,17 +5,19 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import DateFnsFormat from "../DateFnsFormat";
 
 export interface IArchiveUserPayment {}
-export interface ItimestampArr {
-  created_at: Date;
-  kto: string;
-  trenings: number;
-  userUid: string;
-}
+// export interface ItimestampArr {
+//   created_at: Date;
+//   kto: string;
+
+//   userUid: string;
+//}
 export interface IPaymentItem {
+  due: Date;
   id: string;
   time: Date;
   kto: string;
-  trenings: number;
+  prevadd: number;
+  prevdebt: number;
 }
 
 const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
@@ -34,14 +36,16 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
           //console.log("querySnapshot",querySnapshot.docs)
           const temp = querySnapshot.docs
             .map((doc) => {
-              // console.log("payArch", doc.id, " => ", doc.data());
+              console.log("payArch", doc.id, " => ", doc.data());
 
               if (doc.data()) {
                 return {
                   id: doc.id,
                   time: doc.data().created_at,
                   kto: doc.data().kto,
-                  trenings: doc.data().trenings,
+                  due: doc.data().due,
+                  prevadd: doc.data().prevadd,
+                  prevdebt: doc.data().prevdebt,
                 } as IPaymentItem;
               }
               return null;
@@ -60,9 +64,9 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
     getArchivePayfromBase();
   }, [db, currentUser, getArchivePayfromBase]);
 
-  useEffect(() => {
-    //console.log("paymentsArr",paymentsArr )
-  }, [getArchivePayfromBase, paymentsArr]);
+  // useEffect(() => {
+  //   console.log("paymentsArr", paymentsArr);
+  // }, [getArchivePayfromBase, paymentsArr]);
 
   return (
     <div>
@@ -77,7 +81,22 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
-                <p>za: {elem.trenings} treningów</p>
+                {/* <p>za: {elem.trenings} treningów</p> */}
+                <p>Kolejna należność oczekiwana po tej płatności:</p>
+                <p>
+                  <DateFnsFormat element={elem.due} />
+                </p>
+                {elem.prevdebt && (
+                  <div>
+                    <p>zadłuzenie: {elem.prevdebt} </p>
+                  </div>
+                )}
+
+                {elem.prevadd && (
+                  <div>
+                    <p>{elem.prevadd}</p>
+                  </div>
+                )}
               </div>
             </li>
           ))}

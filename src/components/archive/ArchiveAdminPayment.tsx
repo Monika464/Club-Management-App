@@ -6,18 +6,20 @@ import { db } from "../../App";
 import DateFnsFormat from "../DateFnsFormat";
 
 export interface IArchiveAdminPayment {}
-export interface ItimestampArr {
-  created_at: Date;
-  kto: string;
-  trenings: number;
-  userUid: string;
-}
+// export interface ItimestampArr {
+//   created_at: Date;
+//   kto: string;
+
+//   userUid: string;
+// }
 
 export interface IPaymentItem {
   id: string;
   time: Date;
   kto: string;
-  trenings: number;
+  due: Date;
+  prevadd: number;
+  prevdebt: number;
 }
 
 const ArchiveAdminPayment: React.FunctionComponent<
@@ -35,7 +37,7 @@ const ArchiveAdminPayment: React.FunctionComponent<
   useEffect(() => {
     const timer = setTimeout(() => {
       setRendered(true);
-    }, 1000); // 1000 milisekund = 1 sekunda
+    }, 1000);
 
     return () => {
       clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
@@ -60,7 +62,9 @@ const ArchiveAdminPayment: React.FunctionComponent<
                   id: doc.id,
                   time: doc.data().created_at,
                   kto: doc.data().kto,
-                  trenings: doc.data().trenings,
+                  due: doc.data().due,
+                  prevadd: doc.data().prevadd,
+                  prevdebt: doc.data().prevdebt,
                 } as IPaymentItem;
               }
               return null;
@@ -110,7 +114,22 @@ const ArchiveAdminPayment: React.FunctionComponent<
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
-                <p>za: {elem.trenings} treningów</p>
+                {/* <p>za: {elem.trenings} treningów</p> */}
+                <p>Kolejna należność oczekiwana po tej płatności:</p>
+                <p>
+                  <DateFnsFormat element={elem.due} />
+                </p>
+                {elem.prevdebt && (
+                  <div>
+                    <p>zadłuzenie: {elem.prevdebt} </p>
+                  </div>
+                )}
+
+                {elem.prevadd && (
+                  <div>
+                    <p>{elem.prevadd}</p>
+                  </div>
+                )}
               </div>
             </li>
           ))}
