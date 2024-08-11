@@ -6,9 +6,7 @@ import DateFnsFormat from "../DateFnsFormat";
 import { format } from "date-fns";
 import { useModUsersForSelect } from "../../hooks/useModUsersForSelect ";
 
-// export interface IArchiveViewAdmin {
-//   ITimestampData:
-// }
+export interface IArchiveActivityAdmin {}
 
 interface ITimestampData {
   id: string;
@@ -21,7 +19,9 @@ interface ITimestampData {
   reason?: string;
 }
 
-const ArchiveViewAdmin: React.FunctionComponent<IArchiveViewAdmin> = () => {
+const ArchiveActivityAdmin: React.FunctionComponent<
+  IArchiveActivityAdmin
+> = () => {
   const userModForSelect = useModUsersForSelect();
   const [chosenUserId, setChosenUserId] = useState<string | null>(null);
   const [chosenUserByIdLabel, setChosenUserByIdLabel] = useState<string>("");
@@ -146,7 +146,7 @@ const ArchiveViewAdmin: React.FunctionComponent<IArchiveViewAdmin> = () => {
   );
 };
 
-export default ArchiveViewAdmin;
+export default ArchiveActivityAdmin;
 
 // import { useCallback, useEffect, useState } from "react";
 // import { useModUsersForSelect } from "../../hooks/useModUsersForSelect ";

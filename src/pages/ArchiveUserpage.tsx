@@ -1,27 +1,21 @@
 //import { Link } from "react-router-dom"
-import ArchiveUserPayment from "../components/archive/ArchiveUserPayment"
-import ArchiveViewUser from "../components/archive/ArchiveViewUser"
+import ArchiveUserPayment from "../components/archive/ArchiveUserPayment";
+import { ArchiveActivityUser } from "../components/archive/ArchiveActivityUser";
 
+export interface IArchiveUserpage {}
 
-export interface IArchiveUserpage {
+const ArchiveUserpage: React.FunctionComponent<IArchiveUserpage> = () => {
+  return (
+    <div>
+      <div>
+        <ArchiveUserPayment />
+      </div>
+      <div>
+        {" "}
+        <ArchiveActivityUser />
+      </div>
+    </div>
+  );
+};
 
-}
-
-const ArchiveUserpage: React.FunctionComponent<IArchiveUserpage> =() => {
-
-
-    return(
-        <div>
-                <div><ArchiveUserPayment/></div>
-            <div> <ArchiveViewUser/></div>
-
-   
-      
-
-       </div>
-
-
-    )
-}
-
-export default ArchiveUserpage
+export default ArchiveUserpage;

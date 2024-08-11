@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../App";
 import DateFnsFormat from "../DateFnsFormat";
 
-export interface IArchiveViewUser {}
+export interface IArchiveActivityUser {}
 
 export interface ItimestampArr1 {
   id: string;
@@ -30,32 +30,13 @@ export interface ItimestampArr4 {
   restartData: Date;
 }
 
-export const ArchiveViewUser: React.FunctionComponent<
-  IArchiveViewUser
+export const ArchiveActivityUser: React.FunctionComponent<
+  IArchiveActivityUser
 > = () => {
-  //     const [debt, setDebt] = useState<number | null>(null);
-  //     const [add, setAdd] = useState<number | null>(null);
-  // const [name, setName] = useState<string | null>(null);
-  // const [surname, setSurname] = useState<string | null>(null);
-  // const [isMulti, setIsMulti] = useState<boolean>(false);
-  // const [isPass, setIsPass] = useState<boolean>(false);
-  // const [isPause, setIsPause] = useState<boolean>(false);
-  // const [isStop, setisStop] = useState<boolean>(false);
-  // const [due, setDue] = useState<Date | null>(null);
-  //const [rendered, setRendered] =   useState(false);
-  //const [archiveName, setArchiveName] = useState<string | null>(null);
   const [timestampArr1, setTimestampsArr1] = useState<ItimestampArr1[]>([]);
   const [timestampArr2, setTimestampsArr2] = useState<ItimestampArr2[]>([]);
   const [timestampArr3, setTimestampsArr3] = useState<ItimestampArr3[]>([]);
   const [timestampArr4, setTimestampsArr4] = useState<ItimestampArr4[]>([]);
-  //const [timestampAllArr, setTimestampsAllArr] = useState<Date[] | null>(null);
-
-  //archive
-  // const [reportArchiveDate, setReportArchiveDate] = useState<Date | null>(null);
-  // const [pausaData, setPausaDate]= useState<Date | null>(null);
-  // const [endPauseData, setEndPauseData]= useState<Date | null>(null);
-  // const [stopData, setStopData]= useState<Date | null>(null);
-  // const [restartData, setRestartData]= useState<Date | null>(null);
 
   const { currentUser } = useContext(UserContext);
 
@@ -185,9 +166,8 @@ export const ArchiveViewUser: React.FunctionComponent<
               return null;
             })
             .filter((item) => item !== null) as ItimestampArr4[];
-          //console.log("temp4",temp4)
+
           setTimestampsArr4([...temp4]);
-          //console.log("timestampArr4",timestampArr4)
         });
 
         return () => unsubscribe();
@@ -274,4 +254,4 @@ export const ArchiveViewUser: React.FunctionComponent<
   );
 };
 
-export default ArchiveViewUser;
+export default ArchiveActivityUser;
