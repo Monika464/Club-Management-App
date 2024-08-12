@@ -224,7 +224,7 @@ export const ArchiveActivityUser: React.FunctionComponent<
           timestampArr3.map((elem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>stop zgłoszony dnia: </p>
+                <p>Zawieszenie członkowstwa dnia: </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>

@@ -104,7 +104,7 @@ const ArchiveActivityAdmin: React.FunctionComponent<
 
               {elem.stopData && (
                 <>
-                  <p>Stop zgłoszony dnia:</p>
+                  <p>Zawieszenie członkowstwa dnia:</p>
                   <p>
                     Od: <DateFnsFormat element={elem.stopData} />
                   </p>
