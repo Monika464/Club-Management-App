@@ -1,52 +1,45 @@
-
-import './App.css'
+import "./App.css";
 import Userpanel from "./pages/Userpanel.tsx";
 import Adminpanel from "./pages/Adminpanel.tsx";
 import HomePage from "./pages/Home.tsx";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupPage from "./components/Signup.tsx";
 import LoginPage from "./utils/auth/Login.tsx";
-import { initializeApp } from 'firebase/app';
-import { config } from './utils/config/config.ts';
-import AuthRoute from './utils/auth/AuthRoute.tsx';
-import AdminRoute from './utils/auth/AdminRoute.tsx';
-import Navbar from './components/Navbar.tsx';
-import { UserContextProvider } from './utils/auth/UserContext.tsx';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import Signup2 from './components/newuserform/Signup2.tsx';
-import Create from './pages/Create.tsx';
+import { initializeApp } from "firebase/app";
+import { config } from "./utils/auth/config/config.ts";
+import AuthRoute from "./utils/auth/AuthRoute.tsx";
+import AdminRoute from "./utils/auth/AdminRoute.tsx";
+import Navbar from "./components/Navbar.tsx";
+import { UserContextProvider } from "./utils/auth/UserContext.tsx";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import Signup2 from "./components/newuserform/Signup2.tsx";
+import Create from "./pages/Create.tsx";
 import { getStorage } from "firebase/storage";
-import Membershipage from './pages/Membershippage.tsx';
-import Injurypage from './pages/Injurypage.tsx';
-import MembershiUserpage from './pages/MembershipUserpage.tsx';
-import InjuryUserpage from './pages/InjuryUserpage.tsx';
-import ProjectSingle from './components/project/ProjectSingle.tsx';
-import DatePickerpages from './pages/DatePickerpage.tsx';
-import Attendancepage from './pages/AttendanceListpage.tsx';
-import ArchiveUserpage from './pages/ArchiveUserpage.tsx';
-import ArchiveAdminpage from './pages/ArchiveAdminpage.tsx';
-import PaymentAdminPage from './pages/PaymentAdminPage.tsx';
-import UserMailbox from './pages/UserMailbox.tsx';
-import AdminMailbox from './pages/AdminMailbox.tsx';
-import { RaportUsersPage } from './pages/RaportUserspage.tsx';
-import Instruction from './pages/Instruction.tsx';
-import ForgotPass from './utils/auth/ForgotPass.tsx';
+import Membershipage from "./pages/Membershippage.tsx";
+import Injurypage from "./pages/Injurypage.tsx";
+import MembershiUserpage from "./pages/MembershipUserpage.tsx";
+import InjuryUserpage from "./pages/InjuryUserpage.tsx";
+import ProjectSingle from "./components/project/ProjectSingle.tsx";
+import DatePickerpages from "./pages/DatePickerpage.tsx";
+import Attendancepage from "./pages/AttendanceListpage.tsx";
+import ArchiveUserpage from "./pages/ArchiveUserpage.tsx";
+import ArchiveAdminpage from "./pages/ArchiveAdminpage.tsx";
+import PaymentAdminPage from "./pages/PaymentAdminPage.tsx";
+import UserMailbox from "./pages/UserMailbox.tsx";
+import AdminMailbox from "./pages/AdminMailbox.tsx";
+import { RaportUsersPage } from "./pages/RaportUserspage.tsx";
+import Instruction from "./pages/Instruction.tsx";
+import ForgotPass from "./utils/auth/ForgotPass.tsx";
 
-
-export const app = initializeApp(config.firebaseConfig)
+export const app = initializeApp(config.firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage();
 
-
-
-export interface IApplicationProps { }
+export interface IApplicationProps {}
 
 // Funkcja resetująca hasło i wysyłająca e-mail z linkiem resetującym
-
-
-
 
 const sendCustomPasswordResetEmail = (email: string) => {
   // Tutaj możesz umieścić własną logikę wysyłania e-maila resetującego, np. za pomocą usługi SMTP
@@ -60,9 +53,11 @@ export const resetPassForEmail = (email: string) => {
     .then(() => {
       return sendCustomPasswordResetEmail(email);
     })
-    .then(() => { console.log("wyslano hasło na email") })
+    .then(() => {
+      console.log("wyslano hasło na email");
+    })
     .catch((error) => {
-      console.error('Błąd podczas resetowania hasła:', error.message);
+      console.error("Błąd podczas resetowania hasła:", error.message);
       // Tutaj możesz obsłużyć błędy związane z wysyłaniem e-maila resetującego
     });
 };
@@ -71,19 +66,14 @@ const Application: React.FunctionComponent = () => {
   // const { currentUser} = useContext(UserContext);
   //const [isUser, setIsUser] = useContext(false)
 
-
-
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
-
-        <div className='container'>
-
+        <div className="container">
           <UserContextProvider>
             <Navbar />
 
             <Routes>
-
               <Route
                 path="/"
                 element={
@@ -93,12 +83,7 @@ const Application: React.FunctionComponent = () => {
                 }
               />
 
-              <Route
-                path="/home"
-                element={
-                  <HomePage />
-                }
-              />
+              <Route path="/home" element={<HomePage />} />
 
               <Route
                 path="/create"
@@ -136,7 +121,6 @@ const Application: React.FunctionComponent = () => {
                 }
               />
 
-  
               <Route
                 path="/usersreport"
                 element={
@@ -145,7 +129,6 @@ const Application: React.FunctionComponent = () => {
                   </AdminRoute>
                 }
               />
-
 
               <Route
                 path="/datespicker"
@@ -165,7 +148,6 @@ const Application: React.FunctionComponent = () => {
                 }
               />
 
-
               <Route
                 path="/archiveadmin"
                 element={
@@ -174,8 +156,6 @@ const Application: React.FunctionComponent = () => {
                   </AdminRoute>
                 }
               />
-
-
 
               <Route
                 path="/membershipuser"
@@ -193,7 +173,6 @@ const Application: React.FunctionComponent = () => {
                   </AuthRoute>
                 }
               />
-
 
               <Route
                 path="/archiveuser"
@@ -230,13 +209,7 @@ const Application: React.FunctionComponent = () => {
                 }
               />
 
-
-              <Route
-                path="/projects/:id"
-                element={
-                  <ProjectSingle />
-                }
-              />
+              <Route path="/projects/:id" element={<ProjectSingle />} />
 
               <Route
                 path="adminpanel"
@@ -244,39 +217,29 @@ const Application: React.FunctionComponent = () => {
                   <AdminRoute>
                     <Adminpanel />
                   </AdminRoute>
-
                 }
               />
 
-              <Route path="userpanel" element={
-                <AuthRoute>
-                  <Userpanel />
-                </AuthRoute>
-              } />
+              <Route
+                path="userpanel"
+                element={
+                  <AuthRoute>
+                    <Userpanel />
+                  </AuthRoute>
+                }
+              />
 
-              <Route path="forgotpass" element={
-                <ForgotPass />
-              } />
-
+              <Route path="forgotpass" element={<ForgotPass />} />
 
               <Route path="signup" element={<SignupPage />} />
               <Route path="login" element={<LoginPage />} />
-              <Route path="signup2" element={
-
-                <Signup2 />
-
-
-              } />
-
+              <Route path="signup2" element={<Signup2 />} />
             </Routes>
           </UserContextProvider>
         </div>
       </BrowserRouter>
-
     </div>
-  )
-}
+  );
+};
 
 export default Application;
-
-

@@ -4,7 +4,7 @@ import { db } from "../App";
 import { UserContext } from "../utils/auth/UserContext";
 // import { BackAfterInjuryUser } from "../components/BackAfterInjuryUser";
 import { RestoreMembershipUser } from "../components/stop/RestoreMembershipUser";
-import StopMembershipUser from "../components/stop/StopMembershipUser";
+//import StopMembershipUser from "../components/stop/StopMembershipUser";
 import StopMembershipUser2 from "../components/stop/StopmembershipUser2";
 
 const MembershiUserpage: React.FunctionComponent = () => {

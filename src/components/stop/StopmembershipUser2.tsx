@@ -7,14 +7,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../App";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../utils/auth/UserContext";
 import { useSearchIndexCloseToday } from "../../hooks/useSearchIndexCloseToday";
 import { useSearchDatesPlusN } from "../../hooks/useSearchDatesPlusN";
 import { useSearchDatesByIndex } from "../../hooks/useSearchDatesByIndex";
 import { useNavigate } from "react-router-dom";
 import DateFnsFormat from "../DateFnsFormat";
-import { compareAsc, isToday } from "date-fns";
 
 export interface IdateObj {
   seconds: number;
@@ -26,8 +25,8 @@ const StopMembershipUser2: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
   const [isSent, setisSent] = useState<boolean>(false);
 
-  const [currentUserPausaDate, setCurrentUserPausaDate] =
-    useState<IdateObj | null>();
+  // const [currentUserPausaDate, setCurrentUserPausaDate] =
+  //   useState<IdateObj | null>();
   const [dueDate, setDueDate] = useState<IdateObj | null>();
   const [stopReported, setStopReported] = useState<boolean>(false);
   const [pausaReported, setPausaReported] = useState<boolean>(false);
@@ -38,7 +37,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
   const [surname, setSurname] = useState<string | null>(null);
   const [isMulti, setIsMulti] = useState<boolean>(false);
   const [isPass, setIsPass] = useState<boolean>(false);
-  const [rendered, setRendered] = useState(false);
+  //const [rendered, setRendered] = useState(false);
 
   const paymentDateIndex = useSearchDatesPlusN(0, currentUser?.uid);
   const dzisIndex = useSearchIndexCloseToday();
@@ -104,32 +103,24 @@ const StopMembershipUser2: React.FunctionComponent = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (rendered && isMulti) {
+    if (isMulti) {
+      setStopDate(dzisData);
+    }
+
+    if (pausaReported) {
       setStopDate(dzisData);
     }
 
     if (isPass && paymentDateIndex !== null && dzisIndex !== undefined) {
-      console.log("czy tu jestesmy?", dzisIndex === paymentDateIndex);
-
       if (dzisIndex > paymentDateIndex) {
         setFinalDebt(dzisIndex - paymentDateIndex);
         setStopDate(dzisData);
       }
       if (dzisIndex <= paymentDateIndex) {
-        console.log("co tu sie dzieje", dueDate);
         setStopDate(dueDate);
-        console.log("stopPowinnobyc", stopDate);
       }
     }
-  }, [
-    rendered,
-    dzisIndex,
-    paymentDateIndex,
-    dzisData,
-    dueDate,
-    isMulti,
-    isPass,
-  ]);
+  }, [dzisIndex, paymentDateIndex, dzisData, dueDate, isMulti, isPass]);
 
   const dataToActivityArchive = {
     created_at: serverTimestamp(),
@@ -141,11 +132,11 @@ const StopMembershipUser2: React.FunctionComponent = () => {
   //funkcja zapisujaca w bazie
 
   const sendStopToBase = async () => {
-    console.log("przycisk wcisnieto");
+    //console.log("przycisk wcisnieto");
     if (currentUser && stopDate) {
       const userDataRef = doc(db, "usersData", currentUser.uid);
 
-      if (currentUserPausaDate) {
+      if (pausaReported) {
         await updateDoc(userDataRef, {
           pause: null,
           add: null,
@@ -216,7 +207,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
 
   return (
     <div>
-      {currentUserPausaDate && (
+      {pausaReported && (
         <p>Pauzujacy użytkownik rezygnuje dzis z członkostwa</p>
       )}
       {!stopReported &&
