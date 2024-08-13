@@ -55,10 +55,10 @@ export interface IComment {
 import Select from "react-select";
 import "./create.css";
 import { useState } from "react";
-//import { useModUsersForSelect } from '../hooks/useModUsersForSelect ';
+
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, storage } from "../../../App";
-//import { useFetchUsers } from '../hooks/useFetchUsers';
+
 import { useModAvatUsers } from "../../../utils/hooks/useModAvatUsers";
 import { useNavigate } from "react-router-dom";
 import {
@@ -73,25 +73,22 @@ const Create: React.FunctionComponent<ICreate> = () => {
   const [details, setDetails] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [category, setCategory] = useState<string>("");
-  // const [assignedUser, setAssignedUser] = useState<IforSel[]>([])
+
   const [formError, setFormError] = useState<string | null>(null);
   const [visibility, setVisibility] = useState<string | null>("");
-  //const [newUsersList, setNewUsersList] = useState<US[]>([])
-  //const [eventDateTime, setEventDateTime] = useState<string>(''); // Przechowuje datę i godzinę jako string
+
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [thumbnailError, setThumbnailError] = useState<string | null>(null);
-  //const [pictureURL, setPictureURL] = useState<URL | null | string>(null)
+
   const [selected, setSelect] = useState<File | null>(null);
-  //const userModForSelect  =  useModUsersForSelect();
+
   const [assignedUsersListAsVL, setAssignedUserListAsVL] = useState<IforSel[]>(
     []
   );
-  //const [chosenUsersAsVL, setChosenUsersAsVL] =
+  const [loading, setLoading] = useState<boolean>(false);
 
   const usersWithAvatars = useModAvatUsers();
   const navigate = useNavigate();
-
-  //console.log("usersWithAvatars",usersWithAvatars)
 
   const categories = [
     { value: "zawody", label: "Zawody" },
@@ -104,18 +101,15 @@ const Create: React.FunctionComponent<ICreate> = () => {
     { value: "privat", label: "Prywatne" },
   ];
 
-  // const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setEventDateTime(e.target.value);
-  //   };
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setThumbnail(null);
 
     if (e.target.files) {
-      let selectedd = e.target.files[0];
-      console.log("e.target", e.target);
-      console.log("selected1", selected);
-      setSelect(selectedd);
+      const selected = e.target.files[0];
+      setSelect((prevSelected) => {
+        console.log("Previous selected file:", prevSelected);
+        return selected;
+      });
     }
     if (!selected) {
       setThumbnailError("Please select a file");
@@ -136,27 +130,10 @@ const Create: React.FunctionComponent<ICreate> = () => {
     setThumbnail(selected);
   };
 
-  //  // console.log('PictureURLzeew',pictureURL );
-  //  useEffect(()=>{
-
-  //   const temp =[]
-
-  //   const assigningValLab =()=>{
-  //       console.log("assignedUser",el,index);
-  //       temp.push(el);
-  //      }
-  //      setAssignedUserListAsVL(temp)
-
-  //    assigningValLab();
-
-  //  },[])
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // if (!selected) {
-    //     setThumbnailError('Please select a file')
-    //     return
-    //   }
+    setLoading(true);
+
     setFormError(null);
 
     if (thumbnail) {
@@ -165,33 +142,6 @@ const Create: React.FunctionComponent<ICreate> = () => {
 
       const snapshot = await uploadBytes(imageRef, thumbnail);
       const url = await getDownloadURL(snapshot.ref);
-
-      //  const assignedUsersList: IforSelect[] = assignedUser?.map((u) => ({
-      //   value: {
-      //     dob: u.value.dob,
-      //     name: u.value.name,
-      //     surname: u.value.surname,
-      //     id: u.value.id,
-      //     avatar: u.value.avatar
-      //   },
-      //   label: `${u.value.name} ${u.value.surname}`
-      // })) || [];
-
-      // const assignedUsersList:IforSel = assignedUser?.map((u)=>{
-
-      // //   // return {
-      // //   //     name: u.name,
-      // //   //     avatar: u.avatar,
-      // //   //     id: u.id
-      // //   //   }
-      //    return {
-      //   name: u.value.name,
-      //   surname: u.value.surname,
-      //   avatar: u.value.avatar,
-      //   id: u.value.id,
-      //   dob: u.value.dob
-      // }
-      // })
 
       const moddate = new Date(eventDate);
       // console.log("modddate",moddate )
@@ -208,23 +158,16 @@ const Create: React.FunctionComponent<ICreate> = () => {
       })
         .then(() => {
           console.log("susceess!! Data sent");
-          // resetState();
+          setLoading(false);
         })
         .then(() => {
           navigate("/home");
-          // resetState();
         })
         .catch((err) => {
           console.error(err);
         });
-
-      // console.log(name, details,'eventDate', eventDate, category.value, assignedUsersList,visibility.value)
-
-      // console.log("formError",formError)
     }
   };
-
-  //console.log('assignedUsers',assignedUsers );
 
   return (
     <div className="create-form">
@@ -252,12 +195,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
         </label>
         <label>
           <span>Data wydarzenia :</span>
-          {/* <input
-          required
-          type="datetime-local"
-          onChange={handleDateTimeChange}
-          value={eventDateTime}
-            /> */}
+
           <input
             required
             type="date"
@@ -310,20 +248,6 @@ const Create: React.FunctionComponent<ICreate> = () => {
             options={usersWithAvatars}
             isMulti
           />
-
-          {/* <Select
-            onChange={(option) =>{
-              setAssignedUserListAsVL(option);
-              console.log("option",option);
-              //option sklada sie z obiektow o kolejnych indeksach
-              //z ktorych kazdy ma wartość value i label
-              //label to string a value to obiekt zawierajacy 
-              //name,surname,avatar,id,dob
-            }                          
-            }
-            options={usersWithAvatars}
-            isMulti
-          />  */}
         </label>
         <br></br>
         <label>
@@ -347,6 +271,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
       {formError && <p className="error">{formError}</p>}
 
       {thumbnailError && <p className="error">{thumbnailError}</p>}
+      {loading && <p>Loading...</p>}
     </div>
   );
 };

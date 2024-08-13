@@ -36,10 +36,10 @@ export const DisplayUserDataUser: React.FunctionComponent<
   useEffect(() => {
     const timer = setTimeout(() => {
       setRendered(true);
-    }, 1000); // 1000 milisekund = 1 sekunda
+    }, 1000);
 
     return () => {
-      clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
+      clearTimeout(timer);
     };
   }, []);
 
@@ -91,10 +91,6 @@ export const DisplayUserDataUser: React.FunctionComponent<
 
   useEffect(() => {
     getUserDatafromBase();
-    //console.log("current user", currentUser?.email, "multi",isMulti, isPause,"add",add)
-    //console.log("debt", debt)
-    //paymentDateIndex < dzisIndex ? console.log('zzzadłuzenie:' , dzisIndex -paymentDateIndex, 'treningi')
-    // :console.log("nie ma zadluzenia")
   }, [getUserDatafromBase, rendered]);
 
   const handleEditDetails = () => {

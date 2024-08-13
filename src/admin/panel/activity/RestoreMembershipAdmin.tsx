@@ -13,6 +13,7 @@ import { db } from "../../../App";
 import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexCloseToday";
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
+import { useNavigate } from "react-router-dom";
 
 export interface US {
   value: string;
@@ -77,42 +78,13 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
           }
         }
 
-        setNewUsersList(usersToAdd); // Aktualizuj stan tablicy
+        setNewUsersList(usersToAdd);
       }
     };
 
     fetchData();
-
-    // console.log('newUsersListRestore',newUsersList)
   }, [db, dzisData, dzisIndex, rendered]);
 
-  //lista userow zmodyfikowana tak zeby  mial stop
-
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //         const usersToAdd = [];
-
-  //         for (let i = 0; i < userModForSelect.length; i++) {
-  //             const userRef = doc(db, "usersData", userModForSelect[i].value);
-  //             const docSnap = await getDoc(userRef);
-
-  //             if (docSnap.data().stop) {
-  //                 // Dodawanie użytkownika do listy w formie obiektu
-  //                 usersToAdd.push({ value: userModForSelect[i].value, label: userModForSelect[i].label });
-  //             }
-
-  //             setNewUsersList(usersToAdd); // Aktualizuj stan tablicy
-  //         }
-
-  //     };
-
-  //     fetchData();
-
-  //     //console.log('newUsersList',newUsersList)
-  // }, [db,useModUsersForSelect,dzisData]);
-  // ////
-
-  //AKCJE PO WYBORZE USERA
   const handleSetUserInfo = async () => {
     if (chosenUserId) {
       const userRef = doc(db, "usersData", chosenUserId);
@@ -174,7 +146,9 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
       await addDoc(
         collection(db, "activitiArchive"),
         dataToActivityArchive
-      ).then(() => console.log("archive"));
+      ).then(() => {
+        console.log("archive");
+      });
     }
   };
 

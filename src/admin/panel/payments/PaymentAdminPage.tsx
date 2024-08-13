@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import SwitchMultiToPass from "../payments/SwitchMultiToPass";
-import SwithPassToMulti from "../payments/SwithPassToMulti";
-import { UsersPayments } from "../payments/UserPayments";
+import SwitchMultiToPass from "./SwitchMultiToPass";
+import SwithPassToMulti from "./SwithPassToMulti";
+import { UsersPayments } from "./UserPayments";
 
 const PaymentAdminPage: React.FunctionComponent = () => {
   const [clickedComponent, setClickedComponent] = useState<string | null>(null);
