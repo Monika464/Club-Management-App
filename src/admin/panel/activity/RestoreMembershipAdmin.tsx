@@ -13,7 +13,6 @@ import { db } from "../../../App";
 import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexCloseToday";
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
-import { useNavigate } from "react-router-dom";
 
 export interface US {
   value: string;
