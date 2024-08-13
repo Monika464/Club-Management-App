@@ -51,29 +51,15 @@ export interface IComment {
 const ProjectList: React.FunctionComponent<IProjectListProps> = (props) => {
   // const [catDetailAr, setCutDetailsAr] = useState<string[]>("")
   if (props.projects) {
-    //  props.projects.forEach((el)=>{
+    props.projects
+      .filter((project) => project.created_at && project.created_at.toMillis)
+      .sort((a, b) => {
+        const projectA = a.created_at.toMillis();
 
-    //   //const a1 =
-    //console.log(console.log("projects",props.projects))
+        const projectB = b.created_at.toMillis();
 
-    //   })
-
-    props.projects.sort((a, b) => {
-      const projectA = a.created_at.toMillis();
-      // console.log(console.log("timestampA",projectA))
-      const projectB = b.created_at.toMillis();
-      // console.log(console.log("timestampB",projectB));
-
-      return projectB - projectA;
-    });
-
-    // props.projects?.map((el)=>{
-    //console.log("pro",el.assignedUsers)
-    //el to IDocument
-    // el.assignedUsers?.map((el2)=>{
-    //console.log("props.projects",el2.value.name)
-    //})
-    //})
+        return projectB - projectA;
+      });
 
     return (
       <div className="project-list">

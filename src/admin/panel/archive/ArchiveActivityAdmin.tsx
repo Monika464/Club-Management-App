@@ -96,7 +96,7 @@ const ArchiveActivityAdmin: React.FunctionComponent<
         {timestampArr.map((elem) => (
           <li key={elem.id}>
             <div className="archive">
-              <p>Zgłoszenie przez: {elem.kto}</p>
+              {/* <p>Zgłoszenie przez: {elem.kto}</p> */}
               {/* Data utworzenia: {format(elem.created_at, "yyyy-MM-dd")} */}
               <p>
                 Data utworzenia: <DateFnsFormat element={elem.created_at} />
