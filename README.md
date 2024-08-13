@@ -1,27 +1,51 @@
-# React + TypeScript + Vite
+# Club Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## React + TypeScript + Vite
 
-Currently, two official plugins are available:
+## Overview:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+App for managing small organisation.
+Functions included:
 
-## Expanding the ESLint configuration
+- Registering users by admin
+- Reporting breaks in activity and returns
+- Managing diffenerent form of payments
+- Showing statistics
+- Managing attendance list
+- Mailbox
+- Display and creating events
+- Linking users to events
+- Users comments under events
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Preview:
 
-- Configure the top-level `parserOptions` property like this:
+### Local:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- npm install
+- npm run build
+- npm install serve --save-dev
+- serve -s dist
+- Local: http://localhost:3000
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+admin email: mk@mk.pl
+admin password: 123456
+
+### Public:
+
+https://modclubmanagement.web.app/
+
+## Technologies:
+
+| Tech             | Use                        |
+| ---------------- | -------------------------- |
+| React            | Front-end framework        |
+| Typecript        | Language                   |
+| Vite             | Optimalization performance |
+| Firebase         | Database                   |
+| React Datepicker | Datepicker compoment       |
+| React Select     | Selecting feature          |
+| Date Fns         | Dates formatter            |
+| Prettier         | Code formatter             |
+| Commitizen       | Commit convention          |
+
+###### Club Management App © 2024 by MK is licensed under CC BY-NC-ND 4.0
