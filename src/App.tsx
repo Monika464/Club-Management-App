@@ -1,35 +1,35 @@
 import "./App.css";
-import Userpanel from "./pages/Userpanel.tsx";
-import Adminpanel from "./pages/Adminpanel.tsx";
-import HomePage from "./pages/Home.tsx";
+import Userpanel from "./user/panel/Userpanel.tsx";
+import Adminpanel from "./admin/panel/displaydetails/Adminpanel.tsx";
+import HomeEventPage from "./admin/panel/project/HomeEventPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignupPage from "./components/Signup.tsx";
+import SignupPage from "./admin/panel/formnewuser/Signup.tsx";
 import LoginPage from "./utils/auth/Login.tsx";
 import { initializeApp } from "firebase/app";
 import { config } from "./utils/auth/config/config.ts";
 import AuthRoute from "./utils/auth/AuthRoute.tsx";
 import AdminRoute from "./utils/auth/AdminRoute.tsx";
-import Navbar from "./components/Navbar.tsx";
+import Navbar from "./utils/components/Navbar.tsx";
 import { UserContextProvider } from "./utils/auth/UserContext.tsx";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import Signup2 from "./components/newuserform/Signup2.tsx";
-import Create from "./pages/Create.tsx";
+import Signup2 from "./admin/panel/formnewuser/Signup2.tsx";
+import Create from "./admin/panel/project/Create.tsx";
 import { getStorage } from "firebase/storage";
-import Membershipage from "./pages/Membershippage.tsx";
-import Injurypage from "./pages/Injurypage.tsx";
-import MembershiUserpage from "./pages/MembershipUserpage.tsx";
-import InjuryUserpage from "./pages/InjuryUserpage.tsx";
-import ProjectSingle from "./components/project/ProjectSingle.tsx";
-import DatePickerpages from "./pages/DatePickerpage.tsx";
-import Attendancepage from "./pages/AttendanceListpage.tsx";
-import ArchiveUserpage from "./pages/ArchiveUserpage.tsx";
-import ArchiveAdminpage from "./pages/ArchiveAdminpage.tsx";
-import PaymentAdminPage from "./pages/PaymentAdminPage.tsx";
-import UserMailbox from "./pages/UserMailbox.tsx";
-import AdminMailbox from "./pages/AdminMailbox.tsx";
-import { RaportUsersPage } from "./pages/RaportUserspage.tsx";
-import Instruction from "./pages/Instruction.tsx";
+import Membershipage from "./admin/panel/activity/Membershippage.tsx";
+import Injurypage from "./admin/panel/activity/Injurypage.tsx";
+import MembershiUserpage from "./user/activity/MembershipUserpage.tsx";
+import InjuryUserpage from "./user/activity/InjuryUserpage.tsx";
+import ProjectSingle from "./admin/panel/project/ProjectSingle.tsx";
+import DatePickerpages from "./admin/panel/classes/DatePickerpage.tsx";
+import Attendancepage from "./admin/panel/attendancelist/AttendanceListpage.tsx";
+import ArchiveUserpage from "./user/archive/ArchiveUserpage.tsx";
+import ArchiveAdminpage from "./admin/panel/archive/ArchiveAdminpage.tsx";
+import PaymentAdminPage from "./admin/panel/payments/PaymentAdminPage.tsx";
+import UserMailbox from "./user/mail/UserMailbox.tsx";
+import AdminMailbox from "./admin/mail/AdminMailbox.tsx";
+import { RaportUsersPage } from "./admin/panel/displaydetails/RaportUserspage.tsx";
+import Instruction from "./utils/components/Instruction.tsx";
 import ForgotPass from "./utils/auth/ForgotPass.tsx";
 
 export const app = initializeApp(config.firebaseConfig);
@@ -78,12 +78,12 @@ const Application: React.FunctionComponent = () => {
                 path="/"
                 element={
                   <AuthRoute>
-                    <HomePage />
+                    <HomeEventPage />
                   </AuthRoute>
                 }
               />
 
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/home" element={<HomeEventPage />} />
 
               <Route
                 path="/create"
