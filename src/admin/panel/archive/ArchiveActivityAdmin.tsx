@@ -15,7 +15,7 @@ interface ITimestampData {
   stopData?: Date;
   restartData?: Date;
   pausaData?: Date;
-  endPauseData?: Date;
+  returnData: Date;
   reason?: string;
 }
 
@@ -56,7 +56,7 @@ const ArchiveActivityAdmin: React.FunctionComponent<
             stopData: data.stopData?.toDate(),
             restartData: data.restartData?.toDate(),
             pausaData: data.pausaData?.toDate(),
-            endPauseData: data.endPauseData?.toDate(),
+            returnData: data.returnData?.toDate(),
             reason: data.reason || "",
           };
         });
@@ -124,7 +124,7 @@ const ArchiveActivityAdmin: React.FunctionComponent<
                 <>
                   <p>Pauza zgłoszona dnia:</p>
                   <p>
-                    Od: <DateFnsFormat element={elem.pausaData} />
+                    Od: <DateFnsFormat element={elem.returnData} />
                   </p>
                   {elem.reason && <p>Powód: {elem.reason}</p>}
                 </>
