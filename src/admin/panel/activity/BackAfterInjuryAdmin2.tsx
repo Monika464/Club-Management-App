@@ -90,24 +90,6 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
     //console.log('newUsersList',newUsersList)
   }, [db, useModUsersForSelect, dzisData]);
 
-  //kalkulowanie daty powrotu
-
-  //const now = new Date()
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setRendered(true);
-  //   }, 1000); // 1000 milisekund = 1 sekunda
-
-  //   return () => {
-  //     clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
-  //   };
-  // }, []);
-
-  //useEffect(()=>{
-
-  //setTodayDisplay(now)
-
   const getBasicInfo = async (chosenUserId: string) => {
     if (chosenUserId) {
       const userRef = doc(db, "usersData", chosenUserId);
@@ -115,14 +97,8 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
 
       if (docSnap.exists()) {
         if (docSnap.data().pause) {
-          //setIsPausa(true);
-
-          //setName(docSnap.data().name);
-          //setSurname(docSnap.data().surname);
-
           if (docSnap.data().optionMulti === true) {
             setIsMulti(true);
-            // console.log("czy tu cos jest", isMulti)
           }
           if (docSnap.data().optionPass === true) {
             setIsPass(true);
@@ -134,7 +110,6 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
           }
 
           if (docSnap.data().debt) {
-            //console.log("Document data:", docSnap.data().add);
             setDebtsToSubstract(docSnap.data().debt);
             setCurrentUserPausaDate(docSnap.data().pause);
           }
@@ -142,42 +117,29 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
       }
     }
   };
-  //gentbasicInfo()
-
-  //},[chosen,chosenUserId])
 
   const calcDatOfNewPay = useSearchDatesByIndex(newPaymentDateIndex);
 
   useEffect(() => {
     if (chosenUserId) {
-      // console.log("uruchomiony useeffect2")
-
       if (isMulti) {
         setNewPaymentDate(null);
-        //console.log("czy tu jest multi",isMulti)
       }
 
       if (isPass) {
-        // console.log("czy uruchomiona pass")
-
         if (debtsToSubstract && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex - debtsToSubstract);
-          // console.log("czy mamay substract")
         }
-        // console.log("czy tu mamy trening to add",treningsToAdd)
+
         if (treningsToAdd && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex + treningsToAdd);
         }
-        //console.log("dzisIndex","treningsToAdd",dzisIndex,treningsToAdd)
-        // console.log("newPaymentDateIndex",newPaymentDateIndex)
+
         setNewPaymentDate(calcDatOfNewPay);
-        // console.log("calcDatOfNewPay",calcDatOfNewPay)
       }
       //console.log('newPaymentDate', newPaymentDate?.toDate() )
     }
   }, [chosenUserId, currentUserPausaDate, getBasicInfo]);
-
-  //console.log("czy jest multi czy pas?", isMulti,isPass)
 
   const pushToBaseNewDueDay = async () => {
     const dataToActivityArchive = {

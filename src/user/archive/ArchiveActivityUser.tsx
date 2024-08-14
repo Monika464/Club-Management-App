@@ -16,7 +16,7 @@ export interface ItimestampArr1 {
 export interface ItimestampArr2 {
   id: string;
   time: Date;
-  endPauseData: Date;
+  returnData: Date;
 }
 
 export interface ItimestampArr3 {
@@ -46,15 +46,10 @@ export const ArchiveActivityUser: React.FunctionComponent<
         const q1 = query(
           collection(db, "activitiArchive"),
           where("userUid", "==", currentUser.uid),
-          where("pausaData", ">", ""),
-          where("pausaData", "<", null)
+          where("pausaData", "!=", null)
+          // where("pausaData", ">", ""),
+          // where("pausaData", "<", null)
         );
-
-        // const q1 = query(
-        // collection(db, "activitiArchive"),
-        // where("userUid", "==", currentUser.uid),
-        // where("pausaData", "!=", null)
-        //  );
 
         const unsubscribe = onSnapshot(q1, (querySnapshot) => {
           const temp1 = querySnapshot.docs
@@ -70,7 +65,7 @@ export const ArchiveActivityUser: React.FunctionComponent<
               return null;
             })
             .filter((item) => item !== null) as ItimestampArr1[];
-          // console.log("temp1",temp1)
+
           setTimestampsArr1([...temp1]);
         });
 
@@ -84,25 +79,24 @@ export const ArchiveActivityUser: React.FunctionComponent<
         const q2 = query(
           collection(db, "activitiArchive"),
           where("userUid", "==", currentUser.uid),
-          where("endPauseData", "!=", null)
+          where("returnData", "!=", null)
         );
 
         const unsubscribe = onSnapshot(q2, (querySnapshot) => {
           const temp2 = querySnapshot.docs
             .map((doc) => {
-              if (doc.data().endPauseData) {
+              if (doc.data().returnData) {
                 return {
                   id: doc.id,
                   time: doc.data().created_at,
-                  endPauseData: doc.data().endPauseData,
+                  returnData: doc.data().returnData,
                 };
               }
               return null;
             })
-            .filter((item) => item !== null) as ItimestampArr2[];
-          //console.log("temp2",temp2)
+            .filter((item) => item !== null) as unknown as ItimestampArr2[];
+
           setTimestampsArr2([...temp2]);
-          // console.log("timestampArr2",timestampArr2)
         });
 
         return () => unsubscribe();
@@ -121,8 +115,6 @@ export const ArchiveActivityUser: React.FunctionComponent<
         const unsubscribe = onSnapshot(q3, (querySnapshot) => {
           const temp3 = querySnapshot.docs
             .map((doc) => {
-              // console.log("tu3", doc.id, " => ", doc.data());
-
               if (doc.data().stopData) {
                 return {
                   id: doc.id,
@@ -133,9 +125,8 @@ export const ArchiveActivityUser: React.FunctionComponent<
               return null;
             })
             .filter((item) => item !== null) as ItimestampArr3[];
-          //console.log("temp3",temp3)
+
           setTimestampsArr3([...temp3]);
-          //console.log("timestampArr3",timestampArr3)
         });
 
         return () => unsubscribe();
@@ -154,8 +145,6 @@ export const ArchiveActivityUser: React.FunctionComponent<
         const unsubscribe = onSnapshot(q4, (querySnapshot) => {
           const temp4 = querySnapshot.docs
             .map((doc) => {
-              //console.log("tu4", doc.id, " => ", doc.data());
-
               if (doc.data().restartData) {
                 return {
                   id: doc.id,
@@ -214,7 +203,7 @@ export const ArchiveActivityUser: React.FunctionComponent<
                   <DateFnsFormat element={elem.time} />
                 </p>
                 <p>
-                  od: <DateFnsFormat element={elem.endPauseData} />
+                  od: <DateFnsFormat element={elem.returnData} />
                 </p>
               </div>
             </li>

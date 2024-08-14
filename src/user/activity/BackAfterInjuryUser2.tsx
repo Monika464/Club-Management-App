@@ -116,7 +116,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
 
     const dataToActivityArchive = {
       created_at: serverTimestamp(),
-      endPauseData: dzisData,
+      returnData: dzisData,
       userUid: currentUser?.uid,
       kto: `${name} ${surname}`,
     };
