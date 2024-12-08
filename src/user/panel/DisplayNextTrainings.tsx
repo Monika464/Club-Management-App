@@ -126,79 +126,103 @@ export const DisplayNextTrainings: React.FunctionComponent<
     <>
       <p>{t.title}</p>
       <div className="trenings">
-        {data0napodtsawieindex ? (
+        {[
+          data0napodtsawieindex,
+          data1napodtsawieindex,
+          data2napodtsawieindex,
+          data3napodtsawieindex,
+        ].map((data, i) => (
           <div
-            className={`trening 0`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 0) }}
+            key={i}
+            className={`trening ${i}`}
+            style={{ color: getColor(najblizszyindexwbaziedat + i) }}
           >
-            {/* {format(data0napodtsawieindex.toDate(), 'do MMM', { locale: pl })}    */}
-            {format((data0napodtsawieindex as Timestamp).toDate(), "do MMM", {
-              locale: pl,
-            })}
+            {data
+              ? format((data as Timestamp).toDate(), "do MMM", { locale })
+              : t.loading}
           </div>
-        ) : (
-          <div
-            className={`trening 0`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 0) }}
-          >
-            +1
-          </div>
-        )}
-        {data1napodtsawieindex ? (
-          <div
-            className={`trening 1`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 1) }}
-          >
-            {/* {format(data1napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
-            {format((data1napodtsawieindex as Timestamp).toDate(), "do MMM", {
-              locale: pl,
-            })}
-          </div>
-        ) : (
-          <div
-            className={`trening 1`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 1) }}
-          >
-            +1
-          </div>
-        )}
-        {data2napodtsawieindex ? (
-          <div
-            className={`trening 2`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 2) }}
-          >
-            {/* {format(data2napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
-            {format((data2napodtsawieindex as Timestamp).toDate(), "do MMM", {
-              locale: pl,
-            })}
-          </div>
-        ) : (
-          <div
-            className={`trening 2`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 2) }}
-          >
-            +1
-          </div>
-        )}
-        {data3napodtsawieindex ? (
-          <div
-            className={`trening 3`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 3) }}
-          >
-            {/* {format(data3napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
-            {format((data3napodtsawieindex as Timestamp).toDate(), "do MMM", {
-              locale: pl,
-            })}
-          </div>
-        ) : (
-          <div
-            className={`trening 3`}
-            style={{ color: getColor(najblizszyindexwbaziedat + 3) }}
-          >
-            +1
-          </div>
-        )}
+        ))}
       </div>
     </>
   );
+  // return (
+  //   <>
+  //     <p>{t.title}</p>
+  //     <div className="trenings">
+  //       {data0napodtsawieindex ? (
+
+  //        <div
+  //           className={`trening 0`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 0) }}
+  //         >
+  //           {/* {format(data0napodtsawieindex.toDate(), 'do MMM', { locale: pl })}    */}
+  //           {format((data0napodtsawieindex as Timestamp).toDate(), "do MMM", {
+  //             locale: pl,
+  //           })}
+  //         </div>
+  //       ) : (
+  //         <div
+  //           className={`trening 0`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 0) }}
+  //         >
+  //           +1
+  //         </div>
+  //       )}
+  //       {data1napodtsawieindex ? (
+  //         <div
+  //           className={`trening 1`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 1) }}
+  //         >
+  //           {/* {format(data1napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
+  //           {format((data1napodtsawieindex as Timestamp).toDate(), "do MMM", {
+  //             locale: pl,
+  //           })}
+  //         </div>
+  //       ) : (
+  //         <div
+  //           className={`trening 1`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 1) }}
+  //         >
+  //           +1
+  //         </div>
+  //       )}
+  //       {data2napodtsawieindex ? (
+  //         <div
+  //           className={`trening 2`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 2) }}
+  //         >
+  //           {/* {format(data2napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
+  //           {format((data2napodtsawieindex as Timestamp).toDate(), "do MMM", {
+  //             locale: pl,
+  //           })}
+  //         </div>
+  //       ) : (
+  //         <div
+  //           className={`trening 2`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 2) }}
+  //         >
+  //           +1
+  //         </div>
+  //       )}
+  //       {data3napodtsawieindex ? (
+  //         <div
+  //           className={`trening 3`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 3) }}
+  //         >
+  //           {/* {format(data3napodtsawieindex.toDate(), 'do MMM', { locale: pl })} */}
+  //           {format((data3napodtsawieindex as Timestamp).toDate(), "do MMM", {
+  //             locale: pl,
+  //           })}
+  //         </div>
+  //       ) : (
+  //         <div
+  //           className={`trening 3`}
+  //           style={{ color: getColor(najblizszyindexwbaziedat + 3) }}
+  //         >
+  //           +1
+  //         </div>
+  //       )}
+  //     </div>
+  //   </>
+  // );
 };
