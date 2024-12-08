@@ -93,15 +93,23 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
       }
 
       if (isPass) {
+        console.log("is pass");
+
         if (debtsToSubstract && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex - debtsToSubstract);
+          console.log("newPaymentDateIndex debts ", newPaymentDateIndex);
         }
         if (treningsToAdd && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex + treningsToAdd);
+          console.log("newPaymentDateIndex add ", newPaymentDateIndex);
         }
+        if (!debtsToSubstract && !treningsToAdd && dzisIndex) {
+          setNewPaymentDateIndex(dzisIndex);
+        }
+
         setNewPaymentDate(calcDatOfNewPay);
         //sprawdz czy tu kalkuluje
-        // console.log("newPaymentDateIndex ",newPaymentDateIndex )
+        console.log("calcDatOfNewPay", calcDatOfNewPay);
       }
     };
     calculate();
@@ -109,7 +117,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
 
   // console.log("dzisData",dzisData, name, surname,newPaymentDateIndex,debtsToSubstract )
 
-  //console.log("newPaymentDate", newPaymentDate)
+  console.log("newPaymentDate", newPaymentDate);
 
   const pushToBaseNewDueDay = async () => {
     // console.log("czy sie wczytuje?",isMulti, isPass)

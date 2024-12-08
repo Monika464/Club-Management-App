@@ -134,7 +134,9 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
         if (treningsToAdd && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex + treningsToAdd);
         }
-
+        if (!debtsToSubstract && !treningsToAdd && dzisIndex) {
+          setNewPaymentDateIndex(dzisIndex);
+        }
         setNewPaymentDate(calcDatOfNewPay);
       }
       //console.log('newPaymentDate', newPaymentDate?.toDate() )

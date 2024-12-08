@@ -23,12 +23,15 @@ export const DisplayNextTrainings: React.FunctionComponent<
   const data0napodtsawieindex = useSearchDatesByIndex(
     najblizszyindexwbaziedat + 0
   );
+
   const data1napodtsawieindex = useSearchDatesByIndex(
     najblizszyindexwbaziedat + 1
   );
+
   const data2napodtsawieindex = useSearchDatesByIndex(
     najblizszyindexwbaziedat + 2
   );
+
   const data3napodtsawieindex = useSearchDatesByIndex(
     najblizszyindexwbaziedat + 3
   );
@@ -42,7 +45,7 @@ export const DisplayNextTrainings: React.FunctionComponent<
     0,
     props.userid
   );
-  //console.log('indexnajblizszejnaleznejplatnosci',indexnajblizszejnaleznejplatnosci);
+
   //const nastPlat = useSearchDatesByIndex(indexnajblizszejnaleznejplatnosci)
 
   //console.log('nastPlat',nastPlat.toDate());
@@ -60,7 +63,9 @@ export const DisplayNextTrainings: React.FunctionComponent<
     if (props.userid) {
       const userRef = doc(db, "usersData", props.userid);
       const docSnap = await getDoc(userRef);
+
       if (docSnap.exists()) {
+        // console.log("usersdata displaynexttrainings", docSnap.data());
         //multi
         if (docSnap.data().optionMulti === true) {
           // console.log("optionMulti",docSnap.data().optionMulti === true)

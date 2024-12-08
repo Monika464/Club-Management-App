@@ -34,6 +34,7 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
   const userModForSelect = useModUsersForSelect();
 
   const dzisIndex = useSearchIndexCloseToday();
+
   const paymentDateIndex = useSearchDatesPlusN(0, chosenUserId);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
   ///
 
   const getUserDatafromBase = useCallback(async () => {
-    // console.log('paymentDateIndex',paymentDateIndex, "dis index",dzisIndex )
+    //console.log('paymentDateIndex',paymentDateIndex, "dis index",dzisIndex )
     if (chosenUserId) {
       const userRef = doc(db, "usersData", chosenUserId);
       const docSnap = await getDoc(userRef);
@@ -125,6 +126,8 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
   }, []);
 
   ///
+  console.log("dzis index", dzisIndex);
+  console.log("payment dayindex", paymentDateIndex);
 
   return (
     <div>
