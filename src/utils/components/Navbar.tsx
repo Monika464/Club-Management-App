@@ -4,10 +4,12 @@ import { useNavigate, NavLink } from "react-router-dom";
 import ColovLogo from "./../../assets/kolovlogo.png";
 import { useContext } from "react";
 import { UserContext } from "../../utils/auth/UserContext.tsx";
+import translations from "./navbar-translations.ts";
+
 import "./navbar.css";
 import { useRegisteringUsers } from "../../utils/hooks/useIsUserRegistered.tsx";
 import { useIsAdmin } from "../../utils/auth/useIsAdmin.tsx";
-
+import { useLanguage } from "../context/LanguageContext.tsx";
 export interface INavbarProps {}
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
@@ -22,6 +24,8 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   const { currentUser } = useContext(UserContext);
   const [rendered, setRendered] = useState(false);
   const isAdmin = useIsAdmin(currentUser?.uid || "");
+
+  const { currentLanguage, setCurrentLanguage } = useLanguage();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,12 +50,19 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   const redirectToAdminPanel = () => {
     navigate("/adminpanel");
   };
+
+  const toggleLanguage = (language: "en" | "pl") => {
+    setCurrentLanguage(language);
+  };
+
+  console.log("currentLanguage", currentLanguage);
+  const t = translations[currentLanguage as "en" | "pl"];
   return (
     <nav className="navbar">
       <ul>
         <li className="logo">
           <img src={ColovLogo} alt="logo" />
-          <span className="title"> Krakowskie Stowarzyszenie Bokserskie</span>
+          <span className="title">{t.title}</span>
         </li>
 
         {/* <li>
@@ -60,14 +71,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
         <li>
           {currentUser && !isUserRegistered && (
             <NavLink to="/signup2" className="navlink">
-              Zarejestruj
+              {t.register}
             </NavLink>
           )}
         </li>
         <li>
           {!currentUser && (
             <NavLink to="/login" className="navlink">
-              Zaloguj
+              {t.login}
             </NavLink>
           )}
         </li>
@@ -75,14 +86,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
         <li>
           {currentUser && isAdmin && (
             <button className="btn" onClick={redirectToAdminPanel}>
-              Admin
+              {t.admin}
             </button>
           )}
         </li>
         <li>
           {currentUser && (
             <button className="btn" onClick={redirectToPanel}>
-              Panel
+              {t.panel}
             </button>
           )}
         </li>
@@ -90,10 +101,33 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
         <li>
           {currentUser && (
             <button className="btn" onClick={logout}>
-              Wyloguj
+              {t.logout}
             </button>
           )}
         </li>
+        {/* Language switch */}
+        <li className="language-switch">
+          <span
+            className={currentLanguage === "en" ? "active-language" : ""}
+            onClick={() => toggleLanguage("en")}
+          >
+            EN
+          </span>{" "}
+          |{" "}
+          <span
+            className={currentLanguage === "pl" ? "active-language" : ""}
+            onClick={() => toggleLanguage("pl")}
+          >
+            PL
+          </span>
+        </li>
+        {/* <li>
+          {!currentUser && (
+            <NavLink to="/login" className="navlink">
+              Language switch
+            </NavLink>
+          )}
+        </li> */}
 
         {/* <button onClick={handlePrzenies}>przenies</button> */}
       </ul>

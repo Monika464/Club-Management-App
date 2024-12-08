@@ -5,7 +5,9 @@ import { useSearchIndexCloseToday } from "../../utils/hooks/useSearchIndexCloseT
 import { Timestamp, doc, getDoc } from "firebase/firestore";
 import { db } from "../../App";
 import { format } from "date-fns";
-import { pl } from "date-fns/locale";
+import { pl, enUS } from "date-fns/locale";
+import translations from "./displaynexttrainings-translations.ts";
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
 import "./displayNextTrainings.css";
 
 export interface IDisplayNextTrainings {
@@ -18,6 +20,10 @@ export interface Inajblizszyindexwbaziedat {
 export const DisplayNextTrainings: React.FunctionComponent<
   IDisplayNextTrainings
 > = (props) => {
+  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const t = translations[currentLanguage as "en" | "pl"];
+
+  const locale = currentLanguage === "pl" ? pl : enUS;
   const najblizszyindexwbaziedat = useSearchIndexCloseToday();
 
   const data0napodtsawieindex = useSearchDatesByIndex(
@@ -118,7 +124,7 @@ export const DisplayNextTrainings: React.FunctionComponent<
 
   return (
     <>
-      <p>Najbliższe daty treningów</p>
+      <p>{t.title}</p>
       <div className="trenings">
         {data0napodtsawieindex ? (
           <div
@@ -196,36 +202,3 @@ export const DisplayNextTrainings: React.FunctionComponent<
     </>
   );
 };
-
-// return (
-// <>
-//   <p>Najbliższe daty treningów</p>
-//     <div className="trenings">
-
-//       {data0napodtsawieindex && (
-//         <div className="trening 0" style={{ color: getColor(najblizszyindexwbaziedat) }}>
-//           {/* {data0napodtsawieindex?.toDate().toString()} */}
-//           {format(data0napodtsawieindex.toDate(),'do MMM', {locale: pl})}
-//         </div>
-//       )}
-//       {data1napodtsawieindex && (
-//         <div className="trening 1" style={{ color: getColor(najblizszyindexwbaziedat + 1) }}>
-//           {/* {data1napodtsawieindex?.toDate().toString()} */}
-//           {format(data1napodtsawieindex.toDate(), 'do MMM', {locale: pl})}
-//         </div>
-//       )}
-//       {data2napodtsawieindex && (
-//         <div className="trening 2" style={{ color: getColor(najblizszyindexwbaziedat + 2) }}>
-//           {/* {data2napodtsawieindex?.toDate().toString()} */}
-//           {format(data2napodtsawieindex.toDate(), 'do MMM', {locale: pl})}
-//         </div>
-//       )}
-//       {data3napodtsawieindex && (
-//         <div className="trening 3" style={{ color: getColor(najblizszyindexwbaziedat + 3) }}>
-//           {/* {data3napodtsawieindex?.toDate().toString()} */}
-//           {format(data3napodtsawieindex.toDate(), 'do MMM', {locale: pl})}
-//         </div>
-//       )}
-//     </div>
-//     </>);
-//       }

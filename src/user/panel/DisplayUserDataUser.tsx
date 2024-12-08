@@ -6,6 +6,8 @@ import { UserContext } from "../../utils/auth/UserContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../App";
 import { useSearchDatesPlusN } from "../../utils/hooks/useSearchDatesPlusN";
+import translations from "./displayuserdatauser-translations.ts";
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
 import "./displayUserDataUser.css";
 import { format } from "date-fns";
 export interface IDisplayUserDataUser {}
@@ -32,6 +34,9 @@ export const DisplayUserDataUser: React.FunctionComponent<
   const { currentUser } = useContext(UserContext);
   const dzisIndex = useSearchIndexCloseToday();
   const paymentDateIndex = useSearchDatesPlusN(0, currentUser?.uid);
+
+  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -105,7 +110,10 @@ export const DisplayUserDataUser: React.FunctionComponent<
         <>
           {debt && (
             <div className="debt">
-              <p> zadluzenie {debt} treningów</p>
+              <p>
+                {" "}
+                {t.debt} {debt} {t.sessions}
+              </p>
             </div>
           )}
           <div></div>
@@ -118,39 +126,50 @@ export const DisplayUserDataUser: React.FunctionComponent<
             <>
               {debt && (
                 <div className="debt">
-                  <p> zadluzenie {debt} wejść</p>
+                  <p>
+                    {" "}
+                    {t.debt} {debt} {t.entries}
+                  </p>
                 </div>
               )}
             </>
           )}
-          {isPause && <>{add && <p>dodatkowo: {add} wejścia</p>}</>}
+          {isPause && (
+            <>
+              {add && (
+                <p>
+                  {t.additional}: {add} {t.entries}
+                </p>
+              )}
+            </>
+          )}
         </>
       )}
       {!isPause && !isStop && !isMulti && (
         <div>
           {paymentDateIndex < dzisIndex && (
             <p className="debt">
-              zadłuzenie: {dzisIndex - paymentDateIndex} wejść
+              zadłuzenie: {dzisIndex - paymentDateIndex} {t.entries}
             </p>
           )}
         </div>
       )}
       <br></br> <br></br>
       <button onClick={handleEditDetails} className="btnsmall">
-        {isEdited ? "Zamknij" : "Edytuj szczegóły"}
+        {isEdited ? t.close : t.editDetails}
       </button>
       {isEdited && (
         <>
           {due && (
             <p>
-              należna płatność {format(new Date(due.toMillis()), "dd.MM.yyyy")}
+              {t.duePayment}: {format(new Date(due.toMillis()), "dd.MM.yyyy")}
             </p>
           )}
-          {!isStop && !isPause && <div>status aktywny</div>}
-          {isStop && <p>członkostwo zatrzymane</p>}
-          {isPause && <p>zgłoszona kontuzja</p>}
-          {isPass && <p>uzytkownik karnetu</p>}
-          {isMulti && <p>uzytkownik multi/medicov</p>}
+          {!isStop && !isPause && <div>{t.statusActive}</div>}
+          {isStop && <p>{t.membershipStopped}</p>}
+          {isPause && <p>{t.reportedInjury}</p>}
+          {isPass && <p>{t.passUser}</p>}
+          {isMulti && <p>{t.multiUser}</p>}
         </>
       )}
     </>

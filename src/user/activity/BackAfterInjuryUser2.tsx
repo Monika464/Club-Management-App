@@ -97,11 +97,11 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
 
         if (debtsToSubstract && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex - debtsToSubstract);
-          console.log("newPaymentDateIndex debts ", newPaymentDateIndex);
+          //  console.log("newPaymentDateIndex debts ", newPaymentDateIndex);
         }
         if (treningsToAdd && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex + treningsToAdd);
-          console.log("newPaymentDateIndex add ", newPaymentDateIndex);
+          // console.log("newPaymentDateIndex add ", newPaymentDateIndex);
         }
         if (!debtsToSubstract && !treningsToAdd && dzisIndex) {
           setNewPaymentDateIndex(dzisIndex);
@@ -109,7 +109,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
 
         setNewPaymentDate(calcDatOfNewPay);
         //sprawdz czy tu kalkuluje
-        console.log("calcDatOfNewPay", calcDatOfNewPay);
+        // console.log("calcDatOfNewPay", calcDatOfNewPay);
       }
     };
     calculate();

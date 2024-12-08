@@ -7,6 +7,8 @@ import SetAvatar from "../../utils/components/SetAvatar";
 import ChoosingAvatar from "./ChoosingAvatar";
 import { UserContext } from "../../utils/auth/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
+import translations from "./userprofile-translations";
 
 export interface IUserProfile {}
 
@@ -21,6 +23,9 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
   const { currentUser } = useContext(UserContext);
 
   const navigate = useNavigate();
+
+  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const t = translations[currentLanguage as "en" | "pl"]; // Wybierz tłumaczenia
 
   const handleName = () => {
     const auth = getAuth();
@@ -39,37 +44,6 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
         });
     }
   };
-
-  // const updatingEmail = async ()=>{
-  //   const auth = getAuth();
-  //   const user = auth.currentUser;
-
-  //   if(user){
-
-  //     await updateEmail(user, email).then(() => {
-  //     alert("Email updated!")
-  //     })
-  //     .catch((error) => {
-  //     alert("przed zminą hasła zweryfikuj email. Link został właśnie wysłany na twoją skrzynkę")
-  //     console.error(error)
-  //     veryfyingUser();
-  //     });
-  //    }
-  //   }
-
-  // const veryfyingUser = async() =>{
-  //   const auth = getAuth();
-  // const user = auth.currentUser;
-
-  // if(user){
-  //   sendEmailVerification(user).then(() => {
-  //     console.log("Verification email sent.");
-  //   }).catch((error) => {
-  //     console.error("Error sending verification email:", error);
-  //   });
-  // }
-
-  // }
 
   const [password, setPassword] = useState("");
 
@@ -121,7 +95,10 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
     <>
       <ul>
         <li className="logo">
-          <div className="title">Cześć {auth.currentUser?.displayName}</div>
+          <div className="title">
+            {" "}
+            {t.greeting} {auth.currentUser?.displayName}
+          </div>
           <img
             src={auth.currentUser?.photoURL ?? ""}
             style={{ width: 80 }}
@@ -130,7 +107,7 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
         </li>
 
         <button onClick={handleEdit} className="btnsmall">
-          {isEdited ? "Zamknij" : "Edytuj profil"}
+          {isEdited ? t.closeEditProfile : t.editProfile}
         </button>
       </ul>
       <br></br>
@@ -138,7 +115,7 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
       {isEdited && (
         <ul>
           <li>
-            Wgraj własny avatar
+            {t.uploadAvatar}
             <SetAvatar
               thumbnail={thumbnail}
               setThumbnail={setThumbnail}
@@ -150,14 +127,14 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
             />
             <p>{thumbnailError}</p>
             <br></br>
-            Albo wybierz jeden z dostępnych
+            {t.chooseAvatar}
             <ChoosingAvatar />
             <br></br>
             <br></br>
           </li>
 
           <li>
-            <p>Zmień imię</p>
+            <p>{t.changeName}</p>
             <input
               type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,7 +146,7 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
 
           <li>
             <br></br>
-            <p>Zmień hasło</p>
+            <p>{t.changePassword}</p>
             <input
               type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,14 +154,14 @@ export const UserProfile: React.FunctionComponent<IUserProfile> = () => {
               }}
             />
 
-            <button onClick={updatingPassword}>Uaktualnij</button>
+            <button onClick={updatingPassword}>{t.update}</button>
 
             {/* <button onClick={handleSendPass}>wyslij nowe hasło</button> */}
           </li>
 
           <li>
             <br />
-            <button onClick={showingEmail}>Pokaz twój aktualny email</button>
+            <button onClick={showingEmail}>{t.showEmail}</button>
             {showEmail && currentUser && <p>{currentUser.email?.toString()}</p>}
           </li>
         </ul>

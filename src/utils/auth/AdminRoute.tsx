@@ -16,7 +16,7 @@ const AdminRoute: React.FunctionComponent<IAdminRouteProps> = (props) => {
 
   useEffect(() => {
     const AuthCheckAdmin = onAuthStateChanged(auth, (user) => {
-      console.log("user uid", user?.uid);
+      // console.log("user uid", user?.uid);
 
       if (
         // user?.uid === "Y19J2pywqfd2YKN3zVVGlzYEWR82" ||

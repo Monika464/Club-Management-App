@@ -6,8 +6,12 @@ import { UserProfile } from "./UserProfile";
 import { DisplayUserDataUser } from "./DisplayUserDataUser";
 import { useNavigate } from "react-router-dom";
 import EmailComponent from "../../utils/components/EmailComponent";
-export interface IUserProps {}
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
+import translations from "./userpanel-translations"; // Tłumaczenia
 import "./userpanel.css";
+
+export interface IUserProps {}
+
 import { DisplayNextTrainings } from "./DisplayNextTrainings";
 
 const Userpanel: React.FunctionComponent<IUserProps> = () => {
@@ -18,6 +22,9 @@ const Userpanel: React.FunctionComponent<IUserProps> = () => {
   const handelonmouseover = () => {
     setIsMouseOver(!isMouseOver);
   };
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   return (
     <>
@@ -44,19 +51,19 @@ const Userpanel: React.FunctionComponent<IUserProps> = () => {
             <div className="linkowisko">
               <ul className="linkshape">
                 <li>
-                  <NavLink to="/home">Aktualności</NavLink>
+                  <NavLink to="/home">{t.news}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/archiveuser">Archiwum</NavLink>
+                  <NavLink to="/archiveuser">{t.archive}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/injuryuser">Kontuzja</NavLink>
+                  <NavLink to="/injuryuser">{t.injury}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/membershipuser">Członkostwo</NavLink>
+                  <NavLink to="/membershipuser">{t.membership}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/instruction">Instrukcja</NavLink>
+                  <NavLink to="/instruction">{t.instruction}</NavLink>
                 </li>
               </ul>
             </div>

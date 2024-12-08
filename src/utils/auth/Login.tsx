@@ -1,86 +1,74 @@
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
+import translations from "./login-translations";
 
-import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
-import './Login.css';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-
+import "./Login.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 import { auth } from "../../App";
-import { useIsAdmin } from './useIsAdmin';
-import { UserContext } from './UserContext';
-
-
-export interface IApplicationProps { };
-
+import { useIsAdmin } from "./useIsAdmin";
+import { UserContext } from "./UserContext";
+import { useLanguage } from "../context/LanguageContext.tsx";
+export interface IApplicationProps {}
 
 const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
-
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const { currentUser } = useContext(UserContext);
 
   //console.log('currentUser',currentUser)
   const isAdmin = useIsAdmin(currentUser?.uid);
-  console.log("czy jest admin?", isAdmin)
+  console.log("it is admin", isAdmin);
 
   //const auth = getAuth();
   const navigate = useNavigate();
   const [authing, setAuthing] = useState(false);
 
   const defaultFormFields = {
-    email: '',
-    password: '',
-  }
-
-  const [formFields, setFormFields] = useState(defaultFormFields)
-  const { email, password } = formFields
-  
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-
-    setFormFields({ ...formFields, [name]: value})
-    //console.log("formFields",formFields);
-  }
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
- 
-    // Send the email and password to firebase
-    await signInWithEmailAndPassword(auth, email, password)
-
-      .then((res) => {
-        console.log("res user uid", res.user.uid)
-        useIsAdmin(res.user.uid) ? navigate('/adminpanel') : navigate('/userpanel')
-        setAuthing(true)
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error.toString())
-        setAuthing(false);
-
-      })
-
-
+    email: "",
+    password: "",
   };
 
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
 
+  const { currentLanguage } = useLanguage(); // Pobierz bieżący język
+  const t = translations[currentLanguage as "en" | "pl"]; // Użyj odpowiednich tłumaczeń
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
+    setFormFields({ ...formFields, [name]: value });
+    //console.log("formFields",formFields);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Send the email and password to firebase
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log("res user uid", res.user.uid);
+        useIsAdmin(res.user.uid)
+          ? navigate("/adminpanel")
+          : navigate("/userpanel");
+        setAuthing(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.toString());
+        setAuthing(false);
+      });
+  };
 
   return (
-
-
     <div id="main" className="login-form">
-      <div className='title'>Login</div>
+      <div className="title">{t.login}</div>
 
       <div id="fields">
         <br />
       </div>
 
-
       <form onSubmit={handleSubmit}>
-
         <input
           type="email"
           name="email"
@@ -91,8 +79,8 @@ const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
         />
 
         <input
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           value={password}
           onChange={handleChange}
           placeholder="Password"
@@ -101,21 +89,19 @@ const LoginPage: React.FunctionComponent<IApplicationProps> = () => {
 
         {/*<input id='recaptcha' type="submit" />*/}
         <br />
-        <button className="btn" disabled={authing} >Zaloguj </button>
+        <button className="btn" disabled={authing}>
+          {t.login}{" "}
+        </button>
       </form>
-      <br/>
-      {error && <p>{error.toString().split('Firebase: ')[1]}</p>}
+      <br />
+      {error && <p>{error.toString().split("Firebase: ")[1]}</p>}
 
       {/* <ForgotPass/> */}
-      <Link to={'/forgotpass'} style={{ fontSize: 'small' }}>Nie pamiętam hasła</Link>
-
-
+      <Link to={"/forgotpass"} style={{ fontSize: "small" }}>
+        {t.forgotPassword}
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 export default LoginPage;
-
-
-
-

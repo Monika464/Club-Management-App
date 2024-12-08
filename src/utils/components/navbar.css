@@ -5,11 +5,11 @@
   margin-bottom: 40px;
 }
 .navbar ul {
-  display: flex; 
+  display: flex;
   margin: 0 auto;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 .navbar .logo {
   font-weight: bold;
@@ -31,13 +31,27 @@
   margin-right: 20px;
 }
 
-.navbar a:hover{
+.navbar a:hover {
   color: #888;
 }
 
-.navbar button{
-  
+.navbar button {
 }
+.language-switch {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.language-switch span {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.language-switch .active-language {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 /*
 
 .navbar {
