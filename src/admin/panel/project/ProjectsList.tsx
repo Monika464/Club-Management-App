@@ -3,7 +3,12 @@ import Avatar from "../../../user/panel/Avatar";
 import "./projectList.css";
 import { format } from "date-fns";
 import pl from "date-fns/locale/pl";
+import en from "date-fns/locale/en-US";
+import { useContext } from "react";
 
+import translations from "./projectslist-translation.ts";
+
+import { LanguageContext } from "../../../utils/context/LanguageContext.tsx";
 //export interface IProjectListProps {};
 export interface IDocument {
   assignedUsers: IforSel[] | null;
@@ -50,6 +55,10 @@ export interface IComment {
 
 const ProjectList: React.FunctionComponent<IProjectListProps> = (props) => {
   // const [catDetailAr, setCutDetailsAr] = useState<string[]>("")
+  const { currentLanguage } = useContext(LanguageContext); // Pobieranie bieżącego języka
+  const t = translations[currentLanguage];
+  const locale = currentLanguage === "pl" ? pl : en;
+
   if (props.projects) {
     props.projects
       .filter((project) => project.created_at && project.created_at.toMillis)
@@ -64,25 +73,21 @@ const ProjectList: React.FunctionComponent<IProjectListProps> = (props) => {
     return (
       <div className="project-list">
         {props.projects.length === 0 ? (
-          <p>brak wydarzeń</p>
+          <p>{t.noEvents}</p>
         ) : (
           props.projects.map((project) => (
-            // <div className="petla" key={project.id}>
             <div className="itemL" key={project.id}>
               <ul>
                 <li>
                   <Link to={`/projects/${project.id}`}>
                     <h4>{project.name}</h4>
-                    {/* <p>{`${project.eventdate.toDate().toLocaleDateString('pl-PL')}`}</p> */}
-                    <p style={{ fontSize: "small" }}>{`${format(
-                      new Date(project.eventdate?.toMillis()),
-                      "PPP",
-                      { locale: pl }
-                    )}`}</p>
+                    <p style={{ fontSize: "small" }}>
+                      {format(new Date(project.eventdate?.toMillis()), "PPP", {
+                        locale,
+                      })}
+                    </p>
                   </Link>
                   <div className="details">
-                    {/* <p>{project.details}</p>  */}
-                    {/* <p>{catDetail}</p> */}
                     <p>{project.details && project.details.slice(0, 180)}</p>
                     <Link
                       to={`/projects/${project.id}`}
@@ -91,11 +96,11 @@ const ProjectList: React.FunctionComponent<IProjectListProps> = (props) => {
                         color: "var(--primary-color)",
                       }}
                     >
-                      {"czytaj dalej >>>"}
+                      {t.readMore} {/* Tłumaczenie "czytaj dalej >>>" */}
                     </Link>
                   </div>
                   <Link to={`/projects/${project.id}`}>
-                    <img src={project.photo} alt="photo" className="photo" />
+                    <img src={project.photo} alt="Project" className="photo" />
                   </Link>
                   <div className="assigned-to">
                     <ul>
@@ -121,6 +126,69 @@ const ProjectList: React.FunctionComponent<IProjectListProps> = (props) => {
       </div>
     );
   }
+
+  return null;
+
+  // return (
+  //   <div className="project-list">
+  //     {props.projects.length === 0 ? (
+  //       <p>brak wydarzeń</p>
+  //     ) : (
+  //       props.projects.map((project) => (
+  //         // <div className="petla" key={project.id}>
+  //         <div className="itemL" key={project.id}>
+  //           <ul>
+  //             <li>
+  //               <Link to={`/projects/${project.id}`}>
+  //                 <h4>{project.name}</h4>
+  //                 {/* <p>{`${project.eventdate.toDate().toLocaleDateString('pl-PL')}`}</p> */}
+  //                 <p style={{ fontSize: "small" }}>{`${format(
+  //                   new Date(project.eventdate?.toMillis()),
+  //                   "PPP",
+  //                   { locale: pl }
+  //                 )}`}</p>
+  //               </Link>
+  //               <div className="details">
+  //                 {/* <p>{project.details}</p>  */}
+  //                 {/* <p>{catDetail}</p> */}
+  //                 <p>{project.details && project.details.slice(0, 180)}</p>
+  //                 <Link
+  //                   to={`/projects/${project.id}`}
+  //                   style={{
+  //                     fontSize: "small",
+  //                     color: "var(--primary-color)",
+  //                   }}
+  //                 >
+  //                   {"czytaj dalej >>>"}
+  //                 </Link>
+  //               </div>
+  //               <Link to={`/projects/${project.id}`}>
+  //                 <img src={project.photo} alt="photo" className="photo" />
+  //               </Link>
+  //               <div className="assigned-to">
+  //                 <ul>
+  //                   {project.assignedUsers && (
+  //                     <>
+  //                       {project.assignedUsers.map((user) => (
+  //                         <li key={user.value.id}>
+  //                           <Avatar src={user.value.avatar} />
+  //                           <p>
+  //                             {user.value.name} {user.value.surname}
+  //                           </p>
+  //                         </li>
+  //                       ))}
+  //                     </>
+  //                   )}
+  //                 </ul>
+  //               </div>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       ))
+  //     )}
+  //   </div>
+  // );
+  //}
 };
 
 export default ProjectList;

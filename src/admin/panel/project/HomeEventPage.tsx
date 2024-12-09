@@ -1,6 +1,8 @@
 import useFetchCollectionData from "../../../utils/hooks/useFetchCollections.tsx";
 import ProjectList from "./ProjectsList.tsx";
 import ProjectSingle from "./ProjectSingle.tsx";
+import translations from "./homeeventpage-translation.ts";
+import { useLanguage } from "../../../utils/context/LanguageContext.tsx";
 
 export interface IDocument {
   assignedUsers: IforSel | null;
@@ -47,16 +49,13 @@ export interface IforSel {
 
 const HomeEventPage: React.FunctionComponent = () => {
   const { dataFromCollection, error } = useFetchCollectionData("projects");
-  //const {dataFromCollection: userData, error: userError} = useFetchCollectionData("usersData")
 
-  //       useEffect(()=>{
-
-  //  //console.log("dataFromCollection",dataFromCollection)
-  //   },[dataFromCollection])
+  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const t = translations[currentLanguage as "en" | "pl"];
 
   return (
     <>
-      <h2 className="page-title">Wydarzenia klubowe</h2>
+      <h2 className="page-title">{t.clubevents}</h2>
       {error && <p className="error">{error}</p>}
       {dataFromCollection && <ProjectList projects={dataFromCollection} />}
 

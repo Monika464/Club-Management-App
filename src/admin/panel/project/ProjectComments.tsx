@@ -5,6 +5,8 @@ import { db } from "../../../App";
 import Avatar from "../../../user/panel/Avatar";
 import { format } from "date-fns";
 import dot from "../../../assets/elements/dot.svg";
+import translations from "./projectcomments-translation.ts";
+import { useLanguage } from "../../../utils/context/LanguageContext.tsx";
 
 export interface IDocument {
   toMillis(): string | number | Date;
@@ -77,7 +79,7 @@ const ProjectComments: React.FunctionComponent<ProjectCommentsProps> = (
         await updateDoc(userRef, {
           comments: [...props.project.comments, commentToAdd],
         }).then(() => {
-          console.log("komentarz zapisany");
+          console.log(t.commentsaved);
         });
       }
     };
@@ -98,7 +100,7 @@ const ProjectComments: React.FunctionComponent<ProjectCommentsProps> = (
       await updateDoc(userRef, {
         comments: filteredComments,
       });
-      console.log("Komentarz usunięty");
+      console.log(t.commentremoved);
     }
   };
 
@@ -113,15 +115,14 @@ const ProjectComments: React.FunctionComponent<ProjectCommentsProps> = (
     }
   };
 
-  // (props.project.comments).map((com)=>{
-  //   console.log(com.id, "comid")
-  // })
+  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const t = translations[currentLanguage as "en" | "pl"];
 
   return (
     <div>
       <div className="comments-container">
         <div className="project-comments">
-          {props.project?.comments && <h4>Komentarze</h4>}
+          {props.project?.comments && <h4>{t.comments}</h4>}
           <ul>
             {props.project?.comments &&
               props.project?.comments?.length > 0 &&
@@ -160,14 +161,14 @@ const ProjectComments: React.FunctionComponent<ProjectCommentsProps> = (
               {/* <h4>Project comments</h4> */}
               <form className="add-comment" onSubmit={handleSubmit}>
                 <label>
-                  <span>Skomentuj</span>
+                  <span>{t.comment}</span>
                   <textarea
                     required
                     onChange={(e) => setNewComment(e.target.value)}
                     value={newComment}
                   ></textarea>
                 </label>
-                <button className="btn">Send</button>
+                <button className="btn">{t.send}</button>
               </form>
             </div>
           </div>

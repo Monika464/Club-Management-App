@@ -3,6 +3,11 @@ import Avatar from "../../../user/panel/Avatar";
 import "./project.css";
 import { format } from "date-fns";
 import pl from "date-fns/locale/pl";
+import en from "date-fns/locale/en-US";
+import translations from "./projectsummary-translations.ts";
+import { LanguageContext } from "../../../utils/context/LanguageContext.tsx";
+import { useContext } from "react";
+
 export interface IDocument {
   toMillis(): string | number | Date;
   assignedUsers: IforSel[] | null;
@@ -49,9 +54,9 @@ interface ProjectSummaryProps {
 const ProjectSummary: React.FunctionComponent<ProjectSummaryProps> = (
   props
 ) => {
-  //  props?.project?.assignedUsers?.map((el)=>{
-  // console.log("props.project",el.value.name)
-  // })
+  const { currentLanguage } = useContext(LanguageContext); // Pobieranie bieżącego języka
+  const t = translations[currentLanguage];
+  const locale = currentLanguage === "pl" ? pl : en;
 
   return (
     <div>
@@ -59,7 +64,7 @@ const ProjectSummary: React.FunctionComponent<ProjectSummaryProps> = (
         <div className="project-summary">
           <p>
             <Link to="/home" className="linkback">
-              Aktualności
+              {t.updates}
             </Link>
           </p>
           <h1 className="page-title">{props?.project?.name}</h1>
@@ -71,7 +76,7 @@ const ProjectSummary: React.FunctionComponent<ProjectSummaryProps> = (
                 {format(
                   new Date(props.project?.eventdate.toMillis()),
                   "PP-EEEE",
-                  { locale: pl }
+                  { locale }
                 )}
               </>
             )}
@@ -80,7 +85,7 @@ const ProjectSummary: React.FunctionComponent<ProjectSummaryProps> = (
 
           <img src={props?.project?.photo} className="photo" />
 
-          <h4>Jesteśmy z zawodnikami</h4>
+          <h4>{t.participants}</h4>
 
           <div className="assigned-users">
             <ul>

@@ -35,7 +35,7 @@ export const DisplayUserDataUser: React.FunctionComponent<
   const dzisIndex = useSearchIndexCloseToday();
   const paymentDateIndex = useSearchDatesPlusN(0, currentUser?.uid);
 
-  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const { currentLanguage } = useLanguage();
   const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
