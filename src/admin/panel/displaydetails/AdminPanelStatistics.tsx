@@ -7,6 +7,9 @@ import { db } from "../../../App";
 import { useCallback, useEffect, useState } from "react";
 //import '..Avatar/'
 import Avatar from "./../../../user/panel/Avatar";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./adminpanelstatistics-translations";
+
 import "./../../../user/panel/avatar.css";
 import "./adminPanelStatistics.css";
 
@@ -28,6 +31,8 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
   const usersCollection: CollectionReference<any> = collection(db, "usersData");
 
   const [rendered, setRendered] = useState(false);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -86,7 +91,7 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
           }
         },
         (error) => {
-          console.error("Błąd podczas nasłuchiwania na zmiany:", error);
+          console.error("error during listening changes:", error);
         }
       );
 
@@ -95,7 +100,7 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
         unsub();
       };
     } catch (error) {
-      console.error("Błąd podczas pobierania danych:", error);
+      console.error("Error loading data:", error);
     }
   }, []);
 
@@ -107,7 +112,7 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
     <>
       <br />
       <br />
-      <p className="title">Aktywni </p>
+      <p className="title">{t.active} </p>
       <div className="active-members">
         {activeUsers &&
           activeUsers.map((el, index) => (
@@ -121,7 +126,7 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
       </div>
       <br />
       <br />
-      <p className="title">Kontuzjowani</p>
+      <p className="title">{t.injured}</p>
       <div className="inactive-members">
         {pausingUsers &&
           pausingUsers.map((el, index) => (
@@ -135,7 +140,7 @@ export const AdminPanelStatistics: React.FunctionComponent<IDataItem> = () => {
       </div>
       <br />
       <br />
-      <p className="title">Zrezygnowali</p>
+      <p className="title">{t.resigned}</p>
       <div className="inactive-members">
         {stopingUsers &&
           stopingUsers.map((el, index) => (

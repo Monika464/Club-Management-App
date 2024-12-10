@@ -13,7 +13,8 @@ import { db } from "../../../App";
 import { useSearchDatesPlusN } from "../../../utils/hooks/useSearchDatesPlusN";
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
-
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./userpayments-translations.ts";
 export interface Itest {}
 
 export interface ITimestampObject {
@@ -38,6 +39,9 @@ export const UsersPayments: React.FunctionComponent<Itest> = () => {
   const [isMulti, setIsMulti] = useState<boolean>(false);
   const [name, setName] = useState<string | null>(null);
   const [surname, setSurname] = useState<string | null>(null);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const calculatedIndexOfNewDue = useSearchDatesPlusN(8, chosenUserById);
   const newDate = useSearchDatesByIndex(calculatedIndexOfNewDue);
@@ -75,11 +79,6 @@ export const UsersPayments: React.FunctionComponent<Itest> = () => {
             } else {
               setModifyAdd(8);
             }
-            // jak nie ma debt ani add  to
-
-            //jak w stopie mamy add to dodajemy to do
-            //calculatedIndexOfNewDue
-            //jak debt to od niego odejmujemy
           }
           if (docSnap.data().due) {
             setOldDueDate(docSnap.data().due);
@@ -190,40 +189,50 @@ export const UsersPayments: React.FunctionComponent<Itest> = () => {
       />
 
       <button onClick={checkingFunction} className="btn">
-        Edytuj uzytkownika
+        {t.editUserButton}
       </button>
-      {isMulti && <p>użytkowników Multi ta metoda płatności nie obejmuje</p>}
+      {isMulti && <p>{t.multiUserNotApplicable}</p>}
       {}
-      {/* {newDueDate && !isMulti && <div>
-    <p>Poprzednia data naleznosci: {oldDueDate?.toDate()?.toString()}</p>
-    <p>Nowa data: {newDueDate?.toDate()?.toString()}</p>
-    </div>
-    } */}
+
       {newDueDate && !isMulti && (
         <>
           <div className="archive">
-            <p>Poprzednia data naleznosci: </p>
+            <p>{t.previousDueDate} </p>
             <p>
-              <DateFnsFormat element={oldDueDate} />
+              <DateFnsFormat
+                element={oldDueDate}
+                locale={currentLanguage as "pl" | "en"}
+              />
             </p>
           </div>
 
           <div className="archive">
-            <p>Nowa data naleznosci</p>
+            <p>{t.newDueDate}</p>
             <p>
-              <DateFnsFormat element={newDueDate} />
+              <DateFnsFormat
+                element={newDueDate}
+                locale={currentLanguage as "pl" | "en"}
+              />
             </p>
           </div>
         </>
       )}
-      {modifyDebt && <p>Nowa wartość zadłużenia wyniesie {modifyDebt}</p>}
-      {modifyAdd && <p>Po wpłaceniu będą {modifyAdd} treningi do dodania</p>}
+      {modifyDebt && (
+        <p>
+          {t.newDebtValue} {modifyDebt}
+        </p>
+      )}
+      {modifyAdd && (
+        <p>
+          {t.afterpayment} {modifyAdd} {t.newTrainingsAdded}
+        </p>
+      )}
       <button onClick={handleAccept} className="btn">
-        Zaakceptuj i wyslij
+        {t.acceptAndSendButton}
       </button>
-      {debtSent && <p>Zadłużenie zmodyfikowane</p>}
-      {addSent && <p>Nadpłata zmodyfikowana</p>}
-      {dateSent && <p>Data zmodyfikowana</p>}
+      {debtSent && <p>{t.debtModified}</p>}
+      {addSent && <p>{t.overpaymentModified}</p>}
+      {dateSent && <p>{t.dateModified}</p>}
     </>
   );
 };

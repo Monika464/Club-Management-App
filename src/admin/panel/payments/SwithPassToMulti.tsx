@@ -13,6 +13,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../App";
 import { useSearchDatesPlusN } from "../../../utils/hooks/useSearchDatesPlusN";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./switchpasstomulti-translations";
 
 export interface US {
   value: string | null;
@@ -35,6 +37,9 @@ const SwithPassToMulti: React.FunctionComponent = () => {
   const [switchAdd, setSwitchAdd] = useState<number | null>(null);
   const [isSent, setIsSent] = useState<boolean>(false);
   const [multiReported, setMultiReported] = useState<boolean>(false);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
@@ -151,19 +156,7 @@ const SwithPassToMulti: React.FunctionComponent = () => {
     await addDoc(collection(db, "optionsArchive"), dataToActivityArchive).then(
       () => console.log("archive")
     );
-
-    //zczytywanie danych isera
   };
-
-  //wybierz usera z selecta
-  //edytuj pobierze dane przeksztalcone
-  //kazdego mozna do multi ale jesli mial dług to ten dług zostaje
-  //wyswietla sie jako dlugPass
-  //uzytkownik multi maa wartoc multi: yes
-  //edycja updatuje usera i ustawia wartosc multi na yes,due na null i dlug na dlugpass
-  // tworzy wartosc dlug multi: number
-  //w archiwum zapisuje sie kazdy dzien doliczany do multi
-  //jak i update czyli zmiana z pass na multi
 
   return (
     <div>
@@ -185,23 +178,26 @@ const SwithPassToMulti: React.FunctionComponent = () => {
       />
 
       <button onClick={getAddfromBase} className="btn">
-        skalkuluj sytuacje usera{" "}
+        {t.calculateUserSituation}{" "}
       </button>
-      {switchDebt && <p>jest zadluzenie {switchDebt} treningów </p>}
-      {switchAdd && (
+      {switchDebt && (
         <p>
-          masz nadpłate ktora po zamianie na multi zostanie skasowana{" "}
-          {switchAdd} treningi{" "}
+          {t.debt} {switchDebt} {t.classes}{" "}
         </p>
       )}
-      {stopReported && <p>uzytkownik zawiesił czlonkostwo</p>}
-      {pausaReported && <p>uzytkownik pauzuje z powodu kontuzji</p>}
-      {multiReported && <p>uzytkownik Multisport lub Medicover</p>}
+      {switchAdd && (
+        <p>
+          {t.add} {switchAdd} {t.classes}{" "}
+        </p>
+      )}
+      {stopReported && <p>{t.stopped}</p>}
+      {pausaReported && <p>{t.injuried}</p>}
+      {multiReported && <p>{t.multi}</p>}
 
       <button onClick={handleSwitchToMulti} className="btn">
-        przelacz usera na multi
+        {t.switchToMulti}
       </button>
-      {isSent && <p>uzytkownik teraz multi</p>}
+      {isSent && <p>{t.userNowMulti}</p>}
     </div>
   );
 };

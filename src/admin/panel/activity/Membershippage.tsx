@@ -3,8 +3,13 @@ import { RestoreMembershipAdmin } from "../activity/RestoreMembershipAdmin";
 //import StopMembershipAdmin from "../components/StopMembershipAdmin"
 import StopMembershipAdmin2 from "../activity/StopMembershipAdmin2";
 import { useState } from "react";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./membershippage-translations";
 
 const Membershipage: React.FunctionComponent = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [isReportInjuryBlur, setIsReportInjuryBlur] = useState(false);
   const [isBackAfterInjuryBlur, setIsBackAfterInjuryBlur] = useState(false);
 
@@ -21,7 +26,7 @@ const Membershipage: React.FunctionComponent = () => {
   return (
     <div className="injury-page-container">
       <p className={`title ${isReportInjuryBlur ? "blurred" : ""}`}>
-        Zatrzymaj członkostwo wybranego użytkownika
+        {t.stopMembership}
       </p>
       <div
         className={`component-container ${isReportInjuryBlur ? "blurred" : ""}`}
@@ -34,7 +39,7 @@ const Membershipage: React.FunctionComponent = () => {
       <br></br>
 
       <p className={`title ${isBackAfterInjuryBlur ? "blurred" : ""}`}>
-        Oznacz powrót użytkownika do klubu
+        {t.restoreMembership}
       </p>
       <div
         className={`component-container ${

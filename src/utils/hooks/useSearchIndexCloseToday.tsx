@@ -36,49 +36,31 @@ export const useSearchIndexCloseToday = (): number => {
     //////////////////////////
 
     if (dataFromBase) {
-      // console.log("przykładdatabase", dataFromBase[17].toDate())
-      //console.log("result0", result2.getTime())
-      //console.log(dataFromBase[17].toDate().getTime() === result2.getTime())
-      //console.log('dataFromBase?.length',dataFromBase?.length)
-
       for (let ind = 0; ind < dataFromBase?.length; ind++) {
-        //console.log('dataFromBaseind',dataFromBase[ind].toDate().getTime())
-        // console.log('result2',result2.getTime())
-
         if (result0.getTime() === dataFromBase[ind].toMillis()) {
-          // console.log("jest wynik0")
           setCloseTodaysIndex(ind);
           break;
         } else if (result1.getTime() === dataFromBase[ind].toMillis()) {
-          console.log("jest wynik1");
           setCloseTodaysIndex(ind);
 
           break;
         } else if (result2.getTime() === dataFromBase[ind].toMillis()) {
-          // console.log("jest wynik2")
           setCloseTodaysIndex(ind);
           break;
         } else if (result3.getTime() === dataFromBase[ind].toMillis()) {
-          //  console.log("jest wynik3")
           setCloseTodaysIndex(ind);
           break;
         } else if (result4.getTime() === dataFromBase[ind].toMillis()) {
-          //console.log("jest wynik4")
           setCloseTodaysIndex(ind);
           break;
         } else if (result5.getTime() === dataFromBase[ind].toMillis()) {
-          // console.log("jest wynik5")
           setCloseTodaysIndex(ind);
           break;
         } else if (result6.getTime() === dataFromBase[ind].toMillis()) {
-          //console.log("jest wynik5")
           setCloseTodaysIndex(ind);
           break;
         }
-
-        // else {console.log("nie ma wyniku")}
       }
-      console.log("closeTodaysIndex", closeTodaysIndex);
     }
   }, [dataFromBase]);
 

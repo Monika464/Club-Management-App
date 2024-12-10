@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../../../user/panel/userpanel.css";
 import EmailComponent from "../../../utils/components/EmailComponent.tsx";
 import { AdminPanelStatistics } from "./AdminPanelStatistics.tsx";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./adminpanel-translations";
 
 export interface IDataItem {
   name: string;
@@ -13,6 +15,9 @@ export interface IDataItem {
 }
 
 const Adminpanel: React.FunctionComponent = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const navigate = useNavigate();
 
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -25,7 +30,7 @@ const Adminpanel: React.FunctionComponent = () => {
         <div className="box">
           <div className="zero">
             <div className="profile">
-              <p className="title">Witaj adminie </p>
+              <p className="title">{t.hello}</p>
               <br></br>
               <br></br>
               {/* <img src={mail} onClick={() => navigate('/mailboxadmin')}/>  */}
@@ -46,34 +51,34 @@ const Adminpanel: React.FunctionComponent = () => {
             <div className="linkowisko">
               <ul className="linkshape">
                 <li>
-                  <NavLink to="/home">Wydarzenia</NavLink>
+                  <NavLink to="/home">{t.news}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/create">Dodaj event</NavLink>
+                  <NavLink to="/create">{t.addevent}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/membershipadmin">Rezygnacje</NavLink>
+                  <NavLink to="/membershipadmin">{t.resignation}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/paymentadmin">Płatności</NavLink>
+                  <NavLink to="/paymentadmin">{t.payments}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/injuryadmin">Kontuzje</NavLink>
+                  <NavLink to="/injuryadmin">{t.injuries}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/usersreport">Użytkownicy</NavLink>
+                  <NavLink to="/usersreport">{t.users}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/datespicker">Treningi</NavLink>
+                  <NavLink to="/datespicker">{t.classess}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/attendancelist">Obecność</NavLink>
+                  <NavLink to="/attendancelist">{t.attendance}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/archiveadmin">Archiwum</NavLink>
+                  <NavLink to="/archiveadmin">{t.archive}</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/signup">Nowy użytkownik</NavLink>
+                  <NavLink to="/signup">{t.newUser}</NavLink>
                 </li>
               </ul>
             </div>

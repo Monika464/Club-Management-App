@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import SwitchMultiToPass from "./SwitchMultiToPass";
 import SwithPassToMulti from "./SwithPassToMulti";
 import { UsersPayments } from "./UserPayments";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./paymentadminpage-translations.ts";
 
 const PaymentAdminPage: React.FunctionComponent = () => {
   const [clickedComponent, setClickedComponent] = useState<string | null>(null);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const handleClick = (component: string) => {
     setClickedComponent(component);
@@ -12,7 +16,7 @@ const PaymentAdminPage: React.FunctionComponent = () => {
 
   return (
     <div>
-      <p className="title">Płatności</p>
+      <p className="title">{t.payments}</p>
       <div
         className={`component-container ${
           clickedComponent !== "UsersPayments" ? "blurred" : ""
@@ -24,7 +28,7 @@ const PaymentAdminPage: React.FunctionComponent = () => {
 
       <br></br>
       <br></br>
-      <p className="title">Przełącz użytkownika z multi na karnet</p>
+      <p className="title">{t.switchMultiTopass}</p>
       <div
         className={`component-container ${
           clickedComponent !== "SwitchMultiToPass" ? "blurred" : ""
@@ -36,7 +40,7 @@ const PaymentAdminPage: React.FunctionComponent = () => {
 
       <br></br>
       <br></br>
-      <p className="title">Przełącz użytkownika na karnetu na multi</p>
+      <p className="title">{t.switchPassToMulti}</p>
       <div
         className={`component-container ${
           clickedComponent !== "SwithPassToMulti" ? "blurred" : ""
@@ -50,32 +54,3 @@ const PaymentAdminPage: React.FunctionComponent = () => {
 };
 
 export default PaymentAdminPage;
-
-// import { Link } from "react-router-dom"
-// import SwitchMultiToPass from "../components/SwitchMultiToPass"
-// import SwithPassToMulti from "../components/SwithPassToMulti"
-// import { UsersPayments } from "../components/UserPayments"
-
-// const PaymentAdminPage: React.FunctionComponent =() => {
-
-//     return(
-
-//         <div>
-//            Płatności
-//            <br></br>
-//             <UsersPayments/>
-//             <br></br> <br></br><br></br>
-// Przełącz użytkownika z multi na karnet
-// <SwitchMultiToPass/>
-// <br></br> <br></br>
-
-// Przełącz użytkownika na karnetu na multi
-// <SwithPassToMulti/>
-// <br></br> <br></br>
-
-//     </div>
-//     )
-
-// }
-
-// export default PaymentAdminPage

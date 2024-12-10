@@ -40,10 +40,10 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
   useEffect(() => {
     const timer = setTimeout(() => {
       setRendered(true);
-    }, 1000); // 1000 milisekund = 1 sekunda
+    }, 1000);
 
     return () => {
-      clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
+      clearTimeout(timer);
     };
   }, []);
 
@@ -124,10 +124,6 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
     setName(null);
     setSurname(null);
   }, []);
-
-  ///
-  console.log("dzis index", dzisIndex);
-  console.log("payment dayindex", paymentDateIndex);
 
   return (
     <div>

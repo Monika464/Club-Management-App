@@ -13,7 +13,8 @@ import {
 import { db } from "../../../App";
 import Select from "react-select";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
-
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./switchmultitopass-translations";
 //data do zatwierdzenia cofke sie o sume tych debt wzgledem daty wybranej rozpoczecia
 export interface US {
   value: string;
@@ -26,14 +27,15 @@ export interface IDateObject {
 }
 
 const SwitchMultiToPass: React.FunctionComponent = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [newUsersList, setNewUsersList] = useState<US[]>([]);
   const [chosenUserId, setChosenUserId] = useState<string | null>(null);
-  // const [chosenUserByIdLabel, setChosenUserByIdLabel] = useState<string | null>(null);
+
   const [name, setName] = useState<string | null>(null);
   const [surname, setSurname] = useState<string | null>(null);
-  //console.log("newUserList",newUsersList)
-  //const [stopReported, setStopReported] = useState<boolean>(false)
-  //const [pausaReported, setPausaReported] = useState<boolean>(false)
+
   const [multiReported, setMultiReported] = useState<boolean>(false);
   const [hasDebt, setHasDebt] = useState<number | null>(null);
   const [newPaymentDateIndex, setNewPaymentDateIndex] = useState<number | null>(
@@ -66,9 +68,8 @@ const SwitchMultiToPass: React.FunctionComponent = () => {
             label: userModForSelect[i].label,
           });
         }
-
-        setNewUsersList(usersToAdd);
       }
+      setNewUsersList(usersToAdd);
     };
 
     fetchData();
@@ -84,14 +85,6 @@ const SwitchMultiToPass: React.FunctionComponent = () => {
       if (docSnap.exists()) {
         setName(docSnap.data().name);
         setSurname(docSnap.data().surname);
-
-        //jesli mamy stop
-        // if(docSnap.data().stop){
-        //setStopReported(true)
-        // }
-        // if(docSnap.data().pause){
-        // setPausaReported(true)
-        //}
 
         if (docSnap.data().optionMulti) {
           setMultiReported(true);
@@ -142,10 +135,17 @@ const SwitchMultiToPass: React.FunctionComponent = () => {
   const handleSwitchToPass = async () => {
     const paymentDataRef = doc(db, "usersData", chosenUserId!);
 
+    // await updateDoc(paymentDataRef, {
+    //   optionMulti: false,
+    //   optionPass: true,
+    //   debt: hasDebt,
+    //   due: calcDatOfNewPay,
+    // })
+
     await updateDoc(paymentDataRef, {
       optionMulti: false,
       optionPass: true,
-      debt: hasDebt,
+      debt: null,
       due: calcDatOfNewPay,
     })
       .then(() => console.log("now pass user"))
@@ -168,31 +168,33 @@ const SwitchMultiToPass: React.FunctionComponent = () => {
           if (choice && choice.value) {
             setChosenUserId(choice.value);
           }
-          //setChosenUserByIdLabel(choice.label);
-          //setIsPausa(false);
+
           setNewPaymentDate(null);
           setIsCalculating(false);
         }}
       />
       {/*<p>{chosenUserByIdLabel}</p>*/}
       <button onClick={getAddfromBase} className="btn">
-        skalkuluj sytuacje usera{" "}
+        {t.calculateUserSituation}{" "}
       </button>
       <br></br>
 
       {newPaymentDate && isCalculating && (
         <div className="archive">
-          <p>nalezność od</p>
+          <p>{t.debtFrom}</p>
           <p>
-            <DateFnsFormat element={newPaymentDate} />
+            <DateFnsFormat
+              element={newPaymentDate}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
 
       <button onClick={handleSwitchToPass} className="btn">
-        przelacz usera na pass
+        {t.switchToPass}s
       </button>
-      {isSent && <p>uzytkownik teraz pass</p>}
+      {isSent && <p>{t.userNowPass}</p>}
     </div>
   );
 };
