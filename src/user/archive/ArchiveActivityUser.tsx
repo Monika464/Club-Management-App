@@ -3,6 +3,8 @@ import { UserContext } from "../../utils/auth/UserContext";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../App";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
+import translations from "./archiveactivityuser-translations.ts";
 
 export interface IArchiveActivityUser {}
 
@@ -39,6 +41,8 @@ export const ArchiveActivityUser: React.FunctionComponent<
   const [timestampArr4, setTimestampsArr4] = useState<ItimestampArr4[]>([]);
 
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const getArchiveDatafromBase = useCallback(async () => {
     const getfromBase1 = async () => {
@@ -177,18 +181,18 @@ export const ArchiveActivityUser: React.FunctionComponent<
     <>
       <br></br>
       <br></br>
-      <p className="title">Historia aktywności</p>
+      <p className="title">{t.activityHistory}</p>
       <ol>
         {timestampArr1 &&
           timestampArr1.map((elem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>pauza zgłoszona dnia: </p>
+                <p>{t.pauseReported} </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
                 <p>
-                  od: <DateFnsFormat element={elem.pausaData} />
+                  {t.from} <DateFnsFormat element={elem.pausaData} />
                 </p>
               </div>
             </li>
@@ -198,12 +202,12 @@ export const ArchiveActivityUser: React.FunctionComponent<
           timestampArr2.map((elem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>powrót po kontuzji zgłoszony dnia: </p>
+                <p>{t.returnReported} </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
                 <p>
-                  od: <DateFnsFormat element={elem.returnData} />
+                  {t.from} <DateFnsFormat element={elem.returnData} />
                 </p>
               </div>
             </li>
@@ -213,12 +217,12 @@ export const ArchiveActivityUser: React.FunctionComponent<
           timestampArr3.map((elem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>Zawieszenie członkowstwa dnia: </p>
+                <p>{t.membershipSuspended} </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
                 <p>
-                  od: <DateFnsFormat element={elem.stopData} />
+                  {t.from} <DateFnsFormat element={elem.stopData} />
                 </p>
               </div>
             </li>
@@ -228,12 +232,12 @@ export const ArchiveActivityUser: React.FunctionComponent<
           timestampArr4.map((elem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>powrót do klubu zgłoszony dnia: </p>
+                <p>{t.clubReturnReported} </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
                 <p>
-                  od: <DateFnsFormat element={elem.restartData} />
+                  {t.from} <DateFnsFormat element={elem.restartData} />
                 </p>
               </div>
             </li>

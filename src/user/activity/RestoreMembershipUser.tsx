@@ -13,9 +13,14 @@ import { useSearchIndexCloseToday } from "../../utils/hooks/useSearchIndexCloseT
 import { useSearchDatesByIndex } from "../../utils/hooks/useSearchDatesByIndex";
 import { useNavigate } from "react-router-dom";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./restoremembershipuser-translations";
 
 export const RestoreMembershipUser: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [name, setName] = useState<string | null>(null);
   const [surname, setSurname] = useState<string | null>(null);
   const [debt, setDebt] = useState<number | null>(null);
@@ -36,7 +41,7 @@ export const RestoreMembershipUser: React.FunctionComponent = () => {
     }, 1000); // 1000 milisekund = 1 sekunda
 
     return () => {
-      clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
+      clearTimeout(timer);
     };
   }, []);
 
@@ -182,28 +187,36 @@ export const RestoreMembershipUser: React.FunctionComponent = () => {
     <div>
       {stopDateFromBase && (
         <div className="archive">
-          <p>Treningi zatrzymane od: </p>
+          <p>t.membershipStoppedSince </p>
           <p>
-            <DateFnsFormat element={stopDateFromBase} />
+            <DateFnsFormat
+              element={stopDateFromBase}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
       {isStop && (
         <div className="archive">
-          <p>Czy planujesz powrót w najbliższym terminie </p>
+          <p>{t.planReturnDate}</p>
           <p>
-            <DateFnsFormat element={dzisData} /> ?
+            <DateFnsFormat
+              element={dzisData}
+              locale={currentLanguage as "pl" | "en"}
+            />{" "}
+            ?
           </p>
         </div>
       )}
-      {debt && <p>Masz do spłaty zadłużenie wysokosci: {debt} treningów</p>}
+      {/* {debt && <p>Masz do spłaty zadłużenie wysokosci: {debt} treningów</p>} */}
+      {debt && <p>{t.debt.replace("{debt}", debt.toString())}</p>}
       <br></br>
       {isStop && (
         <button onClick={sendToBase} className="btn">
-          Potwierdzam powrót
+          {t.confirmReturn}
         </button>
       )}
-      {isSent && <p>wyslano</p>}
+      {isSent && <p>{t.sent}</p>}
     </div>
   );
 };

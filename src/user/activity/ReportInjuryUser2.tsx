@@ -14,6 +14,8 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./reportinjuryuser-translations";
 
 export interface IdateObj {
   seconds: number;
@@ -22,6 +24,8 @@ export interface IdateObj {
 
 export const ReportInjuryUser2: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const paymentDateIndex = useSearchDatesPlusN(0, currentUser?.uid);
   //console.log('paymentDateIndex',paymentDateIndex)
@@ -170,21 +174,25 @@ export const ReportInjuryUser2: React.FunctionComponent = () => {
       {/* {pausaDate && !pausaReported && !stopReported && <p>Treningi zostana zawieszone: {pausaDate?.toDate()?.toString()}</p>} */}
       {pausaDate && !pausaReported && !stopReported && (
         <div className="archive">
-          <p>Treningi zostana zawieszone: </p>
+          <p>{t.trainingPauseStartDate}: </p>
           <p>
             <DateFnsFormat element={pausaDate} />
           </p>
         </div>
       )}
       {pausaDebt && !pausaReported && !stopReported && (
-        <p>istniejące zadłużenie: {pausaDebt} treningów.</p>
+        // <p>istniejące zadłużenie: {pausaDebt} treningów.</p>
+        <p>{t.existingDebt.replace("{debt}", pausaDebt.toString())}</p>
       )}
       {pausaAdd && !pausaReported && !stopReported && (
-        <p>pozostało opłaconych: {pausaAdd} treningów</p>
+        // <p>pozostało opłaconych: {pausaAdd} treningów</p>
+        <p>
+          {t.remainingPaidSessions.replace("{sessions}", pausaAdd.toString())}
+        </p>
       )}
       {pausaDate && !pausaReported && !stopReported && (
         <div>
-          Uzupelnij formularz wspisując powód zawieszenia
+          {t.fillFormReason}
           <br></br>
           <br></br>
           {/* <input */}
@@ -193,13 +201,13 @@ export const ReportInjuryUser2: React.FunctionComponent = () => {
             name="text"
             value={injuryDescription}
             onChange={handleDescriptInj}
-            placeholder="Co się stało?"
+            placeholder={t.whatHappened}
             required
           />
           <button onClick={sendStopToBase} className="btn">
-            Wyślij{" "}
+            {t.send}
           </button>
-          {isSent && <p>wyslano</p>}
+          {isSent && <p>{t.send}</p>}
         </div>
       )}
 

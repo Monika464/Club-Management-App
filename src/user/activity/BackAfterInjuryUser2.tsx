@@ -14,6 +14,9 @@ import { useSearchDatesByIndex } from "../../utils/hooks/useSearchDatesByIndex";
 import { useNavigate } from "react-router-dom";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
 
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./backafterinjuryuser-translations";
+
 export interface Itest {}
 
 export interface IdateObj {
@@ -23,6 +26,9 @@ export interface IdateObj {
 
 export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const [treningsToAdd, setTreningsToAdd] = useState<number | null>(null);
   const [debtsToSubstract, setDebtsToSubstract] = useState<number | null>(null);
@@ -41,19 +47,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
 
-  //const [rendered, setRendered] = useState(false);
-
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setRendered(true);
-  //   }, 1000); // 1000 milisekund = 1 sekunda
-
-  //   return () => {
-  //     clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
-  //   };
-  // }, []);
 
   const calcDatOfNewPay = useSearchDatesByIndex(newPaymentDateIndex);
 
@@ -117,7 +111,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
 
   // console.log("dzisData",dzisData, name, surname,newPaymentDateIndex,debtsToSubstract )
 
-  console.log("newPaymentDate", newPaymentDate);
+  //console.log("newPaymentDate", newPaymentDate);
 
   const pushToBaseNewDueDay = async () => {
     // console.log("czy sie wczytuje?",isMulti, isPass)
@@ -139,7 +133,7 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
         })
           .then(() => console.log("you are back. update succesful"))
           .then(() => setisSent(true))
-          .then(() => alert("powrót do treningów zapisany"))
+          .then(() => alert(t.trainingReturnSaved))
           .then(() => navigate("/userpanel"));
 
         await addDoc(collection(db, "activitiArchive"), dataToActivityArchive);
@@ -153,12 +147,12 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
           pause: null,
         })
           .then(() => {
-            console.log("powrot do treningów nowa płatnosc zapisana");
+            console.log(t.trainingReturnSaved);
           })
           .then(() => {
             setisSent(true);
           })
-          .then(() => alert("powrót do treningów zapisany"))
+          .then(() => alert(t.trainingReturnSaved))
           .then(() => navigate("/userpanel"));
 
         //kopia do archive
@@ -174,19 +168,26 @@ export const BackAfterInjuryUser2: React.FunctionComponent<Itest> = () => {
     <>
       {newPaymentDate && (
         <div className="archive">
-          <p>Jeśli chcesz wrócic do treningów: </p>
           <p>
-            <DateFnsFormat element={dzisData} /> zatwierdź
+            {t.trainingReturnStart}{" "}
+            <DateFnsFormat
+              element={dzisData}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
+          {/* <p>{t.trainingReturnStart} </p>
+          <p>
+            <DateFnsFormat element={dzisData} /> {t.confirm}
+          </p> */}
         </div>
       )}
       <br></br>
       {!isSent && currentUserPausaDate && (
         <button onClick={pushToBaseNewDueDay} className="btn">
-          Zatwierdz powrot
+          {t.confirmReturn}
         </button>
       )}
-      {isSent && <p>wyslano</p>}
+      {isSent && <p>{t.sent}</p>}
       {/* <button onClick={calculate}>caculate</button> */}
     </>
   );

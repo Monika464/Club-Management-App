@@ -14,6 +14,8 @@ import { useSearchDatesPlusN } from "../../utils/hooks/useSearchDatesPlusN";
 import { useSearchDatesByIndex } from "../../utils/hooks/useSearchDatesByIndex";
 import { useNavigate } from "react-router-dom";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./stopmembershipuser-translations";
 
 export interface IdateObj {
   seconds: number;
@@ -23,6 +25,8 @@ export interface IdateObj {
 
 const StopMembershipUser2: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
   const [isSent, setisSent] = useState<boolean>(false);
 
   // const [currentUserPausaDate, setCurrentUserPausaDate] =
@@ -147,7 +151,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
           .then(() => console.log("stop date update succesful"))
           .then(() => setStopDate(null))
           .then(() => setisSent(true))
-          .then(() => alert("rezygnacja zapisana"))
+          .then(() => alert(t.stopSaved))
           .then(() => navigate("/userpanel"));
       }
 
@@ -163,7 +167,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
           .then(() => setStopDate(null))
           .then(() => setisSent(true))
           .then(() => setFinalDebt(null))
-          .then(() => alert("rezygnacja zapisana"))
+          .then(() => alert(t.stopSaved))
           .then(() => navigate("/userpanel"));
       }
 
@@ -182,7 +186,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
             .then(() => setStopDate(null))
             .then(() => setisSent(true))
             .then(() => setFinalDebt(null))
-            .then(() => alert("rezygnacja zapisana"))
+            .then(() => alert(t.stopSaved))
             .then(() => navigate("/userpanel"));
         } else {
           await updateDoc(userDataRef, {
@@ -196,7 +200,7 @@ const StopMembershipUser2: React.FunctionComponent = () => {
             .then(() => console.log("stop date for passuser update succesful"))
             .then(() => setStopDate(null))
             .then(() => setisSent(true))
-            .then(() => alert("rezygnacja zapisana"))
+            .then(() => alert(t.stopSaved))
             .then(() => navigate("/userpanel"));
         }
       }
@@ -207,44 +211,43 @@ const StopMembershipUser2: React.FunctionComponent = () => {
 
   return (
     <div>
-      {pausaReported && (
-        <p>Pauzujacy użytkownik rezygnuje dzis z członkostwa</p>
-      )}
+      {pausaReported && <p>{t.pausingUser}</p>}
       {!stopReported &&
         (dzisIndex >= paymentDateIndex ||
           paymentDateIndex === (null || undefined)) && (
           <div className="archive">
+            <p>{t.confirmStopTraining}</p>
             <p>
-              Czy na pewno chcesz zakończyć uczestnictwo w treningach? Treningi
-              zostana zakonczone:{" "}
-            </p>
-            <p>
-              <DateFnsFormat element={dzisData} />
+              <DateFnsFormat
+                element={dzisData}
+                locale={currentLanguage as "pl" | "en"}
+              />
             </p>
           </div>
         )}
       {dzisIndex < paymentDateIndex && !stopReported && dueDate && (
         <div className="archive">
+          <p>{t.confirmStopTraining}</p>
           <p>
-            Czy na pewno chcesz zakończyć uczestnictwo w treningach? Treningi
-            zostana zakonczone:{" "}
-          </p>
-          <p>
-            <DateFnsFormat element={dueDate} />
+            <DateFnsFormat
+              element={dueDate}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
 
       {!stopReported && finalDebt && (
-        <p>istniejące zadłużenie: {finalDebt} treningów</p>
+        <p>{t.existingDebt.replace("{debt}", finalDebt.toString())}</p>
+        // <p>istniejące zadłużenie: {finalDebt} treningów</p>
       )}
       <br></br>
       {!stopReported && (
         <button onClick={sendStopToBase} className="btn">
-          Potwierdż
+          {t.confirm}
         </button>
       )}
-      {isSent && <p>wyslano</p>}
+      {isSent && <p>{t.sent}</p>}
     </div>
   );
 };

@@ -3,14 +3,10 @@ import { UserContext } from "../../utils/auth/UserContext";
 import { db } from "../../App";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import DateFnsFormat from "../../utils/components/DateFnsFormat";
-
+import { useLanguage } from "../../utils/context/LanguageContext.tsx";
+import translations from "./archiveuserpayment-translations.ts";
 export interface IArchiveUserPayment {}
-// export interface ItimestampArr {
-//   created_at: Date;
-//   kto: string;
 
-//   userUid: string;
-//}
 export interface IPaymentItem {
   due: Date;
   id: string;
@@ -23,6 +19,8 @@ export interface IPaymentItem {
 const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
   const { currentUser } = useContext(UserContext);
   const [paymentsArr, setPaymentsArr] = useState<IPaymentItem[]>([]);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const getArchivePayfromBase = useCallback(async () => {
     const getfromBase = async () => {
@@ -70,25 +68,28 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
 
   return (
     <div>
-      <p className="title">Historia płatności</p>
+      <p className="title">t.paymentHistory</p>
       <ol>
         {paymentsArr &&
           paymentsArr.map((elem) => (
             <li key={elem.id}>
               {/* płatność dnia: {elem.time.toDate().toString()} */}
               <div className="archive">
-                <p>płatność dnia: </p>
+                <p>{t.paymentDate} </p>
                 <p>
                   <DateFnsFormat element={elem.time} />
                 </p>
                 {/* <p>za: {elem.trenings} treningów</p> */}
-                <p>Kolejna należność oczekiwana po tej płatności:</p>
+                <p>{t.nextPaymentDue}</p>
                 <p>
                   <DateFnsFormat element={elem.due} />
                 </p>
                 {elem.prevdebt && (
                   <div>
-                    <p>zadłuzenie: {elem.prevdebt} </p>
+                    <p>
+                      {" "}
+                      {t.previousDebt}: {elem.prevdebt}{" "}
+                    </p>
                   </div>
                 )}
 

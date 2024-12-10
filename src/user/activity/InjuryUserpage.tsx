@@ -6,9 +6,14 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../utils/auth/UserContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../App";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./injuryuserpage-translations.ts";
 
 const InjuryUserpage: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [stopReported, setStopReported] = useState<boolean>(false);
   const [pausaReported, setPausaReported] = useState<boolean>(false);
 
@@ -43,13 +48,9 @@ const InjuryUserpage: React.FunctionComponent = () => {
 
   return (
     <div>
-      {stopReported && (
-        <p className="titleAlert">Twoje treningi są juz zakończone</p>
-      )}
+      {stopReported && <p className="titleAlert">{t.trainingEnded}</p>}
       {!stopReported && !pausaReported && (
-        <p className="title">
-          Jeżeli chcesz zgłosić kontuzję lub chorobe kliknij poniżej
-        </p>
+        <p className="title">{t.reportInjuryOrIllness}</p>
       )}
 
       <div className="mem-page-container">
@@ -62,10 +63,10 @@ const InjuryUserpage: React.FunctionComponent = () => {
         </div>
       </div>
       {pausaReported && (
-        <p className="titleAlert">Treningi sa zawieszone z powodu kontuzji</p>
+        <p className="titleAlert">{t.trainingPausedDueToInjury}</p>
       )}
       {!stopReported && pausaReported && (
-        <p className="title">Jeżeli chcesz zgłosić powrót kliknij poniżej</p>
+        <p className="title">{t.reportReturn}</p>
       )}
 
       <div className="mem-page-container">

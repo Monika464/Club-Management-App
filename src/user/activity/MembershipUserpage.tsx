@@ -6,9 +6,14 @@ import { UserContext } from "../../utils/auth/UserContext";
 import { RestoreMembershipUser } from "./RestoreMembershipUser";
 //import StopMembershipUser from "../components/stop/StopMembershipUser";
 import StopMembershipUser2 from "./StopmembershipUser2";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./membershipuserpage-translation";
 
 const MembershiUserpage: React.FunctionComponent = () => {
   const { currentUser } = useContext(UserContext);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [stopReported, setStopReported] = useState<boolean>(false);
   //const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
 
@@ -44,12 +49,7 @@ const MembershiUserpage: React.FunctionComponent = () => {
 
   return (
     <div>
-      {!stopReported && (
-        <p className="title">
-          Jeżeli chcesz zatrzymać treningi z końcem opłaconego okresu, kliknij
-          poniżej
-        </p>
-      )}
+      {!stopReported && <p className="title">{t.ifYouWantToStop}</p>}
 
       <div className="mem-page-container">
         <p className={`title ${isReportMemBlur ? "blurred" : ""}`}></p>
@@ -63,12 +63,8 @@ const MembershiUserpage: React.FunctionComponent = () => {
       </div>
 
       <br />
-      {stopReported && (
-        <p className="titleAlert">Twoje treningi są juz zakończone</p>
-      )}
-      {stopReported && (
-        <p className="title"> Jeśli chcesz zgłosić powrót, kliknij poniżej</p>
-      )}
+      {stopReported && <p className="titleAlert">{t.yourTrainingsEnded}</p>}
+      {stopReported && <p className="title"> {t.ifYouWantToReturn}</p>}
 
       <div className="mem-page-container">
         <p className={`title ${isReportMemBlur ? "blurred" : ""}`}></p>
@@ -83,46 +79,4 @@ const MembershiUserpage: React.FunctionComponent = () => {
   );
 };
 
-// const MembershiUserpage: React.FunctionComponent = () => {
-//     const { currentUser } = useContext(UserContext);
-//     const [stopReported, setStopReported] = useState<boolean>(false);
-//     const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
-
-//     const checkingFunc = async () => {
-//         if (currentUser) {
-//             const userRef = doc(db, "usersData", currentUser?.uid);
-//             const docSnap = await getDoc(userRef);
-
-//             if (docSnap.exists()) {
-//                 if (docSnap.data().stop) {
-//                     setStopReported(true);
-//                 }
-//             }
-//         }
-//     };
-
-//     useEffect(() => {
-//         checkingFunc();
-//     }, [db, currentUser]);
-
-//     const handleStopClick = () => {
-//         setSelectedComponent("StopMembershipUser");
-//     };
-
-//     const handleRestoreClick = () => {
-//         setSelectedComponent("RestoreMembershipUser");
-//     };
-
-//     return (
-//         <div>
-//             {!stopReported && <p className="title">Jeżeli chcesz zatrzymać treningi z końcem opłaconego okresu, kliknij poniżej</p>}
-//             <StopMembershipUser className={`component-container ${selectedComponent === "StopMembershipUser" ? "" : "blurred"}`} onClick={handleStopClick}/>
-
-//             <br />
-
-//             {stopReported && <p className="title">Twoje treningi są zatrzymane. Jeśli chcesz zgłosić powrót, kliknij poniżej</p>}
-//             <RestoreMembershipUser className={`component-container ${selectedComponent === "RestoreMembershipUser" ? "blurred" : ""}`} onClick={handleRestoreClick} />
-//         </div>
-//     );
-// };
 export default MembershiUserpage;

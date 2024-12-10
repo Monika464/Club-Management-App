@@ -20,7 +20,7 @@ export interface Inajblizszyindexwbaziedat {
 export const DisplayNextTrainings: React.FunctionComponent<
   IDisplayNextTrainings
 > = (props) => {
-  const { currentLanguage } = useLanguage(); // Pobierz aktualny język
+  const { currentLanguage } = useLanguage();
   const t = translations[currentLanguage as "en" | "pl"];
 
   const locale = currentLanguage === "pl" ? pl : enUS;

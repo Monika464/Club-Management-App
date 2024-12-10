@@ -1,10 +1,19 @@
 import { format } from "date-fns";
-import { pl } from "date-fns/locale";
+import { pl, enUS } from "date-fns/locale";
 
 export interface IDateFnsFormatProps {
   element: Date | any;
+  locale: "pl" | "en";
 }
+// const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = ({
+//   element,
+//   locale,
+// }) => {
+//   if (!element) return null;
 
+//   const locales = { pl, en: enUS }; // Mapuj języki
+//   return <span>{format(element, "PPP", { locale: locales[locale] })}</span>;
+// };
 const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = (props) => {
   const date =
     props.element instanceof Date
@@ -12,8 +21,15 @@ const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = (props) => {
       : props.element?.toDate
       ? props.element.toDate()
       : null;
+  if (!date) return null;
 
-  return <>{date && format(date, "PPP", { locale: pl })}</>;
+  // Mapowanie lokalizacji na `date-fns` locale
+  const locales = { pl, en: enUS };
+
+  // Zwróć sformatowaną datę z odpowiednią lokalizacją
+  return <>{format(date, "PPP", { locale: locales[props.locale] })}</>;
+
+  // return <>{date && format(date, "PPP", { locale: pl })}</>;
 };
 
 export default DateFnsFormat;
