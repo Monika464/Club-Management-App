@@ -1,11 +1,15 @@
-//import { Link } from "react-router-dom"
-//import { BackAfterInjury } from "../components/stop/BackAfterInjuryAdmin"
 import { BackAfterInjuryAdmin2 } from "../activity/BackAfterInjuryAdmin2";
 import ReportInjuryAdmin2 from "../activity/ReportInjuryAdmin2";
 import "../pages/adminBlurredpages.css";
 import { useState } from "react";
 
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./injurypage-translations";
+
 const Injurypage: React.FunctionComponent = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [isReportInjuryBlur, setIsReportInjuryBlur] = useState(false);
   const [isBackAfterInjuryBlur, setIsBackAfterInjuryBlur] = useState(false);
 
@@ -22,7 +26,7 @@ const Injurypage: React.FunctionComponent = () => {
   return (
     <div className="injury-page-container">
       <p className={`title ${isReportInjuryBlur ? "blurred" : ""}`}>
-        Oznacz kontuzję użytkownika
+        {t.reportInjury}
       </p>
       <div
         className={`component-container ${isReportInjuryBlur ? "blurred" : ""}`}
@@ -35,7 +39,7 @@ const Injurypage: React.FunctionComponent = () => {
       <br></br>
 
       <p className={`title ${isBackAfterInjuryBlur ? "blurred" : ""}`}>
-        Oznacz powrót użytkownika po kontuzji
+        {t.backAfterInjury}
       </p>
       <div
         className={`component-container ${
@@ -48,22 +52,5 @@ const Injurypage: React.FunctionComponent = () => {
     </div>
   );
 };
-
-// const Injurypage: React.FunctionComponent =() => {
-
-//     return(
-
-//         <div>
-//           <p className="title"> Oznacz kontuzję użytkownika</p>
-//             <ReportInjuryAdmin2/>
-
-// <br></br><br></br>
-// <p className="title"> Oznacz powrót uzytkownika po kontuzji</p>
-//             <BackAfterInjuryAdmin2/>
-
-//         </div>
-//     )
-
-// }
 
 export default Injurypage;

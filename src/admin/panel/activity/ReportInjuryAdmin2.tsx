@@ -14,6 +14,8 @@ import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexClo
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 import Select from "react-select";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./reportinjuryadmin-translations";
 
 export interface US {
   value: string | null;
@@ -32,13 +34,9 @@ export interface IdateObj {
 
 const ReportInjuryAdmin2: React.FunctionComponent = () => {
   const [newUsersList, setNewUsersList] = useState<US[]>([]);
-  // const paymentDateIndex  = useSearchDatesPlusN(0, chosenUserId);
 
   const userModForSelect = useModUsersForSelect();
   const [chosenUserId, setChosenUserId] = useState<string | null>(null);
-  //const [chosenUserByIdLabel, setChosenUserByIdLabel] = useState<string | null>(null);
-  //const [name, setName] = useState("")
-  //const [surname, setSurname] = useState("");
   const [stopReported, setStopReported] = useState<boolean>(false);
   const [pausaReported, setPausaReported] = useState<boolean>(false);
   const [pausaDate, setPausaDate] = useState<IdateObj | null>();
@@ -50,21 +48,13 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
   );
   const [archiveName, setArchiveName] = useState<string | null>("");
   const [isMulti, setIsMulti] = useState<boolean>(false);
-  //const [rendered, setRendered] = useState(false);
 
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
   const paymentDateIndex = useSearchDatesPlusN(0, chosenUserId);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setRendered(true);
-  //   }, 1000); // 1000 milisekund = 1 sekunda
-
-  //   return () => {
-  //     clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
-  //   };
-  // }, []);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +77,7 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
             }
           }
         }
-        setNewUsersList(usersToAdd); // Aktualizuj stan tablicy
+        setNewUsersList(usersToAdd);
       }
     };
 
@@ -96,63 +86,20 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
     // console.log('newUsersList',newUsersList)
   }, [db, useModUsersForSelect, dzisData]);
 
-  // //ustawienie imienia i nazwiska
-  // useEffect(()=>{
-
-  //   if(db && chosenUserId){
-  //   const userRef = doc(db, "usersData",chosenUserId);
-  //   const getName =async()=>{
-
-  //     const docSnap = await getDoc(userRef);
-  //     console.log("snaaap",docSnap.data())
-
-  //   }
-  //   getName();
-  // }
-
-  // },[chosenUserId,db])
-  //setting name
-  // useEffect(()=>{
-
-  //     const settingName = async ()=>{
-
-  //         if(chosenUserId){
-  //           const userRef = doc(db, "usersData",chosenUserId);
-  //           const docSnap = await getDoc(userRef);
-
-  //               if (docSnap.exists()) {
-  //                 console.log("w snapie",docSnap.data().name)
-  //                 setName(docSnap.data().name);
-  //                 setSurname(docSnap.data().surname);
-  //                } else{
-  //                 console.log("snap nie istnieje")
-  //                }
-  //          }
-
-  //       }
-  //       settingName()
-  //       console.log("a czy tu jest name",name, surname)
-  //      },[db,dzisIndex,paymentDateIndex,rendered])
-
-  //funkcja kalkulująca naleznosc
-
   const getAddfromBase = async () => {
-    //console.log("paymentDateIndex",paymentDateIndex)
-    //paymentDateIndex? console.log("paymentDateIndex",paymentDateIndex) : console.log("nic",paymentDateIndex)
-
     if (chosenUserId) {
       const userRef = doc(db, "usersData", chosenUserId);
       const docSnap = await getDoc(userRef);
 
       if (docSnap.exists()) {
-        //jesli mamy stop
+        //if stop
         if (docSnap.data().stop) {
           setStopReported(true);
         }
         if (docSnap.data().pause) {
           setPausaReported(true);
         }
-        //jesli mamy multi
+        //if multi
         if (docSnap.data().optionMulti === true) {
           setIsMulti(true);
           setPausaDate(dzisData);
@@ -160,7 +107,7 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
             setPausaDebt(docSnap.data().debt);
           }
         }
-        //jesli mamy due
+        //if due
         if (docSnap.data().due) {
           if (paymentDateIndex !== null && dzisIndex) {
             // console.log("odpalonypaymentDateIndex")
@@ -262,41 +209,51 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
       />
 
       <button onClick={getAddfromBase} className="btn">
-        Wylicz pauze{" "}
+        {t.calculatePause}{" "}
       </button>
       <br></br>
 
-      {stopReported && <p>Treningi sa juz zakończone</p>}
+      {stopReported && <p>{t.trainingAlreadyStopped}</p>}
 
-      {/* {pausaDate && <p>Treningi zostana zawieszone: {pausaDate?.toDate()?.toString()}</p>} */}
       {pausaDate && (
         <div className="archive">
-          <p>Treningi zostana zawieszone: </p>
+          <p>{t.trainingPauseStartDate} </p>
           <p>
-            <DateFnsFormat element={pausaDate} />
+            <DateFnsFormat
+              element={pausaDate}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
 
-      {pausaDebt && <p>istniejące zadłużenie: {pausaDebt} treningów</p>}
-      {pausaAdd && <p>pozostało opłaconych treningów: {pausaAdd} treningów</p>}
+      {/* {pausaDebt && <p>istniejące zadłużenie: {pausaDebt} treningów</p>} */}
+      {pausaDebt && (
+        <p>{t.existingDebt.replace("{debt}", pausaDebt.toString())}</p>
+      )}
+      {/* {pausaAdd && <p>pozostało opłaconych treningów: {pausaAdd} treningów</p>} */}
+      {pausaAdd && (
+        <p>
+          {t.remainingPaidSessions.replace("{sessions}", pausaAdd.toString())}
+        </p>
+      )}
       {pausaDate && (
         <div>
-          Uzupelnij formularz wspisując powód zawieszenia
+          {t.fillFormReason}
           <input
             type="text"
             name="text"
             value={injuryDescription}
             onChange={handleDescriptInj}
-            placeholder="Co się stało?"
+            placeholder={t.whatHappened}
             required
           />
           <button onClick={sendStopToBase} className="btn">
-            Potwierdż
+            {t.confirm}
           </button>
         </div>
       )}
-      {isSent && <p>wyslano</p>}
+      {isSent && <p>{t.send}</p>}
     </>
   );
 };

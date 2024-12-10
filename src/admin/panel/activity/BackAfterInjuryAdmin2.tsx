@@ -15,6 +15,8 @@ import { db } from "../../../App";
 //import { format } from 'date-fns';
 // import { pl } from 'date-fns/locale';
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./backafterinjuryadmin-translations";
 
 export interface Itest {}
 
@@ -28,6 +30,9 @@ export interface IdateObj {
 }
 
 export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const [chosenUserId, setChosenUserId] = useState<string>("");
   const [chosenUserByIdLabel, setChosenUserByIdLabel] = useState<string | null>(
     null
@@ -37,12 +42,7 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
   const [debtsToSubstract, setDebtsToSubstract] = useState<number | null>(null);
   const [currentUserPausaDate, setCurrentUserPausaDate] =
     useState<IdateObj | null>();
-  //const [name, setName] = useState<string | null>(null)
-  //const [surname, setSurname] = useState<string | null>(null)
-  //const [debt, setDebt] = useState<number | null>(null)
-  //const [add, setAdd] = useState<number | null>(null)
-  //const [isPausa, setIsPausa] = useState<boolean>(false)
-  //const [backDateIndex, setBackDateIndex] = useState<number | null>(null);
+
   const [newPaymentDateIndex, setNewPaymentDateIndex] = useState<number | null>(
     null
   );
@@ -50,18 +50,12 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
   const [isMulti, setIsMulti] = useState<boolean>(false);
   const [isPass, setIsPass] = useState<boolean>(false);
   const [isSent, setisSent] = useState<boolean>(false);
-  //const [todayDisplay, setTodayDisplay] = useState<Date | null>();
+
   const [archiveName, setArchiveName] = useState<string | null>("");
-  //const [rendered, setRendered] = useState(false);
-  //const [chosen, setChosen] = useState(false);
 
   const userModForSelect = useModUsersForSelect();
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
-
-  //console.log('dzisData',dzisData?.toDate().toLocaleDateString())
-
-  //modyfikowanie listy userów
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +67,6 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
 
         if (docSnap.exists()) {
           if (docSnap.data().pause) {
-            // Dodawanie użytkownika do listy w formie obiektu
             usersToAdd.push({
               value: userModForSelect[i].value,
               label: userModForSelect[i].label,
@@ -186,7 +179,7 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
       () => console.log("sent to archive")
     );
   };
-  //kopia do archive dorobic
+
   const resetChoice = () => {
     setisSent(false);
     setNewPaymentDate(null);
@@ -208,42 +201,38 @@ export const BackAfterInjuryAdmin2: React.FunctionComponent<Itest> = () => {
             setArchiveName(choice.label);
           }
           resetChoice();
-          //setChosen(true)
-          //setIsPausa(false);
-          //setisSent(false);
-          //setNewPaymentDate(null);
-          //setNewPaymentDateIndex(null)
         }}
       />
       <p>{chosenUserByIdLabel}</p>
-
-      {/* {isPausa && <p>{newPaymentDate?.toDate()?.toString()}</p>} */}
-      {/* {todayDisplay && <p>{todayDisplay?.getMonth()+1}-{todayDisplay?.getDate()}</p>} */}
-      {/* { isMulti ? <p>{dzisData?.toDate().toLocaleDateString()}</p> : <p></p>}
-    { isPass ? <p>{newPaymentDate?.toDate().toString()}</p> : <p></p>}   */}
 
       {isMulti && (
         <div className="archive">
           <p>Powrót</p>
           <p>
-            <DateFnsFormat element={dzisData} />
+            <DateFnsFormat
+              element={dzisData}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
 
       {isPass && (
         <div className="archive">
-          <p>Powrót</p>
+          <p>{t.return}</p>
           <p>
-            <DateFnsFormat element={dzisData} />
+            <DateFnsFormat
+              element={dzisData}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
 
       <button onClick={pushToBaseNewDueDay} className="btn">
-        Zatwierdz powrot
+        {t.return}
       </button>
-      {isSent && <p>wyslano</p>}
+      {isSent && <p>{t.sent}</p>}
     </>
   );
 };

@@ -13,6 +13,8 @@ import { db } from "../../../App";
 import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexCloseToday";
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./restoremembershipadmin-translations";
 
 export interface US {
   value: string;
@@ -32,12 +34,17 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
   const [surname, setSurname] = useState<string | null>(null);
   const [debt, setDebt] = useState<number | null>(null);
   const [isStop, setIsStop] = useState<boolean>(false);
+  const [isMulti, setIsMulti] = useState<boolean>(false);
+  const [isPass, setIsPass] = useState<boolean>(false);
   const [restartDateIndex, setRestartDateIndex] = useState<number | null>(null);
   const [stopDateFromBase, setStopDateFromBase] = useState<Date | null>();
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
-
+  const [isSent, setisSent] = useState<boolean>(false);
   const [rendered, setRendered] = useState(false);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,14 +69,10 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
         const docSnap = await getDoc(userRef);
 
         if (docSnap.exists()) {
-          // console.log("say yes", )
-          // Dodawanie użytkownika do listy w formie obiektu
-          //usersToAdd.push({ value: userModForSelect[i].value, label: userModForSelect[i].label });
           if (
             docSnap.data().stop &&
             docSnap.data().id === userModForSelect[i].value
           ) {
-            //console.log("say yes")
             usersToAdd.push({
               value: userModForSelect[i].value,
               label: userModForSelect[i].label,
@@ -101,11 +104,15 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
         if (docSnap.data().debt) {
           setDebt(docSnap.data().debt);
         }
+        if (docSnap.data().optionMulti) {
+          setIsMulti(docSnap.data().optionMulti);
+        }
+        if (docSnap.data().optionPass) {
+          setIsPass(docSnap.data().optionPass);
+        }
       }
     }
   };
-
-  // console.log('name',name,'dzisData',dzisData?.toDate(),'debt',debt)
 
   useEffect(() => {
     const calculateRestart = () => {
@@ -122,8 +129,6 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
 
   const restartNewData = useSearchDatesByIndex(restartDateIndex);
 
-  //console.log('restartNewData',restartNewData?.toDate())
-
   const dataToActivityArchive = {
     created_at: serverTimestamp(),
     restartData: dzisData,
@@ -134,10 +139,26 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
   const sendToBase = async () => {
     const paymentDataRef = doc(db, "usersData", chosenUserId);
 
-    if (restartNewData) {
+    if (restartNewData && isPass) {
       await updateDoc(paymentDataRef, {
         stop: null,
         due: restartNewData,
+        restart: dzisData,
+        debt: null,
+      }).then(() => console.log("restart succesful"));
+
+      await addDoc(
+        collection(db, "activitiArchive"),
+        dataToActivityArchive
+      ).then(() => {
+        console.log("archive");
+      });
+    }
+
+    if (restartNewData && isMulti) {
+      await updateDoc(paymentDataRef, {
+        stop: null,
+        due: null,
         restart: dzisData,
         debt: null,
       }).then(() => console.log("restart succesful"));
@@ -170,30 +191,36 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
       <p>{chosenUserByIdLabel}</p>
 
       <button onClick={handleSetUserInfo} className="btn">
-        wylicz date powrotu
+        {t.countReturnDate}
       </button>
-      {/* {stopDateFromBase} */}
 
       {stopDateFromBase && (
         <div className="archive">
-          <p>Treningi zatrzymane od: </p>
+          <p>{t.userStopped}</p>
           <p>
-            <DateFnsFormat element={stopDateFromBase} />
+            <DateFnsFormat
+              element={stopDateFromBase}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}
       {/* {isStop && <p>Planowany powrót {dzisData?.toDate()?.toString()}</p>} */}
       {isStop && (
         <div className="archive">
-          <p>Czy planuje powrót w najbliższym terminie </p>
+          <p>{t.restoreMembership}</p>
           <p>
-            <DateFnsFormat element={dzisData} /> ?
+            <DateFnsFormat
+              element={dzisData}
+              locale={currentLanguage as "pl" | "en"}
+            />{" "}
+            ?
           </p>
         </div>
       )}
-      {debt && <p>Masz do spłaty zadłużenie wysokosci: {debt} treningów</p>}
+      {debt && <p>{t.existingDebt.replace("{debt}", debt.toString())}</p>}
       <button onClick={sendToBase} className="btn">
-        Potwierdzasz powrót
+        {t.restoreMembership}
       </button>
     </>
   );

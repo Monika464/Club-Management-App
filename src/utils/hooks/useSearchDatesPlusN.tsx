@@ -73,39 +73,26 @@ export const useSearchDatesPlusN = (
         const paymentMonth = new Date(userDueDate?.toMillis()).getMonth();
         const paymentDay = new Date(userDueDate?.toMillis()).getDate();
 
-        console.log("paymentYear", paymentYear, paymentMonth, paymentDay);
-
         for (let ind = 0; ind < dataFromBase?.length; ind++) {
           const dat = dataFromBase[ind];
           const datYear = new Date(dat?.toMillis()).getFullYear();
           const datMonth = new Date(dat?.toMillis()).getMonth();
           const datDay = new Date(dat?.toMillis()).getDate();
-          console.log("datday", datDay, "dat mont", datMonth);
-
-          //  const datYear = dat ? new Date((dat as Timestamp).toDate()).getFullYear() : null;
-          //  const datMonth = dat ? new Date((dat as Timestamp).toDate()).getMonth() : null;
-          //  const datDay = dat ? new Date((dat as Timestamp).toDate()).getDate() : null;
-          // const datYear = dat?.toDate().getFullYear();
-          // const datMonth = dat?.toDate().getMonth();
-          // const datDay = dat?.toDate().getDate();
 
           if (
             paymentYear.toString() === datYear.toString() &&
             paymentMonth.toString() === datMonth.toString() &&
             paymentDay.toString() === datDay.toString()
           ) {
-            // console.log("cos rowne");
-            //console.log("drugi parametr w usePusN czyli o ile munerów zmienic", howMany);
-            //setWantedIndex(ind + 8);
             if (howMany) {
               //console.log("howMany",howMany)
               setWantedIndex(ind + howMany);
             } else {
               setWantedIndex(ind);
             }
-            break; // Przerwij pętlę po znalezieniu odpowiedniego indeksu
+            break;
           } else {
-            //console.log("nic")
+            console.log("nothing inside");
           }
         }
       } else {
@@ -113,9 +100,6 @@ export const useSearchDatesPlusN = (
       }
     };
     baseCheck();
-
-    console.log("wantedIndexuseSearchdatesPlusN", wantedIndex);
-    //console.log("hello from useSearchdatesPlusN")
   }, [userDueDate]);
 
   return wantedIndex;

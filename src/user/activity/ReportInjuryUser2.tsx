@@ -129,7 +129,7 @@ export const ReportInjuryUser2: React.FunctionComponent = () => {
         })
           .then(() => console.log("debt modified. update succesful"))
           .then(() => setisSent(true))
-          .then(() => alert("przerwa w treningach zapisana"))
+          .then(() => alert(t.trainingPauseSaved))
           .then(() => navigate("/userpanel"));
 
         await addDoc(collection(db, "activitiArchive"), dataToActivityArchive);

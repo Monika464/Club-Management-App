@@ -187,7 +187,7 @@ export const RestoreMembershipUser: React.FunctionComponent = () => {
     <div>
       {stopDateFromBase && (
         <div className="archive">
-          <p>t.membershipStoppedSince </p>
+          <p>{t.membershipStoppedSince} </p>
           <p>
             <DateFnsFormat
               element={stopDateFromBase}
