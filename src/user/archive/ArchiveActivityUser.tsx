@@ -189,10 +189,22 @@ export const ArchiveActivityUser: React.FunctionComponent<
               <div className="archive">
                 <p>{t.pauseReported} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
+                {elem.reason && (
+                  <p>
+                    {t.reason} {elem.reason}
+                  </p>
+                )}
                 <p>
-                  {t.from} <DateFnsFormat element={elem.pausaData} />
+                  {t.from}{" "}
+                  <DateFnsFormat
+                    element={elem.pausaData}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
               </div>
             </li>
@@ -204,10 +216,17 @@ export const ArchiveActivityUser: React.FunctionComponent<
               <div className="archive">
                 <p>{t.returnReported} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 <p>
-                  {t.from} <DateFnsFormat element={elem.returnData} />
+                  {t.from}{" "}
+                  <DateFnsFormat
+                    element={elem.returnData}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
               </div>
             </li>
@@ -219,10 +238,17 @@ export const ArchiveActivityUser: React.FunctionComponent<
               <div className="archive">
                 <p>{t.membershipSuspended} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 <p>
-                  {t.from} <DateFnsFormat element={elem.stopData} />
+                  {t.from}{" "}
+                  <DateFnsFormat
+                    element={elem.stopData}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
               </div>
             </li>
@@ -234,10 +260,17 @@ export const ArchiveActivityUser: React.FunctionComponent<
               <div className="archive">
                 <p>{t.clubReturnReported} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 <p>
-                  {t.from} <DateFnsFormat element={elem.restartData} />
+                  {t.from}{" "}
+                  <DateFnsFormat
+                    element={elem.restartData}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
               </div>
             </li>

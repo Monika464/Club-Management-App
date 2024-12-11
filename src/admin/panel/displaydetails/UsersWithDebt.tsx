@@ -4,6 +4,8 @@ import { db } from "../../../App";
 import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexCloseToday";
 import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByIndex";
 //import startOfDay from "date-fns/startOfDay";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./userswithdebt-translations";
 
 export interface IUsersWithDebt {}
 export interface ItimestampArr1 {}
@@ -16,6 +18,8 @@ interface Deptor {
 export const UsersWithDebt: React.FunctionComponent<IUsersWithDebt> = () => {
   // const [isDebt, setIsDebt] = useState<boolean>(false);
   const [deptorsList, setDeptorsList] = useState<Deptor[]>([]);
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const najblizszyindexwbaziedat = useSearchIndexCloseToday();
   const najblizszadatawbazie = useSearchDatesByIndex(najblizszyindexwbaziedat);
@@ -56,7 +60,7 @@ export const UsersWithDebt: React.FunctionComponent<IUsersWithDebt> = () => {
 
   return (
     <div>
-      <p className="title"> Zadłużeni użytkownicy</p>
+      <p className="title"> {t.debtors}</p>
       {/* Render your debtors list here */}
       {deptorsList.map((deptor) => (
         <div key={deptor.id}>

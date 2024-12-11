@@ -9,6 +9,8 @@ import { SigninSendingTest } from "./SigninSendingTest";
 import SetAvatar from "../../../utils/components/SetAvatar";
 import { UserContext } from "../../../utils/auth/UserContext";
 import { updateProfile } from "firebase/auth";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./signup2-translations";
 
 export interface IdateObj {
   toMillis(): number | Date;
@@ -28,6 +30,9 @@ const Signup2: React.FunctionComponent<IApplicationProps> = () => {
   const [thumbnailError, setThumbnailError] = useState<string>("");
   const [pictureURL, setPictureURL] = useState<string>("");
   const { currentUser } = useContext(UserContext);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const updatingProfile = async () => {
     if (currentUser) {
@@ -90,13 +95,6 @@ const Signup2: React.FunctionComponent<IApplicationProps> = () => {
     // pictureURL ={pictureURL}
   />;
 
-  //const handleCreateUser =(e)=>{
-  // createUserWithEmailAndPassword(auth, email, password)
-  //.then((response) =>{console.log('response',response)})
-  //}
-
-  //console.log("name,surname",name, surname, dob, option, startDay?.toDate(),email, password)
-
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next();
@@ -128,11 +126,11 @@ const Signup2: React.FunctionComponent<IApplicationProps> = () => {
         </form>
         {/* {isLastStep && <button onClick={handleCreateUser}>Create User</button>} */}
         <div>
-          <span className="decript">imię: </span>
+          <span className="decript">{t.name}</span>
           <span> {name} </span>
-          <span className="decript">nazwisko: </span> <span>{surname} </span>
+          <span className="decript">{t.surname} </span> <span>{surname} </span>
           <br></br>
-          <span className="decript">ur.</span>
+          <span className="decript">{t.dob}</span>
           <span>{dob.toDateString()}</span>
         </div>
         {/* {startDay && <div><span className='decript'>start: </span> <span>{startDay?.toDate().toDateString()} </span></div>} */}
@@ -144,7 +142,7 @@ const Signup2: React.FunctionComponent<IApplicationProps> = () => {
         )}
         {option && (
           <div>
-            <span className="decript">typ: </span> <span>{option}</span>
+            <span className="decript">{t.type} </span> <span>{option}</span>
           </div>
         )}
 

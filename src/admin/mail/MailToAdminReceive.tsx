@@ -12,6 +12,9 @@ import notread from "../../assets/notread.png";
 import read from "../../assets/read.png";
 import "../../utils/components/email.css";
 import { format } from "date-fns";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./mailtoadminreceive-translation";
+
 export interface IMailToAdminReceive {}
 
 export interface IMessage {
@@ -44,6 +47,9 @@ export const MailToAdminReceive: React.FunctionComponent<
   const [isReadMessages, setIsReadMessages] = useState<{
     [id: string]: boolean;
   }>({});
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const getUserData = useCallback(async () => {
     if (currentUser) {
@@ -154,7 +160,7 @@ export const MailToAdminReceive: React.FunctionComponent<
     <div>
       <div>
         <div className="checkboxFlex">
-          <p className="title">Skrzynka trenera </p>
+          <p className="title">{t.trainermailbox}</p>
           {messages &&
             messages.map((elem) => {
               // const labelStyle = isReadMessages[elem.id] ? { color: 'gray' } : {};
@@ -192,7 +198,7 @@ export const MailToAdminReceive: React.FunctionComponent<
              })}`}</p> */}
                     <div className="comment-author mail">
                       <p className="od">
-                        wiadomośc od: {elem.name}
+                        {t.messageFrom} {elem.name}
                         {elem.surname}
                       </p>
                     </div>
@@ -212,7 +218,7 @@ export const MailToAdminReceive: React.FunctionComponent<
             })}
         </div>
         <button onClick={deletingMessage} className="btnsmall">
-          usuń
+          {t.delete}
         </button>
       </div>
     </div>

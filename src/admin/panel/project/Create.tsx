@@ -67,6 +67,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 //import { Timestamp } from 'firebase-admin/firestore';
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./create-translation";
 
 const Create: React.FunctionComponent<ICreate> = () => {
   const [name, setName] = useState("");
@@ -87,19 +89,33 @@ const Create: React.FunctionComponent<ICreate> = () => {
   );
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   const usersWithAvatars = useModAvatUsers();
   const navigate = useNavigate();
 
   const categories = [
-    { value: "zawody", label: "Zawody" },
-    { value: "treningi", label: "Treningi" },
-    { value: "inne", label: "Inne" },
+    { value: "zawody", label: t.competition },
+    { value: "treningi", label: t.trainings },
+    { value: "inne", label: t.other },
   ];
 
   const visible = [
-    { value: "public", label: "Publiczne" },
-    { value: "privat", label: "Prywatne" },
+    { value: "public", label: t.public },
+    { value: "privat", label: t.privat },
   ];
+
+  // const categories = [
+  //   { value: "zawody", label: "Zawody" },
+  //   { value: "treningi", label: "Treningi" },
+  //   { value: "inne", label: "Inne" },
+  // ];
+
+  // const visible = [
+  //   { value: "public", label: "Publiczne" },
+  //   { value: "privat", label: "Prywatne" },
+  // ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setThumbnail(null);
@@ -171,13 +187,13 @@ const Create: React.FunctionComponent<ICreate> = () => {
 
   return (
     <div className="create-form">
-      <h2 className="page-title">Stwórz nowe wydarzenie</h2>
+      <h2 className="page-title">{t.createEvent}</h2>
       <br></br>
       <br></br>
 
       <form onSubmit={handleSubmit}>
         <label>
-          <span>Tytuł projektu:</span>
+          <span>{t.title}</span>
           <input
             // required
             type="text"
@@ -186,7 +202,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
           />
         </label>
         <label>
-          <span>Szczegóły:</span>
+          <span>{t.details}</span>
           <textarea
             required
             onChange={(e) => setDetails(e.target.value)}
@@ -194,7 +210,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
           ></textarea>
         </label>
         <label>
-          <span>Data wydarzenia :</span>
+          <span>{t.eventData}</span>
 
           <input
             required
@@ -204,7 +220,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
           />
         </label>
         <label>
-          <span>Kategoria:</span>
+          <span>{t.category}</span>
           <Select
             required
             onChange={(option) => {
@@ -216,7 +232,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
           />
         </label>
         <label>
-          <span>Widoczność:</span>
+          <span>{t.visibility}</span>
           <Select
             //required
             onChange={(option) => {
@@ -228,7 +244,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
           />
         </label>
         <label>
-          <span>Przypisz do:</span>
+          <span>{t.linkedWith}</span>
 
           <Select
             onChange={(option) => {
@@ -251,7 +267,7 @@ const Create: React.FunctionComponent<ICreate> = () => {
         </label>
         <br></br>
         <label>
-          <span>Wgraj zdjęcie:</span>
+          <span>{t.loadPhoto}</span>
           <input
             // label="Image"
             placeholder="Choose image"

@@ -149,7 +149,7 @@ export const ReportInjuryUser2: React.FunctionComponent = () => {
             .then(() => setPausaDate(null))
             .then(() => setisSent(true))
             .then(() => setPausaAdd(null))
-            .then(() => alert("przerwa w treningach zapisana"))
+            .then(() => alert(t.trainingPauseSaved))
             .then(() => navigate("/userpanel"));
         }
 

@@ -6,6 +6,8 @@ import { useSearchDatesPlusN } from "../../../utils/hooks/useSearchDatesPlusN";
 import { db } from "../../../App";
 import { doc, getDoc } from "firebase/firestore";
 import { format } from "date-fns";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./displayuserdataadmin-translations";
 
 export interface IDisplayUserDataAdmin {}
 export interface ITimestampObject {
@@ -30,6 +32,9 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
   const [due, setDue] = useState<ITimestampObject | null>(null);
   const [name, setName] = useState<string | null>("");
   const [surname, setSurname] = useState<string | null>("");
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const userModForSelect = useModUsersForSelect();
 
@@ -127,7 +132,7 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
 
   return (
     <div>
-      <p className="title"> Informacje o użytkownikach</p>
+      <p className="title"> {t.title}</p>
 
       <Select
         closeMenuOnSelect={true}
@@ -146,7 +151,10 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
         <>
           {debt && (
             <div>
-              <p> zadluzenie {debt} treningów</p>
+              <p>
+                {" "}
+                {t.debt} {debt} {t.classes}
+              </p>
             </div>
           )}
           <div></div>
@@ -160,18 +168,31 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
             <>
               {debt && (
                 <div>
-                  <p> zadluzenie {debt} wejść</p>
+                  <p>
+                    {" "}
+                    {t.debt} {debt} {t.classes}
+                  </p>
                 </div>
               )}
             </>
           )}
-          {isPause && <>{add && <p>dodatkowo: {add} wejścia</p>}</>}
+          {isPause && (
+            <>
+              {add && (
+                <p>
+                  {t.additional} {add} {t.classes}
+                </p>
+              )}
+            </>
+          )}
         </>
       )}
       {!isPause && !isStop && !isMulti && chosenUserId && (
         <div>
           {paymentDateIndex < dzisIndex && (
-            <p>zadłuzenie: {dzisIndex - paymentDateIndex} wejść</p>
+            <p>
+              {t.debt} {dzisIndex - paymentDateIndex} {t.classes}
+            </p>
           )}
         </div>
       )}
@@ -184,13 +205,15 @@ export const DisplayUserDataAdmin: React.FunctionComponent<
       )}
       {/* {chosenUserId && due && <p>należna płatność {format(due.toDate(), 'dd.MM.yyyy')}</p>} */}
       {chosenUserId && due && (
-        <p>należna płatność {format(due.toMillis(), "dd.MM.yyyy")}</p>
+        <p>
+          {t.duePayment} {format(due.toMillis(), "dd.MM.yyyy")}
+        </p>
       )}
-      {chosenUserId && !isStop && !isPause && <div>status aktywny</div>}
-      {chosenUserId && isStop && <p>członkostwo zatrzymane</p>}
-      {chosenUserId && isPause && <p>zgłoszona kontuzja</p>}
-      {chosenUserId && isPass && <p>uzytkownik karnetu</p>}
-      {chosenUserId && isMulti && <p>uzytkownik multi/medicov</p>}
+      {chosenUserId && !isStop && !isPause && <div>{t.activeStatus}</div>}
+      {chosenUserId && isStop && <p>{t.membershipStopped}</p>}
+      {chosenUserId && isPause && <p>{t.injuryReported}</p>}
+      {chosenUserId && isPass && <p>{t.passUser}</p>}
+      {chosenUserId && isMulti && <p>{t.multiUser}</p>}
     </div>
   );
 };

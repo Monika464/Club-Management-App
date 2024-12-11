@@ -19,6 +19,9 @@ import Select from "react-select";
 import { useState } from "react";
 import makeAnimated from "react-select/animated";
 
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./mailboxtousersend2-translations.ts";
+
 export const MailboxToUserSend2: React.FunctionComponent = () => {
   const usersModForSelect = useModUsersForSelect();
   const usersModForSelectwithAll = [
@@ -32,8 +35,8 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
   const [isEditedmailToUsers, setIsEditedmailToUsers] =
     useState<boolean>(false);
 
-  //const chosenUserById = "QQnLoM9alXNiJDcO5NYioj5YrE32";
-  // const message = "cooo taam";
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const handleSubmitForm = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -86,7 +89,7 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
   return (
     <div>
       <button onClick={handleEditMailToUsers} className="btn">
-        {isEditedmailToUsers ? "Zamknij" : "Edytuj mailing do userów"}
+        {isEditedmailToUsers ? t.close : t.editmailing}
       </button>
       {isEditedmailToUsers && (
         <div>
@@ -95,7 +98,7 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
 
           <form className="add-message" onSubmit={handleSubmitForm}>
             <label>
-              <span>Napisz Wiadomość</span>
+              <span>{t.writemessage}</span>
               <textarea
                 required
                 onChange={(e) => setNewMessage(e.target.value)}
@@ -116,12 +119,6 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
                   );
                   setUserChoice(selectedValues);
                 }}
-                //   onChange={(choice: any[]) => {
-                //  //const selectedValues = choice.map(option => option.value);
-                //  //console.log("selectedValues",selectedValues)
-                //  const selectedValues = choice.map((option: { value: string }) => option.value)
-                //  setUserChoice(selectedValues)
-                //   }}
               />
             </label>
 
@@ -130,7 +127,7 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
         </div>
       )}
 
-      {messageSent && <p>wysłano</p>}
+      {messageSent && <p>{t.sent}</p>}
     </div>
   );
 };

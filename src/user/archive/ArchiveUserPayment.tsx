@@ -34,7 +34,7 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
           //console.log("querySnapshot",querySnapshot.docs)
           const temp = querySnapshot.docs
             .map((doc) => {
-              console.log("payArch", doc.id, " => ", doc.data());
+              // console.log("payArch", doc.id, " => ", doc.data());
 
               if (doc.data()) {
                 return {
@@ -62,10 +62,6 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
     getArchivePayfromBase();
   }, [db, currentUser, getArchivePayfromBase]);
 
-  // useEffect(() => {
-  //   console.log("paymentsArr", paymentsArr);
-  // }, [getArchivePayfromBase, paymentsArr]);
-
   return (
     <div>
       <p className="title">t.paymentHistory</p>
@@ -77,12 +73,18 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
               <div className="archive">
                 <p>{t.paymentDate} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 {/* <p>za: {elem.trenings} treningów</p> */}
                 <p>{t.nextPaymentDue}</p>
                 <p>
-                  <DateFnsFormat element={elem.due} />
+                  <DateFnsFormat
+                    element={elem.due}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 {elem.prevdebt && (
                   <div>

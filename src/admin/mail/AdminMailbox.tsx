@@ -1,7 +1,7 @@
 //import { useNavigate } from "react-router-dom";
 import { MailToAdminReceive } from "./MailToAdminReceive";
 //import MailboxToUserSend from "../components/mail/MailBoxToUserSend";
-import MailboxToUserSend2 from "../../user/mail/MailBoxToUserSend2";
+import MailboxToUserSend2 from "./MailBoxToUserSend2";
 
 export interface IAdminMailbox {}
 

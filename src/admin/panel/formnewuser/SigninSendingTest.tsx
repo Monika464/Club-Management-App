@@ -11,6 +11,8 @@ import { db } from "../../../App";
 import { useNavigate } from "react-router-dom";
 //import { getDownloadURL, uploadBytes,ref as storageRef } from 'firebase/storage';
 import { updateProfile } from "firebase/auth";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./signinsendingtest-translations";
 
 export interface IdateObj {
   seconds: number;
@@ -31,7 +33,9 @@ interface ISigninSending {
 export function SigninSendingTest(props: ISigninSending) {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
-  //console.log('currentUser',currentUser)
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const [optionMulti, setOptionMulti] = useState<boolean>(false);
   const [optionPass, setOptionPass] = useState<boolean>(false);
@@ -137,21 +141,13 @@ export function SigninSendingTest(props: ISigninSending) {
     }
   }, [WriteUserInfo]);
 
-  //po zakonczeniu dorobic przekierowanie na userprofile
-
-  // useEffect(()=>{
-  //console.log("z komponentu SigninSendingTest",props.name, props.surname,props.dob,"hej", props.option,props.email,props.password)
-  //trzeba wyslac do bazy
-
-  // },[props.name])
-
   return (
     <div>
       <br />
       <button onClick={WriteUserInfo} className="btnsmall">
-        Zarejestruj uzywkownika w bazie
+        {t.registerUserinBase}
       </button>
-      {isSent && <p>użytkownik zapisany w bazie</p>}
+      {isSent && <p>{t.registered}</p>}
     </div>
   );
 }

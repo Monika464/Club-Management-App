@@ -7,19 +7,14 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../App";
-
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./datepickertrainings-translations";
 export interface PossibleTrainingDate {
   value: Date;
   label: string;
 }
 
-// export interface ISelectedDates{
-//   selecteddDates: Date[]
-// }
-
 export const DatePickerTrainings: React.FunctionComponent = () => {
-  //export const DatePickerTrainings: React.FunctionComponent<PossibleTrainingDate[] > =() => {
-
   const animatedComponents = makeAnimated();
 
   const [selectedDates, setSelectedDates] = useState<PossibleTrainingDate[]>(
@@ -30,12 +25,12 @@ export const DatePickerTrainings: React.FunctionComponent = () => {
   const [dayRange, setDayRange] = useState<Date[]>([]);
   const [userChoice, setUserChoice] = useState<Date[]>([]);
 
-  //console.log("sel",selectedDates,"rezta",startDate,endDate,dayRange)
-  //console.log("userChoice tablica Date",userChoice)
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const getDatesBetween = (startDate: Date, endDate: Date) => {
     const datess: Date[] = [];
-    // Strip hours minutes seconds etc.
+
     let currentDate = new Date(
       startDate.getFullYear(),
       startDate.getMonth(),
@@ -82,24 +77,6 @@ export const DatePickerTrainings: React.FunctionComponent = () => {
     }
   }, [dayRange]);
 
-  // useEffect(()=>{
-  // if(dayRange){
-  //   dayRange.map((day)=>{
-  //  //console.log("u",day)
-
-  //      let possibleTrainingDate: PossibleTrainingDate ={
-  //     value: day,
-  //     label: day.toLocaleDateString('default', { month: 'short', day: 'numeric' })
-  //      }
-  //      setSelectedDates((prevSelectedDates: SetStateAction<null[] | null>) => [...prevSelectedDates, possibleTrainingDate])
-
-  //  })
-  // }
-
-  //  },[dayRange])
-
-  //wrzuc tutaj zawartosc komponentu SenddatesTobase
-
   const resetState = () => {
     setUserChoice([]);
     setSelectedDates([]);
@@ -108,13 +85,6 @@ export const DatePickerTrainings: React.FunctionComponent = () => {
   };
 
   const sendToFirebase = async () => {
-    // console.log("wyswietl co chcesz wysłac",userChoice)
-    // setStartDate(new Date()); // Resetuj startDate do wartości domyślnej
-    //setEndDate(null); // Resetuj endDate do wartości domyślnej
-
-    //console.log(userChoice,"userchoceprops")
-
-    //const docRef = await addDoc(collection(db, "trainingDays"), {
     await addDoc(collection(db, "trainingDays"), {
       datesSet: userChoice?.map((dat) => new Date(dat)),
       created_at: serverTimestamp(),
@@ -154,18 +124,8 @@ export const DatePickerTrainings: React.FunctionComponent = () => {
         }}
       />
 
-      {/*
-<SendDatesToBase  
-    userChoice={userChoice}  
-    setUserChoice={setUserChoice} 
-    setStartDate={setStartDate}
-    setEndDate={setEndDate}
-    setSelectedDates={setSelectedDates} 
-    setCloseMenu={setCloseMenu} 
-    />
-    */}
       <button className={"btn"} onClick={sendToFirebase}>
-        Zapisz w bazie
+        {t.save}
       </button>
     </>
   );

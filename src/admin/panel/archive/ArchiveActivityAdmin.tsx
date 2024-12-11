@@ -5,7 +5,8 @@ import { db } from "../../../App";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
 import { format } from "date-fns";
 import { useModUsersForSelect } from "../../../utils/hooks/useModUsersForSelect ";
-
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./archiveactivityadmin-translations";
 export interface IArchiveActivityAdmin {}
 
 interface ITimestampData {
@@ -27,7 +28,9 @@ const ArchiveActivityAdmin: React.FunctionComponent<
   const [chosenUserByIdLabel, setChosenUserByIdLabel] = useState<string>("");
   const [timestampArr, setTimestampArr] = useState<ITimestampData[]>([]);
   const [rendered, setRendered] = useState(false);
-  //dodaje dns
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -91,50 +94,72 @@ const ArchiveActivityAdmin: React.FunctionComponent<
       />
       <br></br>
       {!rendered && <div>loading ..</div>}
-      Wybrany użytkownik: {chosenUserByIdLabel}
+      {t.chosenUser} {chosenUserByIdLabel}
       <ol>
         {timestampArr.map((elem) => (
           <li key={elem.id}>
             <div className="archive">
-              {/* <p>Zgłoszenie przez: {elem.kto}</p> */}
-              {/* Data utworzenia: {format(elem.created_at, "yyyy-MM-dd")} */}
               <p>
-                Data utworzenia: <DateFnsFormat element={elem.created_at} />
+                {t.createdAt}{" "}
+                <DateFnsFormat
+                  element={elem.created_at}
+                  locale={currentLanguage as "pl" | "en"}
+                />
               </p>
 
               {elem.stopData && (
                 <>
-                  <p>Zawieszenie członkowstwa dnia:</p>
+                  <p>{t.membershipSuspended}</p>
                   <p>
-                    Od: <DateFnsFormat element={elem.stopData} />
+                    {t.from}{" "}
+                    <DateFnsFormat
+                      element={elem.stopData}
+                      locale={currentLanguage as "pl" | "en"}
+                    />
                   </p>
                 </>
               )}
 
               {elem.restartData && (
                 <>
-                  <p>Powrót do klubu zgłoszony dnia:</p>
+                  <p>{t.clubReturnReported}</p>
                   <p>
-                    Od: <DateFnsFormat element={elem.restartData} />
+                    {t.from}{" "}
+                    <DateFnsFormat
+                      element={elem.restartData}
+                      locale={currentLanguage as "pl" | "en"}
+                    />
                   </p>
                 </>
               )}
 
               {elem.pausaData && (
                 <>
-                  <p>Pauza zgłoszona dnia:</p>
+                  <p>{t.pauseReported}</p>
                   <p>
-                    Od: <DateFnsFormat element={elem.returnData} />
+                    {t.from}{" "}
+                    <DateFnsFormat
+                      element={elem.returnData}
+                      locale={currentLanguage as "pl" | "en"}
+                    />
                   </p>
-                  {elem.reason && <p>Powód: {elem.reason}</p>}
+                  {elem.reason && (
+                    <p>
+                      {t.reason} {elem.reason}
+                    </p>
+                  )}
                 </>
               )}
 
               {elem.returnData && (
                 <>
-                  <p>Powrót po kontuzji zgłoszony dnia:</p>
+                  <p>{t.returnReported}</p>
                   <p>
-                    Od: <DateFnsFormat element={elem.returnData} />
+                    Od:{" "}
+                    <DateFnsFormat
+                      element={elem.returnData}
+                      locale={currentLanguage as "pl" | "en"}
+                    />
                   </p>
                 </>
               )}

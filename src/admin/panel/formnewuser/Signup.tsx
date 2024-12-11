@@ -6,6 +6,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./signup-translations";
 
 export interface IApplicationProps {}
 
@@ -13,6 +15,9 @@ const SignupPage: React.FunctionComponent<IApplicationProps> = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [authing, setAuthing] = useState(false);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const defaultFormFields = {
     email: "",
@@ -61,7 +66,7 @@ const SignupPage: React.FunctionComponent<IApplicationProps> = () => {
 
   return (
     <div id="main" className="login-form">
-      <div className="title">Stwórz nowego usera</div>
+      <div className="title">{t.createUser}</div>
       <br />
 
       <div id="fields"></div>
@@ -85,30 +90,9 @@ const SignupPage: React.FunctionComponent<IApplicationProps> = () => {
           required
         />
 
-        {/* <input
-          required
-          type="text" 
-          onChange={handleDisplayName} 
-          value={displayName}
-          placeholder="Name"
-        /> */}
-
-        {/* <input
-  // label="Image"
-  placeholder="Choose image"
-  accept="image/png,image/jpeg"
-  type="file"
-  onChange={(e) => {
-    handleFileChange(e)
-    //console.log(e.target.files[0])
-   // setThumbnail(e.target.files[0]);
-  }}
-/> */}
-
-        {/*<input id='recaptcha' type="submit" />*/}
         <br />
         <button className="btn" disabled={authing}>
-          Załóż konto{" "}
+          {t.setAccount}{" "}
         </button>
       </form>
 

@@ -7,6 +7,8 @@ import { useSearchDatesByIndex } from "../../../utils/hooks/useSearchDatesByInde
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { useSearchIndexCloseToday } from "../../../utils/hooks/useSearchIndexCloseToday";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./startendoptionform-translations";
 
 interface IStartAndOptionForm {
   option: string | null;
@@ -32,23 +34,16 @@ export interface IdatesForSel {
   value: IdateObj;
   label: string;
 }
-// interface GroupBase<Option> {
-//   readonly options: readonly Option[];
-//   readonly label?: string;
-// }
 
 export function StartAndOptionForm(props: IStartAndOptionForm) {
-  //const[userChoice, setUserChoice] = useState({});
-  //const [thisIndex, setThisindex] = useState({});
-  //const[passMultiChoice, setPassMultiChoice] = useState<string | null >("pass");
   const datesModForSelect = useModDatesForSelect();
   const dzisIndex = useSearchIndexCloseToday();
   const [modDatesForSelect, setModdatesForSelect] = useState<
     IdatesForSel[] | any[]
   >([]);
 
-  // Nowa tablica obiektów
-  //const noweDatesForSelect: INewDatesArray[] = [];
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     if (dzisIndex != null && datesModForSelect) {
@@ -66,12 +61,9 @@ export function StartAndOptionForm(props: IStartAndOptionForm) {
           label: format(element.value?.toMillis(), "PPP", { locale: pl }),
         }))
       );
-
-      // Wykorzystanie nowej tablicy
     }
   }, [dzisIndex, datesModForSelect]);
 
-  //const todaysIndex = useSearchIndexToday()
   const closeTodayDay = useSearchDatesByIndex(dzisIndex);
 
   //console.log("modDatesForSelect", modDatesForSelect);
@@ -80,7 +72,7 @@ export function StartAndOptionForm(props: IStartAndOptionForm) {
     <>
       <FormWrapper title="Uczestnictwo">
         <br />
-        <label>Rozpoczęcie</label>
+        <label>{t.startDay}</label>
 
         <Select
           closeMenuOnSelect={true}
@@ -89,11 +81,8 @@ export function StartAndOptionForm(props: IStartAndOptionForm) {
           defaultValue={closeTodayDay}
           onChange={(choice) => {
             if (choice) {
-              //const selectedValue = choice.value;
-              // console.log("choice.value",choice)
               const wybor = choice.value;
               props.setStartDay(wybor);
-              //setUserChoice(selectedValue);
             } else {
               props.setStartDay(closeTodayDay);
               //setUserChoice(null); // Opcjonalnie, jeśli chcesz zresetować wybór
@@ -101,14 +90,14 @@ export function StartAndOptionForm(props: IStartAndOptionForm) {
           }}
         />
       </FormWrapper>
-      <label>Karnet czy multi Multi</label>
+      <label>{t.passOrMulti}</label>
 
       <Select
         closeMenuOnSelect={true}
         /*components={animatedComponents}  */
         options={[
-          { value: "pass", label: "karnet" },
-          { value: "multi", label: "mutli" },
+          { value: "pass", label: t.pass },
+          { value: "multi", label: t.multi },
         ]}
         //defaultValue={{value: "pass", label: "pass"}}
         onChange={(choice) => {

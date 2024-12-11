@@ -4,14 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../App";
 import DateFnsFormat from "../../../utils/components/DateFnsFormat";
+import { useLanguage } from "../../../utils/context/LanguageContext";
+import translations from "./archiveadminpayment-translations";
 
 export interface IArchiveAdminPayment {}
-// export interface ItimestampArr {
-//   created_at: Date;
-//   kto: string;
-
-//   userUid: string;
-// }
 
 export interface IPaymentItem {
   id: string;
@@ -33,6 +29,9 @@ const ArchiveAdminPayment: React.FunctionComponent<
   );
   const [paymentsArr, setPaymentsArr] = useState<IPaymentItem[]>([]);
   const [rendered, setRendered] = useState(false);
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -101,7 +100,7 @@ const ArchiveAdminPayment: React.FunctionComponent<
         }}
       />
       <br></br>
-      Wybrany uzytkownik: {chosenUserByIdLabel}
+      {t.chosenUser} {chosenUserByIdLabel}
       <br></br>
       <br></br>
       <ol>
@@ -110,18 +109,26 @@ const ArchiveAdminPayment: React.FunctionComponent<
           paymentsArr.map((elem: IPaymentItem) => (
             <li key={elem.id}>
               <div className="archive">
-                <p>płatność dnia: </p>
+                <p>{t.paymentDate} </p>
                 <p>
-                  <DateFnsFormat element={elem.time} />
+                  <DateFnsFormat
+                    element={elem.time}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 {/* <p>za: {elem.trenings} treningów</p> */}
-                <p>Kolejna należność oczekiwana po tej płatności:</p>
+                <p>{t.nextPaymentDue}</p>
                 <p>
-                  <DateFnsFormat element={elem.due} />
+                  <DateFnsFormat
+                    element={elem.due}
+                    locale={currentLanguage as "pl" | "en"}
+                  />
                 </p>
                 {elem.prevdebt && (
                   <div>
-                    <p>zadłuzenie: {elem.prevdebt} </p>
+                    <p>
+                      {t.previousDebt} {elem.prevdebt}{" "}
+                    </p>
                   </div>
                 )}
 

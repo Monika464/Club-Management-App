@@ -1,11 +1,16 @@
 //import MailboxToUserReceive from "../components/mail/MailBoxToUserReceive"
 //import mail from '../assets/mail.png'
 //import { useNavigate } from "react-router-dom";
-import MailToAdminSend from "../../admin/mail/MailToAdminSend";
+import MailToAdminSend from "./MailToAdminSend";
 import { useState } from "react";
 import MailboxToUserReceive2 from "./MailboxToUserReceive2";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./usermailbox-translations";
 
 const UserMailbox: React.FunctionComponent = () => {
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
+
   //const navigate = useNavigate();
   const [isEditedmailToAdmin, setIsEditedmailToAdmin] =
     useState<boolean>(false);
@@ -23,7 +28,7 @@ const UserMailbox: React.FunctionComponent = () => {
 
       <br></br>
       <button onClick={handleEditMailToAdmin} className="btn">
-        {isEditedmailToAdmin ? "Zamknij" : "Wyślij wiadomośc do trenera"}
+        {isEditedmailToAdmin ? t.close : t.sendMessageToTrainer}
       </button>
       {isEditedmailToAdmin && <MailToAdminSend />}
     </div>
