@@ -1,3 +1,4 @@
+import React from "react";
 import { BackAfterInjuryAdmin2 } from "../activity/BackAfterInjuryAdmin2";
 import ReportInjuryAdmin2 from "../activity/ReportInjuryAdmin2";
 import "../pages/adminBlurredpages.css";

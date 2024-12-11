@@ -1,7 +1,6 @@
+import React from "react";
 import { useContext, useState } from "react";
-
 import { getAuth, updatePassword, updateProfile } from "firebase/auth";
-
 import { auth } from "../../App";
 import SetAvatar from "../../utils/components/SetAvatar";
 import ChoosingAvatar from "./ChoosingAvatar";

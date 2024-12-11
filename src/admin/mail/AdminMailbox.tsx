@@ -1,4 +1,4 @@
-//import { useNavigate } from "react-router-dom";
+import React from "react";
 import { MailToAdminReceive } from "./MailToAdminReceive";
 //import MailboxToUserSend from "../components/mail/MailBoxToUserSend";
 import MailboxToUserSend2 from "./MailBoxToUserSend2";

@@ -1,3 +1,4 @@
+import React from "react";
 import { format } from "date-fns";
 import { pl, enUS } from "date-fns/locale";
 
@@ -5,15 +6,7 @@ export interface IDateFnsFormatProps {
   element: Date | any;
   locale: "pl" | "en";
 }
-// const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = ({
-//   element,
-//   locale,
-// }) => {
-//   if (!element) return null;
 
-//   const locales = { pl, en: enUS }; // Mapuj języki
-//   return <span>{format(element, "PPP", { locale: locales[locale] })}</span>;
-// };
 const DateFnsFormat: React.FunctionComponent<IDateFnsFormatProps> = (props) => {
   const date =
     props.element instanceof Date

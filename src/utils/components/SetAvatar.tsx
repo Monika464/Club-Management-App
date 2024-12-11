@@ -1,3 +1,4 @@
+import React from "react";
 export interface ISetAvatar {
   thumbnail: File | null;
   setThumbnail: React.Dispatch<File | null>;

@@ -1,6 +1,4 @@
-//import MailboxToUserReceive from "../components/mail/MailBoxToUserReceive"
-//import mail from '../assets/mail.png'
-//import { useNavigate } from "react-router-dom";
+import React from "react";
 import MailToAdminSend from "./MailToAdminSend";
 import { useState } from "react";
 import MailboxToUserReceive2 from "./MailboxToUserReceive2";

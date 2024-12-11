@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 //import useFetchCollectionData from "../../hooks/useFetchCollections"
 import { doc, onSnapshot } from "firebase/firestore";

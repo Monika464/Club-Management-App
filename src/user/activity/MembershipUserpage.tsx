@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../App";

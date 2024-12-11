@@ -1,5 +1,4 @@
-// https://www.youtube.com/watch?v=FJDVKeh7RJI
-
+import React from "react";
 export interface IMessage {
   created_at: DateObject;
   userUid: string;

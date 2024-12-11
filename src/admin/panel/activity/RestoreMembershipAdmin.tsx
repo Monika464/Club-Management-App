@@ -1,3 +1,4 @@
+import React from "react";
 import Select from "react-select";
 import { useModUsersForSelect } from "../../../utils/hooks/useModUsersForSelect ";
 import { useEffect, useState } from "react";
@@ -40,7 +41,7 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
   const [stopDateFromBase, setStopDateFromBase] = useState<Date | null>();
   const dzisIndex = useSearchIndexCloseToday();
   const dzisData = useSearchDatesByIndex(dzisIndex);
-  const [isSent, setisSent] = useState<boolean>(false);
+  //const [isSent, setisSent] = useState<boolean>(false);
   const [rendered, setRendered] = useState(false);
 
   const { currentLanguage } = useLanguage();
@@ -49,10 +50,10 @@ export const RestoreMembershipAdmin: React.FunctionComponent = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRendered(true);
-    }, 1000); // 1000 milisekund = 1 sekunda
+    }, 1000);
 
     return () => {
-      clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
+      clearTimeout(timer);
     };
   }, []);
 

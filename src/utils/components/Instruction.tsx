@@ -1,3 +1,4 @@
+import React from "react";
 export interface IInstruction {}
 import { useLanguage } from "../../utils/context/LanguageContext";
 import translations from "../components/instruction-translation";

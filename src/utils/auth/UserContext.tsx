@@ -3,44 +3,35 @@ import { NextOrObserver, User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../App";
 
 interface Props {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export const UserContext = createContext({
   // "User" comes from firebase auth-public.d.ts
-  currentUser: {} as User | null ,
-  setCurrentUser: (_user:User) => {},
-
+  currentUser: {} as User | null,
+  setCurrentUser: (_user: User) => {},
 });
 
 export const UserContextProvider = ({ children }: Props) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
-
-  const userStateListener = (callback:NextOrObserver<User>) => {
-    return onAuthStateChanged(auth, callback)
-  }
+  const userStateListener = (callback: NextOrObserver<User>) => {
+    return onAuthStateChanged(auth, callback);
+  };
 
   useEffect(() => {
     const unsubscribe = userStateListener((user) => {
       if (user) {
-        setCurrentUser(user)
+        setCurrentUser(user);
       }
     });
-    return unsubscribe
+    return unsubscribe;
   }, [setCurrentUser]);
 
   const value = {
-    currentUser, 
+    currentUser,
     setCurrentUser,
-  }
+  };
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
-  
-
-//https://www.youtube.com/watch?v=nTQ-PfUqDvM&t=744s

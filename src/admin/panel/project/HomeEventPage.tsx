@@ -1,3 +1,4 @@
+import React from "react";
 import useFetchCollectionData from "../../../utils/hooks/useFetchCollections.tsx";
 import ProjectList from "./ProjectsList.tsx";
 import ProjectSingle from "./ProjectSingle.tsx";

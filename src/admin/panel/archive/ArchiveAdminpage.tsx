@@ -1,4 +1,4 @@
-//import { Link } from "react-router-dom"
+import React from "react";
 import ArchiveAdminPayment from "./ArchiveAdminPayment";
 import ArchiveViewAdmin from "./ArchiveActivityAdmin";
 import { useLanguage } from "../../../utils/context/LanguageContext.tsx";

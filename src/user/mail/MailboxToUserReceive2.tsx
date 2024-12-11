@@ -1,3 +1,4 @@
+import React from "react";
 export interface IDateObj {
   toMillis(): string | number | Date;
   seconds: number;

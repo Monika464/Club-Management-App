@@ -1,5 +1,4 @@
-//import { Link } from "react-router-dom"
-//import { BackAfterInjuryUser } from "../components/BackAfterInjuryUser"
+import React from "react";
 import BackAfterInjuryUser2 from "./BackAfterInjuryUser2";
 import { ReportInjuryUser2 } from "./ReportInjuryUser2";
 import { useContext, useEffect, useState } from "react";

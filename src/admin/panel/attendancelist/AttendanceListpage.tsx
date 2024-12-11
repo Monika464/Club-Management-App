@@ -1,3 +1,4 @@
+import React from "react";
 import AttendanceList from "./AttendanceList";
 
 export interface IAttendancepage {}

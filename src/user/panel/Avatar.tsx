@@ -1,16 +1,15 @@
+import React from "react";
 export interface IAvatarProps {
-    src:  string; 
+  src: string;
+}
+import "./avatar.css";
+
+const Avatar: React.FunctionComponent<IAvatarProps> = (props) => {
+  return (
+    <div className="avatar">
+      <img src={props.src} alt={"user avatar"} />
+    </div>
+  );
 };
-import './avatar.css'
 
-    const Avatar: React.FunctionComponent<IAvatarProps> =(props) => {
-
-        return(
-        <div className="avatar">
-            <img src={props.src} alt={"user avatar"}/>
-        </div>)
-
-
-    }
-
-    export default Avatar;
+export default Avatar;

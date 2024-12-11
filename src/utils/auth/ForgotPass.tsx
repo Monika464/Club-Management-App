@@ -1,51 +1,45 @@
-import {  SetStateAction, useState } from "react"
+import React from "react";
+import { SetStateAction, useState } from "react";
 import { resetPassForEmail } from "../../App";
-import './Login.css';
-import { Link} from "react-router-dom";
+import "./Login.css";
+import { Link } from "react-router-dom";
 
-export interface IForgotPassProps {
+export interface IForgotPassProps {}
 
-}
-
-const ForgotPass: React.FunctionComponent<IForgotPassProps> =() => {
-
-  const [email, setEmail]  = useState<string>('');
+const ForgotPass: React.FunctionComponent<IForgotPassProps> = () => {
+  const [email, setEmail] = useState<string>("");
   const [isSend, setIsSend] = useState(false);
   //const [isError, setIsError] = useState('');
 
-
-  
-  const handleSendPass =() =>{
-    if(email){
-    resetPassForEmail(email)
-     }
-  }  
-  const handleSubmit =(event: { preventDefault: () => void; })=>{
-
-     event.preventDefault(); 
-        handleSendPass();
-        console.log("email wysłano");
-        setIsSend(true);
-       // navigate('/login')
-   
-    } 
-    
-
-    const handleChange =(  event: { target: { value: SetStateAction<string>; }; })=>{
-        setIsSend(false);
-      setEmail(event.target.value)   
+  const handleSendPass = () => {
+    if (email) {
+      resetPassForEmail(email);
     }
+  };
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    handleSendPass();
+    console.log("email wysłano");
+    setIsSend(true);
+    // navigate('/login')
+  };
 
-    return(<div>
+  const handleChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setIsSend(false);
+    setEmail(event.target.value);
+  };
 
-<div id="main" className="login-form"> 
-        <div className='title'>Podaj email na jaki wysłać hasło</div>
+  return (
+    <div>
+      <div id="main" className="login-form">
+        <div className="title">Podaj email na jaki wysłać hasło</div>
 
-         <form onSubmit={handleSubmit}>
-        
-           <input
+        <form onSubmit={handleSubmit}>
+          <input
             type="email"
-             name="email"
+            name="email"
             value={email}
             onChange={handleChange}
             placeholder="Email"
@@ -55,13 +49,18 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> =() => {
           <button className="btn">wyslij</button>
         </form>
 
-        {isSend &&<div>
-          <p>wysłano link do zmiany hasła na podany email</p>
-          <Link to={'../login'} style={{fontSize: 'small'}}>Przejdź do logowania</Link>
-          </div>}
+        {isSend && (
+          <div>
+            <p>wysłano link do zmiany hasła na podany email</p>
+            <Link to={"../login"} style={{ fontSize: "small" }}>
+              Przejdź do logowania
+            </Link>
+          </div>
+        )}
         {/* {isError &&<p>{isError.toString()}</p>} */}
-        </div>
-    </div>)
-}
+      </div>
+    </div>
+  );
+};
 
-export default ForgotPass
+export default ForgotPass;
