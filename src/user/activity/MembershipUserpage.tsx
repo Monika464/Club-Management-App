@@ -42,11 +42,6 @@ const MembershiUserpage: React.FunctionComponent = () => {
     //setIsBackAfterMemBlur(true);
   };
 
-  //   const handleBackAfterMemClick = () => {
-  //     setIsReportMemBlur(true);
-  //     setIsBackAfterMemBlur(false);
-  //   };
-
   return (
     <div>
       {!stopReported && <p className="title">{t.ifYouWantToStop}</p>}

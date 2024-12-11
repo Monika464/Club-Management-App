@@ -1,7 +1,7 @@
 const translations = {
   en: {
     payments: "Payments",
-    switchMultiTopass: "Switch multi to Pass",
+    switchMultiToPass: "Switch multi to Pass",
     switchPassToMulti: "Switch pass to Multi",
   },
   pl: {

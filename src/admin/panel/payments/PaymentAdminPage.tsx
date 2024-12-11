@@ -28,7 +28,7 @@ const PaymentAdminPage: React.FunctionComponent = () => {
 
       <br></br>
       <br></br>
-      <p className="title">{t.switchMultiTopass}</p>
+      <p className="title">{t.switchMultiToPass}</p>
       <div
         className={`component-container ${
           clickedComponent !== "SwitchMultiToPass" ? "blurred" : ""

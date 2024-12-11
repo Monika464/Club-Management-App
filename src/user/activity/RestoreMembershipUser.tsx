@@ -112,8 +112,6 @@ export const RestoreMembershipUser: React.FunctionComponent = () => {
     // console.log('name',name,'dzisData',dzisData?.toDate(),'debt',debt,isPass)
   }, [db, dzisIndex, currentUser, rendered]);
 
-  //wyliczam nowa date jesli jest dlug, jesli nie ma due date na dzi
-
   useEffect(() => {
     if (isMulti) {
       setRestartDateIndex(null);

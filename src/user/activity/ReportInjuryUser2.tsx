@@ -176,7 +176,10 @@ export const ReportInjuryUser2: React.FunctionComponent = () => {
         <div className="archive">
           <p>{t.trainingPauseStartDate}: </p>
           <p>
-            <DateFnsFormat element={pausaDate} />
+            <DateFnsFormat
+              element={pausaDate}
+              locale={currentLanguage as "pl" | "en"}
+            />
           </p>
         </div>
       )}

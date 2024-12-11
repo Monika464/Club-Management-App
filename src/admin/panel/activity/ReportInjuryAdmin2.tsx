@@ -253,7 +253,7 @@ const ReportInjuryAdmin2: React.FunctionComponent = () => {
           </button>
         </div>
       )}
-      {isSent && <p>{t.send}</p>}
+      {isSent && <p>{t.sent}</p>}
     </>
   );
 };

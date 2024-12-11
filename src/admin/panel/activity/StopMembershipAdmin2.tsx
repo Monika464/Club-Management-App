@@ -70,10 +70,10 @@ const StopMembershipAdmin2: React.FunctionComponent = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRendered(true);
-    }, 1000); // 1000 milisekund = 1 sekunda
+    }, 1000);
 
     return () => {
-      clearTimeout(timer); // W przypadku odmontowania komponentu przed zakończeniem opóźnienia
+      clearTimeout(timer);
     };
   }, []);
 
@@ -146,12 +146,10 @@ const StopMembershipAdmin2: React.FunctionComponent = () => {
       const docSnap = await getDoc(userRef);
 
       if (docSnap.exists()) {
-        //ustaw ze wczytuje
         setIsMoved(true);
         //jesli mamy stop
         if (docSnap.data().stop) {
           setStopReported(true);
-          //setStopDateFromBase(docSnap.data().stop)
         }
 
         //jesli mamy multi
@@ -159,8 +157,6 @@ const StopMembershipAdmin2: React.FunctionComponent = () => {
           // console.log("uzytkownik z multi")
           setIsMulti(true);
           setStopDate(dzisData);
-          // console.log("isMulti",isMulti);
-          //console.log("StopDate",stopDate);
 
           //jezeli jest debt w multi
           if (docSnap.data().debt) {
