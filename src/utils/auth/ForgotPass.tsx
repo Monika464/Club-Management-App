@@ -3,6 +3,8 @@ import { SetStateAction, useState } from "react";
 import { resetPassForEmail } from "../../App";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../utils/context/LanguageContext";
+import translations from "./forgotpass-translation";
 
 export interface IForgotPassProps {}
 
@@ -10,6 +12,9 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> = () => {
   const [email, setEmail] = useState<string>("");
   const [isSend, setIsSend] = useState(false);
   //const [isError, setIsError] = useState('');
+
+  const { currentLanguage } = useLanguage();
+  const t = translations[currentLanguage as "en" | "pl"];
 
   const handleSendPass = () => {
     if (email) {
@@ -19,7 +24,7 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> = () => {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     handleSendPass();
-    console.log("email wysłano");
+    console.log(t.emailSent);
     setIsSend(true);
     // navigate('/login')
   };
@@ -34,7 +39,7 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> = () => {
   return (
     <div>
       <div id="main" className="login-form">
-        <div className="title">Podaj email na jaki wysłać hasło</div>
+        <div className="title">{t.giveEmail}</div>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -46,14 +51,14 @@ const ForgotPass: React.FunctionComponent<IForgotPassProps> = () => {
             required
           />
           <br></br>
-          <button className="btn">wyslij</button>
+          <button className="btn">{t.send}</button>
         </form>
 
         {isSend && (
           <div>
-            <p>wysłano link do zmiany hasła na podany email</p>
+            <p>{t.linkSent}</p>
             <Link to={"../login"} style={{ fontSize: "small" }}>
-              Przejdź do logowania
+              {t.goLogin}
             </Link>
           </div>
         )}

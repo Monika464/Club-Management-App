@@ -1,5 +1,5 @@
 export interface IChoosingAvatar {}
-import React from "react";
+
 import { db, storage } from "../../App.tsx";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../utils/auth/UserContext.tsx";
