@@ -1,15 +1,17 @@
 const translations = {
   en: {
-    name: "name",
-    surname: "surmane",
-    type: "type",
-    dob: "date of birth",
+    name: "Name",
+    surname: "Surname",
+    type: "Type",
+    dob: "Date of birth",
+    basicdata: "Basic data",
   },
   pl: {
-    name: "imię",
-    surname: "nazwisko",
-    type: "typ",
-    dob: "data urodzenia",
+    name: "Imię",
+    surname: "Nazwisko",
+    type: "Typ",
+    dob: "Data urodzenia",
+    basicdata: "Podstawowe dane",
   },
 };
 
