@@ -28,7 +28,7 @@ export function UserForm(props: IUserFormProps) {
 
   return (
     <>
-      <FormWrapper title="Podstawowe dane">
+      <FormWrapper title={t.basicdata}>
         <br />
         <label>{t.name}</label>
         <input

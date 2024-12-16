@@ -71,7 +71,7 @@ export function StartAndOptionForm(props: IStartAndOptionForm) {
 
   return (
     <>
-      <FormWrapper title="Uczestnictwo">
+      <FormWrapper title={t.participation}>
         <br />
         <label>{t.startDay}</label>
 
