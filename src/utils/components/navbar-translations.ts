@@ -6,7 +6,7 @@ const translations = {
     admin: "Admin",
     panel: "Panel",
     logout: "Logout",
-    title: "Cracow Boxing Association",
+    title: "Battle Forge Fight Team",
   },
   pl: {
     //navbar
@@ -15,7 +15,7 @@ const translations = {
     admin: "Admin",
     panel: "Panel",
     logout: "Wyloguj",
-    title: "Krakowskie Stowarzyszenie Bokserskie",
+    title: "Kużnia Wojowników Grupa Bojowa",
   },
 };
 
