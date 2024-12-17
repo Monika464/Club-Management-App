@@ -58,8 +58,8 @@ export const MailToAdminSend: React.FunctionComponent<
       if (messageToAdd) {
         await addDoc(collection(db, "usersmessages"), messageToAdd)
           .then(() => console.log("user message added"))
-          .then(() => setMessageSent(true));
-        //.then(()=> navigate('/userpanel'))
+          .then(() => setMessageSent(true))
+          .then(() => setNewMessage(""));
       }
     }
   };
