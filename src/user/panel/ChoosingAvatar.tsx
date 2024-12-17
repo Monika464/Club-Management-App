@@ -15,6 +15,8 @@ import warrior4 from "../../assets/avatars/4warrior.png";
 import warrior5 from "../../assets/avatars/5warrior.png";
 import warrior6 from "../../assets/avatars/6warrior.png";
 import warrior7 from "../../assets/avatars/7warrior.png";
+import warrior8 from "../../assets/avatars/8warrior.png";
+import warrior9 from "../../assets/avatars/9warrior.png";
 
 // Array to store avatar information
 const avatars = [
@@ -26,6 +28,8 @@ const avatars = [
   { src: warrior5, filename: "5warrior.png" },
   { src: warrior6, filename: "6warrior.png" },
   { src: warrior7, filename: "7warrior.png" },
+  { src: warrior8, filename: "8warrior.png" },
+  { src: warrior9, filename: "9warrior.png" },
 ];
 
 const ChoosingAvatar = () => {
