@@ -1,6 +1,6 @@
 export default {
   en: {
-    trainermailbox: "Treiner mailbox",
+    trainermailbox: "Coach mailbox",
     messageFrom: "Message from",
     delete: "Delete",
   },
