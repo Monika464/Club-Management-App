@@ -27,8 +27,7 @@ You can test the app at the following link:
 
 ## Video Demonstration
 
-![ClubManagement](https://github.com/user-attachments/assets/1d5a8150-4620-4649-b166-ed8195f34912)
-  
+     <iframe width="640" height="360" src="https://player.vimeo.com/video/1041227479" frameborder="0" allowfullscreen></iframe>
 
 ## Local Setup
 
