@@ -77,7 +77,8 @@ export const MailboxToUserSend2: React.FunctionComponent = () => {
       };
       addDoc(collection(db, "usersmails"), messageToAdd)
         .then(() => console.log("message added"))
-        .then(() => setMessageSent(true));
+        .then(() => setMessageSent(true))
+        .then(() => setNewMessage(""));
     });
   };
 

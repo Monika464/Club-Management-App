@@ -79,10 +79,10 @@ const StopMembershipAdmin2: React.FunctionComponent = () => {
   }, []);
 
   useEffect(() => {
-    console.log("czy mamy ", userModForSelect);
+    //console.log("czy mamy ", userModForSelect);
 
     const fetchData = async () => {
-      const usersToAdd = [];
+      const usersToAdd: React.SetStateAction<US[]> = [];
 
       //modyfikowanie listy
 
@@ -93,26 +93,43 @@ const StopMembershipAdmin2: React.FunctionComponent = () => {
 
         if (docSnap.exists()) {
           if (
-            docSnap.data().optionMulti === true &&
-            !docSnap.data().stop &&
-            docSnap.data().id === userModForSelect[i].value
+            (docSnap.data().optionMulti === true && !docSnap.data().stop) ||
+            docSnap.data().due ||
+            docSnap.data().pause
           ) {
-            usersToAdd.push({
-              value: userModForSelect[i].value,
-              label: userModForSelect[i].label,
-            });
+            if (
+              !usersToAdd.some(
+                (user) => user.value === userModForSelect[i].value
+              )
+            ) {
+              usersToAdd.push({
+                value: userModForSelect[i].value,
+                label: userModForSelect[i].label,
+              });
+            }
           }
-          if (
-            docSnap.data().id === userModForSelect[i].value &&
-            (docSnap.data().due || docSnap.data().pause)
-          ) {
-            usersToAdd.push({
-              value: userModForSelect[i].value,
-              label: userModForSelect[i].label,
-            });
-          }
-        }
 
+          // if (
+          //   docSnap.data().optionMulti === true &&
+          //   !docSnap.data().stop &&
+          //   docSnap.data().id === userModForSelect[i].value
+          // ) {
+          //   usersToAdd.push({
+          //     value: userModForSelect[i].value,
+          //     label: userModForSelect[i].label,
+          //   });
+          // }
+          // if (
+          //   docSnap.data().id === userModForSelect[i].value &&
+          //   (docSnap.data().due || docSnap.data().pause)
+          // ) {
+          //   usersToAdd.push({
+          //     value: userModForSelect[i].value,
+          //     label: userModForSelect[i].label,
+          //   });
+          // }
+        }
+        console.log("users to add", usersToAdd);
         setNewUsersList(usersToAdd);
       }
     };

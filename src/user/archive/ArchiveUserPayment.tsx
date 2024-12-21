@@ -65,7 +65,7 @@ const ArchiveUserPayment: React.FunctionComponent<IArchiveUserPayment> = () => {
 
   return (
     <div>
-      <p className="title">t.paymentHistory</p>
+      <p className="title">{t.paymentHistory}</p>
       <ol>
         {paymentsArr &&
           paymentsArr.map((elem) => (

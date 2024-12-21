@@ -1,7 +1,7 @@
 const translations = {
   en: {
     name: "name",
-    surname: "surmane",
+    surname: "surname",
     type: "type",
     dob: "dob",
   },

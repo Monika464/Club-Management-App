@@ -1,7 +1,8 @@
 import { getAuth, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import ColovLogo from "./../../assets/kolovlogo.png";
+//import ColovLogo from "./../../assets/kolovlogo.png";
+import eagleLogo from "./../../assets/eagle.png";
 import { useContext } from "react";
 import { UserContext } from "../../utils/auth/UserContext.tsx";
 import translations from "./navbar-translations.ts";
@@ -61,7 +62,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     <nav className="navbar">
       <ul>
         <li className="logo">
-          <img src={ColovLogo} alt="logo" />
+          <img src={eagleLogo} alt="logo" />
           <span className="title">{t.title}</span>
         </li>
 
