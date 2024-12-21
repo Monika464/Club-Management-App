@@ -27,15 +27,7 @@ You can test the app at the following link:
 
 ## Video Demonstration
 
-   <iframe
-            src="https://player.vimeo.com/video/1041227479"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            title="Video1"
-          ></iframe>
+     <iframe width="640" height="360" src="https://player.vimeo.com/video/1041227479" frameborder="0" allowfullscreen></iframe>
 
 ## Local Setup
 
