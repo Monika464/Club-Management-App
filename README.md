@@ -27,7 +27,7 @@ You can test the app at the following link:
 
 ## Video Demonstration
 
-     <iframe width="640" height="360" src="https://player.vimeo.com/video/1041227479" frameborder="0" allowfullscreen></iframe>
+[![Obrazek](https://firebasestorage.googleapis.com/v0/b/my-dojo-web.appspot.com/o/git-pictures%2FClubManagement.png?alt=media&token=b87bfc94-92f3-4d4c-9ed4-4e98aa885908)](https://vimeo.com/1041227479?share=copy#t=0)
 
 ## Local Setup
 
@@ -35,10 +35,15 @@ To run this project locally, follow these steps:
 
 bash
 
-git clone https://github.com/your-username/Club-Management-App.git
+git clone https://github.com/Monika464/Club-Management-App
 cd Club-Management-App
 npm install
 npm run dev
+
+## Requirements
+
+Node.js: >=16.0.0 (recommended LTS version)
+npm: >=7.0.0
 
 ## Technologies:
 
