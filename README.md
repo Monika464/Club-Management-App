@@ -33,17 +33,17 @@ You can test the app at the following link:
 
 To run this project locally, follow these steps:
 
-bash
-
+```http
 git clone https://github.com/Monika464/Club-Management-App
 cd Club-Management-App
 npm install
 npm run dev
+```
 
 ## Requirements
 
-Node.js: >=16.0.0 (recommended LTS version)
-npm: >=7.0.0
+- Node.js: >=16.0.0 (recommended LTS version)
+- npm: >=7.0.0
 
 ## Technologies:
 
@@ -58,4 +58,4 @@ npm: >=7.0.0
 | Date Fns         | Date manipulation          |
 | Prettier         | Code formatter             |
 
-###### Club Management App © 2024 by MK is licensed under CC BY-NC-ND 4.0 -->
+###### Club Management App © 2024 by MK
