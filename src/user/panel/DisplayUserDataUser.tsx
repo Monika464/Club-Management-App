@@ -148,7 +148,7 @@ export const DisplayUserDataUser: React.FunctionComponent<
         <div>
           {paymentDateIndex < dzisIndex && (
             <p className="debt">
-              zadłuzenie: {dzisIndex - paymentDateIndex} {t.entries}
+              {t.debt}: {dzisIndex - paymentDateIndex} {t.entries}
             </p>
           )}
         </div>
