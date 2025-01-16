@@ -32,6 +32,8 @@ import AdminMailbox from "./admin/mail/AdminMailbox.tsx";
 import { RaportUsersPage } from "./admin/panel/displaydetails/RaportUserspage.tsx";
 import Instruction from "./utils/components/Instruction.tsx";
 import ForgotPass from "./utils/auth/ForgotPass.tsx";
+import ChatPage from "./utils/chat/chat.tsx";
+import ChatPageAdmin from "./utils/chat/chat.tsx";
 
 export const app = initializeApp(config.firebaseConfig);
 export const auth = getAuth(app);
@@ -75,14 +77,7 @@ const Application: React.FunctionComponent = () => {
             <Navbar />
 
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <AuthRoute>
-                    <HomeEventPage />
-                  </AuthRoute>
-                }
-              />
+              <Route path="/" element={<ChatPage />} />
 
               <Route path="/home" element={<HomeEventPage />} />
 
@@ -235,6 +230,9 @@ const Application: React.FunctionComponent = () => {
               <Route path="signup" element={<SignupPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup2" element={<Signup2 />} />
+              {/* <Route path="chat" element={<ChatPage />} /> */}
+
+              <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
           </UserContextProvider>
         </div>
