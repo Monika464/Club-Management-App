@@ -40,7 +40,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   }, [isUserRegistered]);
 
   const logout = () => {
-    navigate("/login");
+    navigate("/");
     return signOut(auth);
   };
 

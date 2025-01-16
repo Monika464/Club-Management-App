@@ -20,7 +20,7 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
         navigate("/userpanel");
       } else {
         console.log("unauthorized");
-        navigate("/login");
+        navigate("/");
       }
     });
 

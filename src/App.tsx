@@ -33,7 +33,6 @@ import { RaportUsersPage } from "./admin/panel/displaydetails/RaportUserspage.ts
 import Instruction from "./utils/components/Instruction.tsx";
 import ForgotPass from "./utils/auth/ForgotPass.tsx";
 import ChatPage from "./utils/chat/chat.tsx";
-import ChatPageAdmin from "./utils/chat/chat.tsx";
 
 export const app = initializeApp(config.firebaseConfig);
 export const auth = getAuth(app);

@@ -29,7 +29,7 @@ const AdminRoute: React.FunctionComponent<IAdminRouteProps> = (props) => {
         navigate("/adminpanel");
       } else {
         console.log("admin unauthorized");
-        navigate("/login");
+        navigate("/");
       }
     });
 
